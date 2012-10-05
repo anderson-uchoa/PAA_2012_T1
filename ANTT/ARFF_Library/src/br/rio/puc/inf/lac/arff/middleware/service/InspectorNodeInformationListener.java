@@ -1,7 +1,7 @@
 package br.rio.puc.inf.lac.arff.middleware.service;
 
-import lac.cnclib.net.Message;
 import lac.cnclib.sddl.serialization.Serialization;
+import lac.cnet.sddl.topics.Message;
 import lac.cnet.sddl.udi.core.listener.UDIDataReaderListener;
 import br.rio.puc.inf.lac.arff.application.model.Inspector;
 
@@ -18,7 +18,7 @@ public class InspectorNodeInformationListener implements UDIDataReaderListener<O
   public void onNewData(Object messageTopic) {
     if (messageTopic instanceof Message) {
       Message message = (Message) messageTopic;
-      Inspector inspector = (Inspector) Serialization.getObjectFromBytes(message.getContent());
+      Inspector inspector = (Inspector) Serialization.getObjectFromBytes(message.content);
 
       this.inspectorService.processMobileNodeInformation(inspector);
     }

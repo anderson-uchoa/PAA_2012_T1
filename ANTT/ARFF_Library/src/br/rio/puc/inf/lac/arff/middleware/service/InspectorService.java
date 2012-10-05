@@ -2,10 +2,10 @@ package br.rio.puc.inf.lac.arff.middleware.service;
 
 import java.io.IOException;
 
-import lac.cnclib.net.Message;
-import lac.cnclib.net.MessageObject;
+import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.serialization.Serialization;
 import lac.cnet.sddl.topics.GroupAdvertisementTopic;
+import lac.cnet.sddl.topics.Message;
 import lac.cnet.sddl.topics.PrivateMessageTopic;
 import lac.cnet.sddl.udi.core.DDSLayer;
 import lac.cnet.sddl.udi.core.UniversalDDSLayerFactory;
@@ -59,8 +59,11 @@ public class InspectorService {
     privateMessageTopic.leastSignificantBitsVehicleId = groupAdvertisementTopic.leastSignificantBitsVehicleId;
     privateMessageTopic.mostSignificantBitsVehicleId = groupAdvertisementTopic.mostSignificantBitsVehicleId;
 
+    ApplicationMessage x = new ApplicationMessage();
+    x.setContentObject(strMessage);
+
     try {
-      privateMessageTopic.message = Serialization.getObjectByteStream(new MessageObject(strMessage, null));
+      privateMessageTopic.message = Serialization.getObjectByteStream(x);
     }
     catch (IOException e) {
       e.printStackTrace();
