@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
 
-import utilidade.Util;
+import utilidade.Log;
 
 public class PPH_02 {
 
@@ -35,7 +35,7 @@ public class PPH_02 {
 			inputFile = DEFAULT_INPUT_FILE_NAME;
 
 			// Informa que a applicação esta em modo debug.
-			Util.isDebugging = true;
+			Log.isDebugging = true;
 		}
 
 		PPH_02 pph = new PPH_02();
@@ -84,7 +84,7 @@ public class PPH_02 {
 
 			long startTime = System.currentTimeMillis();
 			long iterations = 0;
-			Util.printOntoScreen("Calculando...");
+			Log.printOntoScreen("Calculando...");
 			// while (System.currentTimeMillis() - startTime < 5000) {
 			// Calcula a razão máxima.
 			finalRatio = maximumRatio(calcRatio(aZero, bZero), arrayOrderedPairs);
@@ -93,12 +93,12 @@ public class PPH_02 {
 			long finishTime = System.currentTimeMillis() - startTime;
 
 			float media = (float) finishTime / iterations;
-			Util.printOntoScreenF("Razão final: %f\n", finalRatio);
+			Log.printOntoScreenF("Razão final: %f\n", finalRatio);
 			// Util.printOntoScreen("Conjunto S*: ");
 			// Util.printMatriz(arrayS);
 
-			Util.printOntoScreen("Interaçoes realizadas: " + iterations);
-			Util.printOntoScreenF("Tempo de execução: %f\n", media);
+			Log.printOntoScreen("Interaçoes realizadas: " + iterations);
+			Log.printOntoScreenF("Tempo de execução: %f\n", media);
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -148,12 +148,12 @@ public class PPH_02 {
 
 			arrayOrderedPairs[cont][index] = inputValue;
 
-			Util.debugF("%4d", inputValue);
+			Log.debugF("%4d", inputValue);
 
 			// Incrementa o contatdor.
 			cont++;
 		}
-		Util.debug("");
+		Log.debug("");
 
 		return arrayOrderedPairs;
 	}
@@ -175,9 +175,9 @@ public class PPH_02 {
 		float auxRatio;
 		for (int i = 1; i < arrayOrderedPairs.length; i++) {
 			auxRatio = calcRatio(arrayOrderedPairs[i][ColumnA], arrayOrderedPairs[i][ColumnB]);
-			Util.debugF("[%d, %d] = %f - %f", arrayOrderedPairs[i][ColumnA], arrayOrderedPairs[i][ColumnB], auxRatio,
+			Log.debugF("[%d, %d] = %f - %f", arrayOrderedPairs[i][ColumnA], arrayOrderedPairs[i][ColumnB], auxRatio,
 					currentRatio);
-			Util.debug("");
+			Log.debug("");
 
 			if (auxRatio > currentRatio) {
 				// Então coloca o ai e o bi no array S*.
@@ -192,7 +192,7 @@ public class PPH_02 {
 			}
 		}
 
-		Util.printOntoScreenF("Razão atual %f - Razão anterior %f\n", currentRatio, previousRatio);
+		Log.printOntoScreenF("Razão atual %f - Razão anterior %f\n", currentRatio, previousRatio);
 		if (currentRatio <= previousRatio) {
 			return previousRatio;
 		} else {

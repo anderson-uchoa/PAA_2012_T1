@@ -5,7 +5,7 @@ package utilidade;
  * Alunos: Luciano Sampaio, Igor Oliveira e Marcio Rosemberg. <br/>
  * Esta classe contém alguns métodos utils para ajudar no desenvolvimento.
  */
-public class Util {
+public class Log {
 
 	public static boolean isDebugging;
 
