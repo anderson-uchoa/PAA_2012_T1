@@ -6,20 +6,18 @@ package questao01.pph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Random;
 import java.util.Scanner;
 
 import utilidade.Util;
 
 public class PPH_02 {
 
-	// O nome do input padrão(usado para testes).
-	private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
+	// O nome do arquivo de input padrão(usado para testes).
+	private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_10.txt";
 
 	// A matriz que vai conter os valores que validam o lemma.
 	int[][] arrayS;
-
-	// A razão que deve ser calculada e apresentada no final.
-	double ratio;
 
 	// Para evitar colocar numeros literais no código.
 	short ColumnA = 0;
@@ -46,7 +44,9 @@ public class PPH_02 {
 
 	/**
 	 * O método run foi criado apenas para que não fosse necessário ficar usando
-	 * variáveis e métodos publicos.
+	 * variáveis e métodos estáticos.
+	 * 
+	 * @param inputFile
 	 */
 	private void run(String inputFile) {
 		try {
@@ -56,44 +56,47 @@ public class PPH_02 {
 			// Obtém a quantidade de números contidos neste arquivo + 1(o a0 e
 			// b0 não entram) * 2(porque é a mesma quantidade para o A e para o
 			// B).
-			int quantityOfInputValues = scanner.nextInt();
+			// int quantityOfInputValues = scanner.nextInt() + 1;
+			int quantityOfInputValues = 100000;
+
+			// A razão que deve ser calculada e apresentada no final.
+			float finalRatio = 0;
 
 			// Esta linha é apenas para forçar uma quebra de linha depois dos
 			// números.
 			scanner.nextLine();
 
-			// O primeiro número da lista é o a0.
-			int aZero = scanner.nextInt();
-			Util.debug(aZero);
-
 			int[][] arrayOrderedPairs = null;
 			// Obtém os valores que correspondem ao a = {1,.., n}
-			arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs, ColumnA, quantityOfInputValues, scanner);
-
-			// O primeiro número da lista é o b0.
-			int bZero = scanner.nextInt();
-			Util.debug(bZero);
+			arrayOrderedPairs = getValuesFromInputFile(quantityOfInputValues);
+			// arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs,
+			// ColumnA, quantityOfInputValues, scanner);
 
 			// Obtém os valores que correspondem ao b = {1,.., n}
-			arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs, ColumnB, quantityOfInputValues, scanner);
+			// arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs,
+			// ColumnB, quantityOfInputValues, scanner);
 
-			// Inicia a matriz S* com o tamanho de elementos de pares ordenados
+			// Inicia a matriz S com o tamanho de elementos de pares ordenados
 			// e 2 colunas.
 			arrayS = new int[arrayOrderedPairs.length][2];
 
+			int aZero = arrayOrderedPairs[0][ColumnA];
+			int bZero = arrayOrderedPairs[0][ColumnB];
+
 			long startTime = System.currentTimeMillis();
 			long iterations = 0;
-			while (System.currentTimeMillis() - startTime < 5000) {
-				// Calcula a razão.
-				maximumRation(aZero, bZero, arrayOrderedPairs);
-				iterations++;
-			}
+			Util.printOntoScreen("Calculando...");
+			// while (System.currentTimeMillis() - startTime < 5000) {
+			// Calcula a razão máxima.
+			finalRatio = maximumRation(calcRatio(aZero, bZero), arrayOrderedPairs);
+			iterations++;
+			// }
 			long finishTime = System.currentTimeMillis() - startTime;
 
-			double media = (double) finishTime / iterations;
-			Util.printOntoScreenF("Razão final: %f\n", ratio);
-			Util.printOntoScreen("Conjunto S*: ");
-			Util.printMatriz(arrayS);
+			float media = (float) finishTime / iterations;
+			Util.printOntoScreenF("Razão final: %f\n", finalRatio);
+			// Util.printOntoScreen("Conjunto S*: ");
+			// Util.printMatriz(arrayS);
 
 			Util.printOntoScreen("Interaçoes realizadas: " + iterations);
 			Util.printOntoScreenF("Tempo de execução: %f\n", media);
@@ -104,14 +107,32 @@ public class PPH_02 {
 	}
 
 	/**
-	 * Obtém os valores que correspondem ao a ou ao b(de uma forma generica) =
+	 * @param quantityOfInputValues
+	 * @return
+	 */
+	private int[][] getValuesFromInputFile(int quantityOfInputValues) {
+		Random rnd = new Random();
+		int[][] arrayOrderedPairs = new int[quantityOfInputValues][2];
+
+		for (int i = 0; i < arrayOrderedPairs.length; i++) {
+			arrayOrderedPairs[i][ColumnA] = rnd.nextInt(500) + 1;
+			arrayOrderedPairs[i][ColumnB] = rnd.nextInt(1000) + 1;
+		}
+
+		return arrayOrderedPairs;
+	}
+
+	/**
+	 * Obtém os valores que correspondem ao A ou ao B(de uma forma generica) =
 	 * {1,.., n}
 	 * 
+	 * @param arrayOrderedPairs
+	 * @param index
 	 * @param quantityOfInputValues
 	 *            A quantidade de números contidos neste arquivo.
 	 * @param scanner
 	 *            Objeto que lê do arquivo.
-	 * @return
+	 * @return Obtém os valores que correspondem ao A ou ao B.
 	 */
 	private int[][] getValuesFromInputFile(int[][] arrayOrderedPairs, int index, int quantityOfInputValues,
 			Scanner scanner) {
@@ -139,29 +160,27 @@ public class PPH_02 {
 	}
 
 	/**
-	 * @param aZero
-	 * @param bZero
+	 * @param previousRatio
 	 * @param arrayOrderedPairs
+	 * @return A razão máxima.
 	 */
-	private void maximumRation(int aZero, int bZero, int[][] arrayOrderedPairs) {
+	private float maximumRation(float previousRatio, int[][] arrayOrderedPairs) {
 		// O a0 e o b0 já são automáticamente inseridos no array S*.
-		arrayS[0][ColumnA] = aZero;
-		arrayS[0][ColumnB] = bZero;
+		arrayS[0][ColumnA] = arrayOrderedPairs[0][ColumnA];
+		arrayS[0][ColumnB] = arrayOrderedPairs[0][ColumnB];
 		int cont = 1;
 
 		// O R inicial é calculado pelo a0 / b0.
-		ratio = updateRatio(arrayS, cont);
-		Util.debugF("[%d, %d] = %f ", aZero, bZero, ratio);
-		Util.debug("");
+		float currentRatio = previousRatio;
 
-		double auxRatio;
-		for (int i = 0; i < arrayOrderedPairs.length; i++) {
+		float auxRatio;
+		for (int i = 1; i < arrayOrderedPairs.length; i++) {
 			auxRatio = calcRatio(arrayOrderedPairs[i][ColumnA], arrayOrderedPairs[i][ColumnB]);
 			Util.debugF("[%d, %d] = %f - %f", arrayOrderedPairs[i][ColumnA], arrayOrderedPairs[i][ColumnB], auxRatio,
-					ratio);
+					currentRatio);
 			Util.debug("");
 
-			if (auxRatio > ratio) {
+			if (auxRatio > currentRatio) {
 				// Então coloca o ai e o bi no array S*.
 				arrayS[cont][ColumnA] = arrayOrderedPairs[i][ColumnA];
 				arrayS[cont][ColumnB] = arrayOrderedPairs[i][ColumnB];
@@ -170,8 +189,15 @@ public class PPH_02 {
 				cont++;
 
 				// Atualiza o R(razão).
-				ratio = updateRatio(arrayS, cont);
+				currentRatio = updateRatio(arrayS, cont);
 			}
+		}
+
+		Util.printOntoScreenF("Razão atual %f - Razão anterior %f\n", currentRatio, previousRatio);
+		if (currentRatio <= previousRatio) {
+			return previousRatio;
+		} else {
+			return maximumRation(currentRatio, arrayOrderedPairs);
 		}
 	}
 
@@ -180,13 +206,15 @@ public class PPH_02 {
 	 * 
 	 * @param arrayS
 	 * @param cont
-	 * @return
+	 * @return Atualiza a razão baseada em A0 + somatório Ai até BN dividido por
+	 *         B0 + somatório Bi até BN.
 	 */
-	private double updateRatio(int[][] arrayS, int cont) {
+	private float updateRatio(int[][] arrayS, int cont) {
 		long a = 0;
 		long b = 0;
 
 		for (int i = 0; i < cont; i++) {
+			Util.debugF("Somátorio de: [%d, %d]\n", arrayS[i][ColumnA], arrayS[i][ColumnB]);
 			a += arrayS[i][ColumnA];
 			b += arrayS[i][ColumnB];
 		}
@@ -198,9 +226,9 @@ public class PPH_02 {
 	 * 
 	 * @param a
 	 * @param b
-	 * @return
+	 * @return O resultado da divisão de a por b.
 	 */
-	private double calcRatio(long a, long b) {
-		return (double) a / b;
+	private float calcRatio(long a, long b) {
+		return (float) a / b;
 	}
 }

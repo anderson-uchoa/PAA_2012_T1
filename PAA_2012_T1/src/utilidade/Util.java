@@ -88,7 +88,7 @@ public class Util {
 	}
 
 	/**
-	 * @param arrayS
+	 * @param matrizToPrint
 	 */
 	public static void printMatriz(int[][] matrizToPrint) {
 		for (int i = 0; i < matrizToPrint.length; i++) {
