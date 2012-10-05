@@ -5,7 +5,6 @@
 package questao01.pph;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,7 +58,7 @@ public class PPH_03 {
 			// b0 não entram) * 2(porque é a mesma quantidade para o A e para o
 			// B).
 			int quantityOfInputValues = scanner.nextInt() + 1;
-			//int quantityOfInputValues = 100;
+			// int quantityOfInputValues = 100;
 
 			// A razão que deve ser calculada e apresentada no final.
 			float finalRatio = 0;
@@ -70,29 +69,30 @@ public class PPH_03 {
 
 			List<OrderedPar> listOrderedPairs = null;
 			List<OrderedPar> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
-			
+
 			long startTime = System.currentTimeMillis();
 			long iterations = 0;
 			Log.printOntoScreen("Calculando...");
 			while (System.currentTimeMillis() - startTime < 5000) {
 				listOrderedPairs = new LinkedList<OrderedPar>();
-			// Obtém os valores que correspondem ao b = {1,.., n}
+				// Obtém os valores que correspondem ao b = {1,.., n}
 				listOrderedPairs.addAll(listOriginalPair);
-			// Inicia a Lista S com o tamanho de elementos de pares ordenados
-			// e 2 colunas.
-			
-			OrderedPar parInicial = new OrderedPar(listOrderedPairs.get(0).getA(), listOrderedPairs.get(0).getB());
-			// Removendo da lista o par inicial
-			listOrderedPairs.remove(0);	
-			listS = new LinkedList<OrderedPar>();
-			//Ordanando a lista
-			bubbleSort(listOrderedPairs);
-			finalRatio = maximumRation(listOrderedPairs, listS, parInicial);
-			iterations++;
-			
+				// Inicia a Lista S com o tamanho de elementos de pares
+				// ordenados
+				// e 2 colunas.
+
+				OrderedPar parInicial = new OrderedPar(listOrderedPairs.get(0).getA(), listOrderedPairs.get(0).getB());
+				// Removendo da lista o par inicial
+				listOrderedPairs.remove(0);
+				listS = new LinkedList<OrderedPar>();
+				// Ordanando a lista
+				bubbleSort(listOrderedPairs);
+				finalRatio = maximumRation(listOrderedPairs, listS, parInicial);
+				iterations++;
+
 			}
 			long finishTime = System.currentTimeMillis() - startTime;
-			
+
 			float media = (float) finishTime / iterations;
 			Log.printOntoScreenF("Razão final: %f\n", finalRatio);
 			Log.printOntoScreenF("Tamanho de S: %d \n", listS.size());
@@ -112,12 +112,13 @@ public class PPH_03 {
 
 		this.somaA = inicialPar.getA();
 		this.somaB = inicialPar.getB();
-		//int indexS = 0;
-		float R = (float)inicialPar.getA()/inicialPar.getB();
-		//System.out.println("Razão AoB0: " +  R);
+		// int indexS = 0;
+		float R = (float) inicialPar.getA() / inicialPar.getB();
+		// System.out.println("Razão AoB0: " + R);
 		for (int i = 0; i < listOrderedPairs.size(); i++) {
 			aux = (float) listOrderedPairs.get(i).getA() / listOrderedPairs.get(i).getB();
-			//System.out.println(" aux: " +  aux+ " = " +   arrayOrderedPairs[i][0] + " / " +  arrayOrderedPairs[i][1]);
+			// System.out.println(" aux: " + aux+ " = " +
+			// arrayOrderedPairs[i][0] + " / " + arrayOrderedPairs[i][1]);
 			if (aux > R) {
 				this.somaA += listOrderedPairs.get(i).getA();
 				this.somaB += listOrderedPairs.get(i).getB();
@@ -125,26 +126,26 @@ public class PPH_03 {
 				listS.add(listOrderedPairs.get(i));
 			} else
 				break;
-			//System.out.println(" aux: " +  aux+ " R: " +  R);
+			// System.out.println(" aux: " + aux+ " R: " + R);
 			// if
 		} // for i
 		return R;
-    }
-	
+	}
+
 	private void bubbleSort(List<OrderedPar> list) {
 
 		for (int i = 0; i < list.size(); i++) {
-			for (int j = 0; j < list.size()- 1; j++) {
-				float razao 		   = (float)list.get(j).getA() / list.get(j).getB();
-				float razaoProximoItem = (float)list.get(j+1).getA() / list.get(j+1).getB();
-						
+			for (int j = 0; j < list.size() - 1; j++) {
+				float razao = (float) list.get(j).getA() / list.get(j).getB();
+				float razaoProximoItem = (float) list.get(j + 1).getA() / list.get(j + 1).getB();
+
 				if (razaoProximoItem > razao) {
 					OrderedPar parAux = list.get(j);
 					list.set(j, list.get(j + 1));
-					list.set(j+1, parAux);
+					list.set(j + 1, parAux);
 				}
 			}
 		}
-    }
+	}
 
 }
