@@ -1,6 +1,6 @@
 package utilidade;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -17,7 +17,7 @@ public class Utils {
 	public static List<OrderedPar> getValuesFromInputFile(int quantityOfInputValues) {
 		Random rnd = new Random();
 
-		List<OrderedPar> listNOfOrderedPairs = new ArrayList<OrderedPar>(quantityOfInputValues);
+		List<OrderedPar> listNOfOrderedPairs = new LinkedList<OrderedPar>();
 		int a;
 		int b;
 
@@ -44,7 +44,7 @@ public class Utils {
 	public static List<OrderedPar> getValuesFromInputFile(Scanner scanner, int quantityOfInputValues) {
 		// Cria a lista de pares ordenados com a quantidade de elementos que ele
 		// vai conter.
-		List<OrderedPar> listNOfOrderedPairs = new ArrayList<OrderedPar>(quantityOfInputValues);
+		List<OrderedPar> listNOfOrderedPairs = new LinkedList<OrderedPar>();
 
 		List<Integer> listA = getListFromInputFile(scanner, quantityOfInputValues);
 		List<Integer> listB = getListFromInputFile(scanner, quantityOfInputValues);
@@ -67,7 +67,7 @@ public class Utils {
 	 * @return Obtém os valores que correspondem ao A ou ao B.
 	 */
 	public static List<Integer> getListFromInputFile(Scanner scanner, int quantityOfInputValues) {
-		List<Integer> listTemp = new ArrayList<Integer>(quantityOfInputValues);
+		List<Integer> listTemp = new LinkedList<Integer>();
 		int inputValue;
 
 		for (int i = 0; i < quantityOfInputValues; i++) {

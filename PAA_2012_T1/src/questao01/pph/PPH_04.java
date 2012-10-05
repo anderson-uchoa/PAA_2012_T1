@@ -6,7 +6,7 @@ package questao01.pph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -84,7 +84,7 @@ public class PPH_04 {
 				// Inicia a matriz S com o tamanho de elementos de pares
 				// ordenados
 				// e 2 colunas.
-				listS = new ArrayList<OrderedPar>();
+				listS = new LinkedList<OrderedPar>();
 
 				// Calcula a razão máxima.
 				finalRatio = maximumRatio(listNOfOrderedPairs);

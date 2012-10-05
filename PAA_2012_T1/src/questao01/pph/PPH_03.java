@@ -6,6 +6,7 @@ package questao01.pph;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,7 +19,7 @@ public class PPH_03 {
 	private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000.txt";
 
 	// A matriz que vai conter os valores que validam o lemma.
-	List<OrderedPar> listS;
+	LinkedList<OrderedPar> listS;
 
 	// Para evitar colocar numeros literais no código.
 	int somaA = 0;
@@ -68,13 +69,13 @@ public class PPH_03 {
 			scanner.nextLine();
 
 			List<OrderedPar> listOrderedPairs = null;
-			List<OrderedPar>listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+			List<OrderedPar> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
 			
 			long startTime = System.currentTimeMillis();
 			long iterations = 0;
 			Log.printOntoScreen("Calculando...");
 			while (System.currentTimeMillis() - startTime < 5000) {
-				listOrderedPairs = new ArrayList<OrderedPar>(1000);
+				listOrderedPairs = new LinkedList<OrderedPar>();
 			// Obtém os valores que correspondem ao b = {1,.., n}
 				listOrderedPairs.addAll(listOriginalPair);
 			// Inicia a Lista S com o tamanho de elementos de pares ordenados
@@ -83,7 +84,7 @@ public class PPH_03 {
 			OrderedPar parInicial = new OrderedPar(listOrderedPairs.get(0).getA(), listOrderedPairs.get(0).getB());
 			// Removendo da lista o par inicial
 			listOrderedPairs.remove(0);	
-			listS = new ArrayList<OrderedPar>(listOrderedPairs.size());
+			listS = new LinkedList<OrderedPar>();
 			//Ordanando a lista
 			bubbleSort(listOrderedPairs);
 			finalRatio = maximumRation(listOrderedPairs, listS, parInicial);
