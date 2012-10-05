@@ -89,7 +89,7 @@ public class PPH_03 {
 			// while (System.currentTimeMillis() - startTime < 5000) {
 			// Calcula a razão máxima.
 			bubbleSort(arrayOrderedPairs);
-			finalRatio = maximumRation(arrayOrderedPairs);
+			finalRatio = maximumRation(arrayOrderedPairs, arrayS);
 			iterations++;
 			// }
 			long finishTime = System.currentTimeMillis() - startTime;
@@ -163,21 +163,24 @@ public class PPH_03 {
 	/**
 	 
 	 */
-	private float maximumRation(int[][] array) {
+	private float maximumRation(int[][] arrayOrderedPairs, int[][] arrayS) {
 		float aux = 0;
 
-		int a = array[0][0];
-		int b = array[0][1];
+		int a = arrayOrderedPairs[0][0];
+		int b = arrayOrderedPairs[0][1];
+		int indexS = 0;
 		float R = (float) a / b;
 		System.out.println("Razão AoB0: " +  R);
-		for (int i = 1; i < array.length; i++) {
-			aux = (float) array[i][0] / array[i][1];
-			System.out.println(" aux: " +  aux+ " = " +   array[i][0] + " / " +  array[i][1]);
+		for (int i = 1; i < arrayOrderedPairs.length; i++) {
+			aux = (float) arrayOrderedPairs[i][0] / arrayOrderedPairs[i][1];
+			System.out.println(" aux: " +  aux+ " = " +   arrayOrderedPairs[i][0] + " / " +  arrayOrderedPairs[i][1]);
 			if (aux > R) {
-				a += array[i][0];
-				b += array[i][1];
+				a += arrayOrderedPairs[i][0];
+				b += arrayOrderedPairs[i][1];
 				R = (float) a / b;
-				
+				arrayS[indexS][0] = arrayOrderedPairs[i][0];
+				arrayS[indexS][1] = arrayOrderedPairs[i][1];
+				indexS++;
 			} else
 				break;
 			System.out.println(" aux: " +  aux+ " R: " +  R);
@@ -185,6 +188,8 @@ public class PPH_03 {
 		} // for i
 		return R;
     }
+	
+	
 
 	/**
 	 * Calcula a razão baseado nos valores que existem no conjunto S*;
