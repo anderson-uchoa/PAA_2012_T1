@@ -2,7 +2,7 @@ package utilidade;
 
 import java.util.List;
 
-import questao01.pph.OrderedPar;
+import questao01.pph.OrderedPair;
 
 /**
  * Esta o algoritmo que resolve a 2ª questão do T1 de PAA - PUC-Rio 2012.2.
@@ -95,7 +95,7 @@ public class Log {
 	 * @param listToPrint
 	 *            A lista que será impressa.
 	 */
-	public static void printList(List<OrderedPar> listToPrint) {
+	public static void printList(List<OrderedPair> listToPrint) {
 		for (int i = 0; i < listToPrint.size(); i++) {
 			printOntoScreen(listToPrint.get(i));
 		}

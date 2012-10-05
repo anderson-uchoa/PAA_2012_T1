@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import questao01.pph.OrderedPar;
+import questao01.pph.OrderedPair;
 
 public class Utils {
 
@@ -14,10 +14,11 @@ public class Utils {
 	 *            Quantidade de elementos que serão criados.
 	 * @return A lista de pares ordenados criada aleatóriamente.
 	 */
-	public static List<OrderedPar> getValuesFromInputFile(int quantityOfInputValues) {
+	public static List<OrderedPair> getValuesFromInputFile(
+			int quantityOfInputValues) {
 		Random rnd = new Random();
 
-		List<OrderedPar> listNOfOrderedPairs = new LinkedList<OrderedPar>();
+		List<OrderedPair> listNOfOrderedPairs = new LinkedList<OrderedPair>();
 		int a;
 		int b;
 
@@ -25,7 +26,7 @@ public class Utils {
 			a = rnd.nextInt(500) + 1;
 			b = rnd.nextInt(1000) + 1;
 
-			listNOfOrderedPairs.add(new OrderedPar(a, b));
+			listNOfOrderedPairs.add(new OrderedPair(a, b));
 		}
 
 		return listNOfOrderedPairs;
@@ -41,16 +42,19 @@ public class Utils {
 	 *            Objeto que lê do arquivo.
 	 * @return Obtém os valores que correspondem ao A ou ao B.
 	 */
-	public static List<OrderedPar> getValuesFromInputFile(Scanner scanner, int quantityOfInputValues) {
+	public static List<OrderedPair> getValuesFromInputFile(Scanner scanner,
+			int quantityOfInputValues) {
 		// Cria a lista de pares ordenados com a quantidade de elementos que ele
 		// vai conter.
-		List<OrderedPar> listNOfOrderedPairs = new LinkedList<OrderedPar>();
+		List<OrderedPair> listNOfOrderedPairs = new LinkedList<OrderedPair>();
 
-		List<Integer> listA = getListFromInputFile(scanner, quantityOfInputValues);
-		List<Integer> listB = getListFromInputFile(scanner, quantityOfInputValues);
+		List<Integer> listA = getListFromInputFile(scanner,
+				quantityOfInputValues);
+		List<Integer> listB = getListFromInputFile(scanner,
+				quantityOfInputValues);
 
 		for (int i = 0; i < quantityOfInputValues; i++) {
-			listNOfOrderedPairs.add(new OrderedPar(listA.get(i), listB.get(i)));
+			listNOfOrderedPairs.add(new OrderedPair(listA.get(i), listB.get(i)));
 		}
 
 		return listNOfOrderedPairs;
@@ -66,7 +70,8 @@ public class Utils {
 	 *            Objeto que lê do arquivo.
 	 * @return Obtém os valores que correspondem ao A ou ao B.
 	 */
-	public static List<Integer> getListFromInputFile(Scanner scanner, int quantityOfInputValues) {
+	public static List<Integer> getListFromInputFile(Scanner scanner,
+			int quantityOfInputValues) {
 		List<Integer> listTemp = new LinkedList<Integer>();
 		int inputValue;
 
@@ -91,5 +96,58 @@ public class Utils {
 	 */
 	public static float calcRatio(long a, long b) {
 		return (float) a / b;
+	}
+
+	
+	public static <T extends Comparable<T>> void merge(int inicio, int fim, List<T> list) {
+		if (inicio < fim) {
+			int meio = (inicio + fim) / 2;
+			merge(inicio, meio, list);
+			merge(meio + 1, fim, list);
+			mesclar(inicio, meio, fim, list);
+			
+		}
+	}
+
+	// Ordena dois trechos ordenados e adjacente de vetores e ordena-os
+	// conjuntamente
+
+	private static  <T extends Comparable<T>> void mesclar(int inicio, int meio, int fim, List<T> list) {
+
+		int tamanho = fim - inicio + 1;
+
+		/*
+		 * Inicialização de um vetor temporario para auxiliar na ordenação O
+		 * vetor temporário é uma cópia do trecho que será ordenado
+		 */
+
+		List temp = new LinkedList<OrderedPair>();
+
+		temp.addAll(list);
+		
+		/*
+		 * Laço para ordenação do vetor, utilizando o vetor temporário, usando
+		 * índices i e j para cada trecho de vetor da mesclagem
+		 */
+
+		int i = 0;
+		int j = meio - inicio + 1;
+
+		// A depender das condições, recebe um elemento de um trecho ou outro
+		for (int posicao = 0; posicao < tamanho; posicao++) {
+			if (j <= tamanho - 1) {
+				if (i <= meio - inicio) {
+					if (((T)temp.get(i)).compareTo((T)temp.get(j)) < 0 ) {
+						list.set(inicio + posicao, (T)temp.get(i++));
+					} else {
+						list.set(inicio + posicao, (T)temp.get(j++));
+					}
+				} else {
+					list.set(inicio + posicao, (T)temp.get(j++));
+				}
+			} else {
+				list.set(inicio + posicao, (T)temp.get(i++));
+			}
+		}
 	}
 }

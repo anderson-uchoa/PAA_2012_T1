@@ -19,7 +19,7 @@ public class PPH_03 {
 	private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000.txt";
 
 	// A matriz que vai conter os valores que validam o lemma.
-	LinkedList<OrderedPar> listS;
+	LinkedList<OrderedPair> listS;
 
 	// Para evitar colocar numeros literais no código.
 	int somaA = 0;
@@ -68,23 +68,23 @@ public class PPH_03 {
 			// números.
 			scanner.nextLine();
 
-			List<OrderedPar> listOrderedPairs = null;
-			List<OrderedPar> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+			List<OrderedPair> listOrderedPairs = null;
+			List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
 			
 			long startTime = System.currentTimeMillis();
 			long iterations = 0;
 			Log.printOntoScreen("Calculando...");
 			while (System.currentTimeMillis() - startTime < 5000) {
-				listOrderedPairs = new LinkedList<OrderedPar>();
+				listOrderedPairs = new LinkedList<OrderedPair>();
 			// Obtém os valores que correspondem ao b = {1,.., n}
 				listOrderedPairs.addAll(listOriginalPair);
 			// Inicia a Lista S com o tamanho de elementos de pares ordenados
 			// e 2 colunas.
 			
-			OrderedPar parInicial = new OrderedPar(listOrderedPairs.get(0).getA(), listOrderedPairs.get(0).getB());
+			OrderedPair parInicial = new OrderedPair(listOrderedPairs.get(0).getA(), listOrderedPairs.get(0).getB());
 			// Removendo da lista o par inicial
 			listOrderedPairs.remove(0);	
-			listS = new LinkedList<OrderedPar>();
+			listS = new LinkedList<OrderedPair>();
 			//Ordanando a lista
 			bubbleSort(listOrderedPairs);
 			finalRatio = maximumRation(listOrderedPairs, listS, parInicial);
@@ -107,7 +107,7 @@ public class PPH_03 {
 		}
 	}
 
-	private float maximumRation(List<OrderedPar> listOrderedPairs, List<OrderedPar> listS, OrderedPar inicialPar) {
+	private float maximumRation(List<OrderedPair> listOrderedPairs, List<OrderedPair> listS, OrderedPair inicialPar) {
 		float aux = 0;
 
 		this.somaA = inicialPar.getA();
@@ -131,7 +131,7 @@ public class PPH_03 {
 		return R;
     }
 	
-	private void bubbleSort(List<OrderedPar> list) {
+	private void bubbleSort(List<OrderedPair> list) {
 
 		for (int i = 0; i < list.size(); i++) {
 			for (int j = 0; j < list.size()- 1; j++) {
@@ -139,7 +139,7 @@ public class PPH_03 {
 				float razaoProximoItem = (float)list.get(j+1).getA() / list.get(j+1).getB();
 						
 				if (razaoProximoItem > razao) {
-					OrderedPar parAux = list.get(j);
+					OrderedPair parAux = list.get(j);
 					list.set(j, list.get(j + 1));
 					list.set(j+1, parAux);
 				}
