@@ -70,10 +70,12 @@ public class PPH_04 {
 			// Obtém os valores que correspondem ao a = {1,.., n}
 			// List<OrderedPar> listNOfOrderedPairs =
 			// getValuesFromInputFile(quantityOfInputValues);
-			List<OrderedPar> listNOfOrderedPairs = getValuesFromInputFile(scanner, quantityOfInputValues);
+			List<OrderedPar> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
 
 			// Este é o par(a0, b0).
 			initialPar = listNOfOrderedPairs.get(0);
+			// Remove o par(a0, b0) da lista N de pares ordenados
+			listNOfOrderedPairs.remove(0);
 
 			// Inicia a matriz S com o tamanho de elementos de pares ordenados
 			// e 2 colunas.
@@ -107,9 +109,6 @@ public class PPH_04 {
 	 * @return A razão máxima.
 	 */
 	private float maximumRatio(List<OrderedPar> listNOfOrderedPairs) {
-		// O a0 e o b0 já são automáticamente inseridos na lista S.
-		listS.add(initialPar);
-
 		// O R inicial é calculado pelo a0 / b0.
 		float maximumRatio = initialPar.getRatio();
 
@@ -145,8 +144,8 @@ public class PPH_04 {
 	 *         B0 + somatório Bi até BN.
 	 */
 	private float updateRatio(List<OrderedPar> listS) {
-		long a = 0;
-		long b = 0;
+		long a = initialPar.getA();
+		long b = initialPar.getB();
 
 		OrderedPar auxlPar;
 		for (int i = 0; i < listS.size(); i++) {
@@ -160,23 +159,26 @@ public class PPH_04 {
 	}
 
 	/**
-	 * @param listS2
-	 * @param cont
+	 * @param listS
 	 * @param maximumRatio
-	 * @return
+	 * @return Retorna true se existiu algum par ordenado na lista S que não era
+	 *         verdade em relação ao Lemma.
 	 */
-	private boolean isLemmaNotValid(List<OrderedPar> listS2, int cont, float maximumRatio) {
+	private boolean isLemmaNotValid(List<OrderedPar> listS, float maximumRatio) {
 		boolean invalid = false;
 
-		float auxRatio;
-		for (int i = 0; i < cont; i++) {
-			auxRatio = calcRatio(listS[i][ColumnA], listS[i][ColumnB]);
+		OrderedPar auxlPar;
+		for (int i = 0; i < listS.size(); i++) {
+			auxlPar = listS.get(i);
 
 			// Se o ratio for menor, então o par ordenado deve ser removido.
-			if (auxRatio < maximumRatio) {
+			if (auxlPar.getRatio() > maximumRatio) {
+				Log.debugF("Lemma não é verdade em :[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(),
+						auxlPar.getRatio(), maximumRatio);
 				invalid = true;
 
 				// Tenho que remover o par ordenado na posição i.
+				listS.remove(i);
 			}
 		}
 

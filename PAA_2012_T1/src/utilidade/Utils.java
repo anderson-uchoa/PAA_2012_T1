@@ -49,7 +49,7 @@ public class Utils {
 		List<Integer> listA = getListFromInputFile(scanner, quantityOfInputValues);
 		List<Integer> listB = getListFromInputFile(scanner, quantityOfInputValues);
 
-		for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
+		for (int i = 0; i < quantityOfInputValues; i++) {
 			listNOfOrderedPairs.add(new OrderedPar(listA.get(i), listB.get(i)));
 		}
 
