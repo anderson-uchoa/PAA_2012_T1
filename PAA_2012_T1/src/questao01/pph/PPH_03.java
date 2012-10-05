@@ -74,7 +74,7 @@ public class PPH_03 {
 			long iterations = 0;
 			Log.printOntoScreen("Calculando...");
 			while (System.currentTimeMillis() - startTime < 5000) {
-				listOrderedPairs = new ArrayList<OrderedPar>();
+				listOrderedPairs = new ArrayList<OrderedPar>(1000);
 			// Obtém os valores que correspondem ao b = {1,.., n}
 				listOrderedPairs.addAll(listOriginalPair);
 			// Inicia a Lista S com o tamanho de elementos de pares ordenados
