@@ -5,13 +5,12 @@
 package questao01.pph;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
-import utilidade.Util;
+import utilidade.Log;
+import utilidade.Utils;
 
 public class PPH_03 {
 
@@ -19,11 +18,11 @@ public class PPH_03 {
 	private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000.txt";
 
 	// A matriz que vai conter os valores que validam o lemma.
-	int[][] arrayS;
+	List<OrderedPar> listS;
 
 	// Para evitar colocar numeros literais no código.
-	short ColumnA = 0;
-	short ColumnB = 1;
+	int somaA = 0;
+	int somaB = 0;
 
 	public static void main(String[] args) {
 		String inputFile;
@@ -37,7 +36,7 @@ public class PPH_03 {
 			inputFile = DEFAULT_INPUT_FILE_NAME;
 
 			// Informa que a applicação esta em modo debug.
-			Util.isDebugging = false;
+			Log.isDebugging = false;
 		}
 
 		PPH_03 pph = new PPH_03();
@@ -68,138 +67,71 @@ public class PPH_03 {
 			// números.
 			scanner.nextLine();
 
-			ArrayList<OrderedPar> arrayOrderedPairs = null;
-			// Obtém os valores que correspondem ao a = {1,.., n}
-			//arrayOrderedPairs = getValuesFromInputFile(quantityOfInputValues);
-			 arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs,
-			 ColumnA, quantityOfInputValues, scanner);
-
-			// Obtém os valores que correspondem ao b = {1,.., n}
-			 arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs,
-			 ColumnB, quantityOfInputValues, scanner);
-
-			// Inicia a matriz S com o tamanho de elementos de pares ordenados
-			// e 2 colunas.
-			arrayS = new int[arrayOrderedPairs.length][2];
-
-			int aZero = arrayOrderedPairs[0][ColumnA];
-			int bZero = arrayOrderedPairs[0][ColumnB];
-
+			List<OrderedPar> listOrderedPairs = null;
+			List<OrderedPar>listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+			
 			long startTime = System.currentTimeMillis();
 			long iterations = 0;
-			Util.printOntoScreen("Calculando...");
-			// while (System.currentTimeMillis() - startTime < 5000) {
-			// Calcula a razão máxima.
-			bubbleSort(arrayOrderedPairs);
-			finalRatio = maximumRation(arrayOrderedPairs, arrayS);
+			Log.printOntoScreen("Calculando...");
+			while (System.currentTimeMillis() - startTime < 5000) {
+				listOrderedPairs = new ArrayList<OrderedPar>();
+			// Obtém os valores que correspondem ao b = {1,.., n}
+				listOrderedPairs.addAll(listOriginalPair);
+			// Inicia a Lista S com o tamanho de elementos de pares ordenados
+			// e 2 colunas.
+			
+			OrderedPar parInicial = new OrderedPar(listOrderedPairs.get(0).getA(), listOrderedPairs.get(0).getB());
+			// Removendo da lista o par inicial
+			listOrderedPairs.remove(0);	
+			listS = new ArrayList<OrderedPar>(listOrderedPairs.size());
+			//Ordanando a lista
+			bubbleSort(listOrderedPairs);
+			finalRatio = maximumRation(listOrderedPairs, listS, parInicial);
 			iterations++;
-			// }
+			
+			}
 			long finishTime = System.currentTimeMillis() - startTime;
-
+			
 			float media = (float) finishTime / iterations;
-			Util.printOntoScreenF("Razão final: %f\n", finalRatio);
-			// Util.printOntoScreen("Conjunto S*: ");
-			// Util.printMatriz(arrayS);
+			Log.printOntoScreenF("Razão final: %f\n", finalRatio);
+			Log.printOntoScreenF("Tamanho de S: %d \n", listS.size());
+			Log.printOntoScreen("Conjunto S*: ");
+			Log.printList(listS);
 
-			Util.printOntoScreen("Interaçoes realizadas: " + iterations);
-			Util.printOntoScreenF("Tempo de execução: %f\n", media);
+			Log.printOntoScreen("Interaçoes realizadas: " + iterations);
+			Log.printOntoScreenF("Tempo de execução: %f\n", media);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * @param quantityOfInputValues
-	 * @return
-	 */
-	private int[][] getValuesFromInputFile(int quantityOfInputValues) {
-		Random rnd = new Random();
-		int[][] arrayOrderedPairs = new int[quantityOfInputValues][2];
-
-		for (int i = 0; i < arrayOrderedPairs.length; i++) {
-			arrayOrderedPairs[i][ColumnA] = rnd.nextInt(500) + 1;
-			arrayOrderedPairs[i][ColumnB] = rnd.nextInt(1000) + 1;
-		}
-
-		return arrayOrderedPairs;
-	}
-
-	/**
-	 * Obtém os valores que correspondem ao A ou ao B(de uma forma generica) =
-	 * {1,.., n}
-	 * 
-	 * @param arrayOrderedPairs
-	 * @param index
-	 * @param quantityOfInputValues
-	 *            A quantidade de números contidos neste arquivo.
-	 * @param scanner
-	 *            Objeto que lê do arquivo.
-	 * @return Obtém os valores que correspondem ao A ou ao B.
-	 */
-	private ArrayList<OrderedPar> getValuesFromInputFile(ArrayList<OrderedPar> arrayOrderedPairs,
-			int index, int quantityOfInputValues, Scanner scanner) {
-		// Cria a matriz com a quantidade de elementos que ele vai conter.
-		// 2 Linhas(uma para A e uma para B) e quantityOfInputValues de colunas.
-		if (arrayOrderedPairs == null) {
-			arrayOrderedPairs = new ArrayList<OrderedPar>();
-		}
-
-		int cont = 0;
-		int inputValue;
-		ArrayList<Integer> a = new ArrayList<Integer>();
-		ArrayList<Integer> b = new ArrayList<Integer>();
-		int n = Integer.parseInt(scanner.) + 1;
-		int numeroLidos = 0;
-		while (cont < quantityOfInputValues) {
-			inputValue = scanner.nextInt();
-			if (numeroLidos < n){
-				a.add(inputValue);
-			}
-			else
-				b.add(inputValue);
-			
-
-			Util.debug(inputValue + " ", false);
-
-			// Incrementa o contatdor.
-			cont++;
-		}
-		Util.debug("");
-
-		return arrayOrderedPairs;
-	}
-
-	/**
-	 
-	 */
-	private float maximumRation(int[][] arrayOrderedPairs, int[][] arrayS) {
+	
+	private float maximumRation(List<OrderedPar> listOrderedPairs, List<OrderedPar> listS, OrderedPar inicialPar) {
 		float aux = 0;
 
-		int a = arrayOrderedPairs[0][0];
-		int b = arrayOrderedPairs[0][1];
-		int indexS = 0;
-		float R = (float) a / b;
-		System.out.println("Razão AoB0: " +  R);
-		for (int i = 1; i < arrayOrderedPairs.length; i++) {
-			aux = (float) arrayOrderedPairs[i][0] / arrayOrderedPairs[i][1];
-			System.out.println(" aux: " +  aux+ " = " +   arrayOrderedPairs[i][0] + " / " +  arrayOrderedPairs[i][1]);
+		this.somaA = inicialPar.getA();
+		this.somaB = inicialPar.getB();
+		//int indexS = 0;
+		float R = (float)inicialPar.getA()/inicialPar.getB();
+		//System.out.println("Razão AoB0: " +  R);
+		for (int i = 0; i < listOrderedPairs.size(); i++) {
+			aux = (float) listOrderedPairs.get(i).getA() / listOrderedPairs.get(i).getB();
+			//System.out.println(" aux: " +  aux+ " = " +   arrayOrderedPairs[i][0] + " / " +  arrayOrderedPairs[i][1]);
 			if (aux > R) {
-				a += arrayOrderedPairs[i][0];
-				b += arrayOrderedPairs[i][1];
-				R = (float) a / b;
-				arrayS[indexS][0] = arrayOrderedPairs[i][0];
-				arrayS[indexS][1] = arrayOrderedPairs[i][1];
-				indexS++;
+				this.somaA += listOrderedPairs.get(i).getA();
+				this.somaB += listOrderedPairs.get(i).getB();
+				R = (float) this.somaA / this.somaB;
+				listS.add(listOrderedPairs.get(i));
 			} else
 				break;
-			System.out.println(" aux: " +  aux+ " R: " +  R);
+			//System.out.println(" aux: " +  aux+ " R: " +  R);
 			// if
 		} // for i
 		return R;
     }
 	
-	
+		
 
 	/**
 	 * Calcula a razão baseado nos valores que existem no conjunto S*;
@@ -209,6 +141,7 @@ public class PPH_03 {
 	 * @return Atualiza a razão baseada em A0 + somatório Ai até BN dividido por
 	 *         B0 + somatório Bi até BN.
 	 */
+	/*
 	private float updateRatio(int[][] arrayS, int cont) {
 		long a = 0;
 		long b = 0;
@@ -220,7 +153,7 @@ public class PPH_03 {
 			b += arrayS[i][ColumnB];
 		}
 		return calcRatio(a, b);
-	}
+	}*/
 
 	/**
 	 * Calcula a razão.
@@ -233,17 +166,17 @@ public class PPH_03 {
 		return (float) a / b;
 	}
 
-	private void bubbleSort(int[][] array) {
+	private void bubbleSort(List<OrderedPar> list) {
 
-		for (int i = 0; i < array.length; i++) {
-			for (int j = 1; j < array.length - 1; j++) {
-				float razao = (float) array[j][0] / array[j][1];
-				float razaoProximoItem = (float) array[j + 1][0]
-						/ array[j + 1][1];
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < list.size()- 1; j++) {
+				float razao 		   = (float)list.get(j).getA() / list.get(j).getB();
+				float razaoProximoItem = (float)list.get(j+1).getA() / list.get(j+1).getB();
+						
 				if (razaoProximoItem > razao) {
-					int p[] = array[j];
-					array[j] = array[j + 1];
-					array[j + 1] = p;
+					OrderedPar parAux = list.get(j);
+					list.set(j, list.get(j + 1));
+					list.set(j+1, parAux);
 				}
 			}
 		}
