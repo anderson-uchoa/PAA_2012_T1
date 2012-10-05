@@ -16,7 +16,7 @@ import utilidade.Utils;
 public class PPH_04 {
 
 	// O nome do arquivo de input padrão(usado para testes).
-	private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_10.txt";
+	private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000.txt";
 
 	// A matriz que vai conter os valores que validam o lemma.
 	List<OrderedPar> listS;
@@ -36,7 +36,7 @@ public class PPH_04 {
 			inputFile = DEFAULT_INPUT_FILE_NAME;
 
 			// Informa que a applicação esta em modo debug.
-			Log.isDebugging = true;
+			Log.isDebugging = false;
 		}
 
 		PPH_04 pph = new PPH_04();
@@ -93,8 +93,8 @@ public class PPH_04 {
 
 			float media = (float) finishTime / iterations;
 			Log.printOntoScreenF("Razão final: %f\n", finalRatio);
-			// Util.printOntoScreen("Conjunto S*: ");
-			// Util.printMatriz(listS);
+			Log.printOntoScreen("Conjunto S*: ");
+			Log.printList(listS);
 
 			Log.printOntoScreen("Interaçoes realizadas: " + iterations);
 			Log.printOntoScreenF("Tempo de execução: %f\n", media);
@@ -111,9 +111,10 @@ public class PPH_04 {
 	private float maximumRatio(List<OrderedPar> listNOfOrderedPairs) {
 		// O R inicial é calculado pelo a0 / b0.
 		float maximumRatio = initialPar.getRatio();
+		Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
 		OrderedPar auxlPar;
-		for (int i = 1; i < listNOfOrderedPairs.size(); i++) {
+		for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
 			auxlPar = listNOfOrderedPairs.get(i);
 
 			Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
@@ -124,6 +125,7 @@ public class PPH_04 {
 
 				// Atualiza o R(razão).
 				maximumRatio = updateRatio(listS);
+				Log.debugF("Nova razão: %f\n", maximumRatio);
 
 				if (isLemmaNotValid(listS, maximumRatio)) {
 					// Se existir algum par(ai / bi) que não seja maior do que a
@@ -168,17 +170,20 @@ public class PPH_04 {
 		boolean invalid = false;
 
 		OrderedPar auxlPar;
-		for (int i = 0; i < listS.size(); i++) {
-			auxlPar = listS.get(i);
+		int count = 0;
+		while (count < listS.size()) {
+			auxlPar = listS.get(count);
 
 			// Se o ratio for menor, então o par ordenado deve ser removido.
-			if (auxlPar.getRatio() > maximumRatio) {
+			if (auxlPar.getRatio() < maximumRatio) {
 				Log.debugF("Lemma não é verdade em :[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(),
 						auxlPar.getRatio(), maximumRatio);
 				invalid = true;
 
 				// Tenho que remover o par ordenado na posição i.
-				listS.remove(i);
+				listS.remove(count);
+			} else {
+				count++;
 			}
 		}
 

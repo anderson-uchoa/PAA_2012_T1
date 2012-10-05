@@ -21,4 +21,9 @@ public class OrderedPar {
 	public float getRatio() {
 		return (float) getA() / getB();
 	}
+
+	@Override
+	public String toString() {
+		return String.format("[(%3d,%3d) - %f]", getA(), getB(), getRatio());
+	}
 }

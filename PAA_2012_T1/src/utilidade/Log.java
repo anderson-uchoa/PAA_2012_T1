@@ -1,5 +1,9 @@
 package utilidade;
 
+import java.util.List;
+
+import questao01.pph.OrderedPar;
+
 /**
  * Esta o algoritmo que resolve a 2ª questão do T1 de PAA - PUC-Rio 2012.2.
  * Alunos: Luciano Sampaio, Igor Oliveira e Marcio Rosemberg. <br/>
@@ -88,16 +92,12 @@ public class Log {
 	}
 
 	/**
-	 * @param matrizToPrint
+	 * @param listToPrint
+	 *            A lista que será impressa.
 	 */
-	public static void printMatriz(int[][] matrizToPrint) {
-		for (int i = 0; i < matrizToPrint.length; i++) {
-			// Quando isto for verdade é porque já é hora de parar de imprimir.
-			if ((matrizToPrint[i][0] == 0) && (matrizToPrint[i][1] == 0)) {
-				break;
-			}
-
-			printOntoScreenF("[%3d,%3d]\n", matrizToPrint[i][0], matrizToPrint[i][1]);
+	public static void printList(List<OrderedPar> listToPrint) {
+		for (int i = 0; i < listToPrint.size(); i++) {
+			printOntoScreen(listToPrint.get(i));
 		}
 	}
 }
