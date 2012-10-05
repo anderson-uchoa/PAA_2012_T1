@@ -77,23 +77,24 @@ public class PPH_04 {
 			// Remove o par(a0, b0) da lista N de pares ordenados
 			listNOfOrderedPairs.remove(0);
 
-			// Inicia a matriz S com o tamanho de elementos de pares ordenados
-			// e 2 colunas.
-			listS = new ArrayList<OrderedPar>();
-
 			long startTime = System.currentTimeMillis();
 			long iterations = 0;
 			Log.printOntoScreen("Calculando...");
-			// while (System.currentTimeMillis() - startTime < 5000) {
-			// Calcula a razão máxima.
-			finalRatio = maximumRatio(listNOfOrderedPairs);
-			iterations++;
-			// }
+			while (System.currentTimeMillis() - startTime < 5000) {
+				// Inicia a matriz S com o tamanho de elementos de pares
+				// ordenados
+				// e 2 colunas.
+				listS = new ArrayList<OrderedPar>();
+
+				// Calcula a razão máxima.
+				finalRatio = maximumRatio(listNOfOrderedPairs);
+				iterations++;
+			}
 			long finishTime = System.currentTimeMillis() - startTime;
 
 			float media = (float) finishTime / iterations;
 			Log.printOntoScreenF("Razão final: %f\n", finalRatio);
-			Log.printOntoScreen("Conjunto S*: ");
+			Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
 			Log.printList(listS);
 
 			Log.printOntoScreen("Interaçoes realizadas: " + iterations);
