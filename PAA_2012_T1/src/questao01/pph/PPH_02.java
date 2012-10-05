@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
 
-import utilidade.Util;
+import utilidade.Log;
 
 public class PPH_02 {
 
@@ -35,7 +35,7 @@ public class PPH_02 {
 			inputFile = DEFAULT_INPUT_FILE_NAME;
 
 			// Informa que a applicação esta em modo debug.
-			Util.isDebugging = false;
+			Log.isDebugging = true;
 		}
 
 		PPH_02 pph = new PPH_02();
@@ -56,8 +56,8 @@ public class PPH_02 {
 			// Obtém a quantidade de números contidos neste arquivo + 1(o a0 e
 			// b0 não entram) * 2(porque é a mesma quantidade para o A e para o
 			// B).
-			// int quantityOfInputValues = scanner.nextInt() + 1;
-			int quantityOfInputValues = 100000;
+			int quantityOfInputValues = scanner.nextInt() + 1;
+			// int quantityOfInputValues = 100000;
 
 			// A razão que deve ser calculada e apresentada no final.
 			float finalRatio = 0;
@@ -68,13 +68,12 @@ public class PPH_02 {
 
 			int[][] arrayOrderedPairs = null;
 			// Obtém os valores que correspondem ao a = {1,.., n}
-			arrayOrderedPairs = getValuesFromInputFile(quantityOfInputValues);
-			// arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs,
-			// ColumnA, quantityOfInputValues, scanner);
+			// arrayOrderedPairs =
+			// getValuesFromInputFile(quantityOfInputValues);
+			arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs, ColumnA, quantityOfInputValues, scanner);
 
 			// Obtém os valores que correspondem ao b = {1,.., n}
-			// arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs,
-			// ColumnB, quantityOfInputValues, scanner);
+			arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs, ColumnB, quantityOfInputValues, scanner);
 
 			// Inicia a matriz S com o tamanho de elementos de pares ordenados
 			// e 2 colunas.
@@ -85,21 +84,21 @@ public class PPH_02 {
 
 			long startTime = System.currentTimeMillis();
 			long iterations = 0;
-			Util.printOntoScreen("Calculando...");
+			Log.printOntoScreen("Calculando...");
 			// while (System.currentTimeMillis() - startTime < 5000) {
 			// Calcula a razão máxima.
-			finalRatio = maximumRation(calcRatio(aZero, bZero), arrayOrderedPairs);
+			finalRatio = maximumRatio(calcRatio(aZero, bZero), arrayOrderedPairs);
 			iterations++;
 			// }
 			long finishTime = System.currentTimeMillis() - startTime;
 
 			float media = (float) finishTime / iterations;
-			Util.printOntoScreenF("Razão final: %f\n", finalRatio);
+			Log.printOntoScreenF("Razão final: %f\n", finalRatio);
 			// Util.printOntoScreen("Conjunto S*: ");
 			// Util.printMatriz(arrayS);
 
-			Util.printOntoScreen("Interaçoes realizadas: " + iterations);
-			Util.printOntoScreenF("Tempo de execução: %f\n", media);
+			Log.printOntoScreen("Interaçoes realizadas: " + iterations);
+			Log.printOntoScreenF("Tempo de execução: %f\n", media);
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -149,12 +148,12 @@ public class PPH_02 {
 
 			arrayOrderedPairs[cont][index] = inputValue;
 
-			Util.debug(inputValue + " ", false);
+			Log.debugF("%4d", inputValue);
 
 			// Incrementa o contatdor.
 			cont++;
 		}
-		Util.debug("");
+		Log.debug("");
 
 		return arrayOrderedPairs;
 	}
@@ -164,7 +163,7 @@ public class PPH_02 {
 	 * @param arrayOrderedPairs
 	 * @return A razão máxima.
 	 */
-	private float maximumRation(float previousRatio, int[][] arrayOrderedPairs) {
+	private float maximumRatio(float previousRatio, int[][] arrayOrderedPairs) {
 		// O a0 e o b0 já são automáticamente inseridos no array S*.
 		arrayS[0][ColumnA] = arrayOrderedPairs[0][ColumnA];
 		arrayS[0][ColumnB] = arrayOrderedPairs[0][ColumnB];
@@ -176,9 +175,9 @@ public class PPH_02 {
 		float auxRatio;
 		for (int i = 1; i < arrayOrderedPairs.length; i++) {
 			auxRatio = calcRatio(arrayOrderedPairs[i][ColumnA], arrayOrderedPairs[i][ColumnB]);
-			Util.debugF("[%d, %d] = %f - %f", arrayOrderedPairs[i][ColumnA], arrayOrderedPairs[i][ColumnB], auxRatio,
+			Log.debugF("[%d, %d] = %f - %f", arrayOrderedPairs[i][ColumnA], arrayOrderedPairs[i][ColumnB], auxRatio,
 					currentRatio);
-			Util.debug("");
+			Log.debug("");
 
 			if (auxRatio > currentRatio) {
 				// Então coloca o ai e o bi no array S*.
@@ -193,11 +192,11 @@ public class PPH_02 {
 			}
 		}
 
-		Util.printOntoScreenF("Razão atual %f - Razão anterior %f\n", currentRatio, previousRatio);
+		Log.printOntoScreenF("Razão atual %f - Razão anterior %f\n", currentRatio, previousRatio);
 		if (currentRatio <= previousRatio) {
 			return previousRatio;
 		} else {
-			return maximumRation(currentRatio, arrayOrderedPairs);
+			return maximumRatio(currentRatio, arrayOrderedPairs);
 		}
 	}
 
@@ -214,7 +213,8 @@ public class PPH_02 {
 		long b = 0;
 
 		for (int i = 0; i < cont; i++) {
-			Util.debugF("Somátorio de: [%d, %d]\n", arrayS[i][ColumnA], arrayS[i][ColumnB]);
+			// Util.debugF("Somátorio de: [%d, %d]\n", arrayS[i][ColumnA],
+			// arrayS[i][ColumnB]);
 			a += arrayS[i][ColumnA];
 			b += arrayS[i][ColumnB];
 		}
@@ -231,4 +231,5 @@ public class PPH_02 {
 	private float calcRatio(long a, long b) {
 		return (float) a / b;
 	}
+
 }

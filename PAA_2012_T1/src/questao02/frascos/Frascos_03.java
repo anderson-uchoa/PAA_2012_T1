@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import utilidade.Util;
+import utilidade.Log;
 
 public class Frascos_03 {
 
@@ -39,7 +39,7 @@ public class Frascos_03 {
 			inputFile = DEFAULT_INPUT_FILE_NAME;
 
 			// Informa que a applicação esta em modo debug.
-			Util.isDebugging = true;
+			Log.isDebugging = true;
 		}
 
 		Frascos_03 f = new Frascos_03();
@@ -77,7 +77,7 @@ public class Frascos_03 {
 				// Obtém o valor de N (Tamanho da escada).
 				// int ladderSize = getLadderSize();
 
-				Util.debug(inputValue);
+				Log.debug(inputValue);
 
 				cont++;
 			}
@@ -85,4 +85,5 @@ public class Frascos_03 {
 			e.printStackTrace();
 		}
 	}
+
 }

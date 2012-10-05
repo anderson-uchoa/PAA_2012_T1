@@ -6,6 +6,8 @@ package questao01.pph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -66,7 +68,7 @@ public class PPH_03 {
 			// números.
 			scanner.nextLine();
 
-			int[][] arrayOrderedPairs = null;
+			ArrayList<OrderedPar> arrayOrderedPairs = null;
 			// Obtém os valores que correspondem ao a = {1,.., n}
 			//arrayOrderedPairs = getValuesFromInputFile(quantityOfInputValues);
 			 arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs,
@@ -135,20 +137,28 @@ public class PPH_03 {
 	 *            Objeto que lê do arquivo.
 	 * @return Obtém os valores que correspondem ao A ou ao B.
 	 */
-	private int[][] getValuesFromInputFile(int[][] arrayOrderedPairs,
+	private ArrayList<OrderedPar> getValuesFromInputFile(ArrayList<OrderedPar> arrayOrderedPairs,
 			int index, int quantityOfInputValues, Scanner scanner) {
 		// Cria a matriz com a quantidade de elementos que ele vai conter.
 		// 2 Linhas(uma para A e uma para B) e quantityOfInputValues de colunas.
 		if (arrayOrderedPairs == null) {
-			arrayOrderedPairs = new int[quantityOfInputValues][2];
+			arrayOrderedPairs = new ArrayList<OrderedPar>();
 		}
 
 		int cont = 0;
 		int inputValue;
+		ArrayList<Integer> a = new ArrayList<Integer>();
+		ArrayList<Integer> b = new ArrayList<Integer>();
+		int n = Integer.parseInt(scanner.) + 1;
+		int numeroLidos = 0;
 		while (cont < quantityOfInputValues) {
 			inputValue = scanner.nextInt();
-
-			arrayOrderedPairs[cont][index] = inputValue;
+			if (numeroLidos < n){
+				a.add(inputValue);
+			}
+			else
+				b.add(inputValue);
+			
 
 			Util.debug(inputValue + " ", false);
 
