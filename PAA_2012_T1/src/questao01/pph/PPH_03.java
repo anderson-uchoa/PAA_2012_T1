@@ -107,7 +107,6 @@ public class PPH_03 {
 		}
 	}
 
-	
 	private float maximumRation(List<OrderedPar> listOrderedPairs, List<OrderedPar> listS, OrderedPar inicialPar) {
 		float aux = 0;
 
@@ -132,41 +131,6 @@ public class PPH_03 {
 		return R;
     }
 	
-		
-
-	/**
-	 * Calcula a razão baseado nos valores que existem no conjunto S*;
-	 * 
-	 * @param arrayS
-	 * @param cont
-	 * @return Atualiza a razão baseada em A0 + somatório Ai até BN dividido por
-	 *         B0 + somatório Bi até BN.
-	 */
-	/*
-	private float updateRatio(int[][] arrayS, int cont) {
-		long a = 0;
-		long b = 0;
-
-		for (int i = 0; i < cont; i++) {
-			Util.debugF("Somátorio de: [%d, %d]\n", arrayS[i][ColumnA],
-					arrayS[i][ColumnB]);
-			a += arrayS[i][ColumnA];
-			b += arrayS[i][ColumnB];
-		}
-		return calcRatio(a, b);
-	}*/
-
-	/**
-	 * Calcula a razão.
-	 * 
-	 * @param a
-	 * @param b
-	 * @return O resultado da divisão de a por b.
-	 */
-	private float calcRatio(long a, long b) {
-		return (float) a / b;
-	}
-
 	private void bubbleSort(List<OrderedPar> list) {
 
 		for (int i = 0; i < list.size(); i++) {
