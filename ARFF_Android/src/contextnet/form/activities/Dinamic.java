@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import contextnet.form.App;
 import contextnet.form.FixedEnumerations;
 import contextnet.form.FormReader;
@@ -64,9 +63,9 @@ public class Dinamic extends Activity {
         
         tvTitle = (TextView) findViewById(R.id.titlebar);
         if(tvTitle != null) 
-        	tvTitle.setText("Formul·rio - " + _labelstring);
+        	tvTitle.setText("Formul√°rio - " + _labelstring);
         
-        //interface din‚mica
+        //interface din√¢mica
  		final RelativeLayout rLayout = (RelativeLayout)findViewById(R.id.itemlayout);
         save = (Button)findViewById(R.id.save);
         discard = (Button)findViewById(R.id.discard);
@@ -94,12 +93,12 @@ public class Dinamic extends Activity {
 	             * */
 	        	public void onClick(View view)
 	        	{
-	        		//TODO: monta e envia mensagem com mudanÁas feitas no estilo de escrita de log
+	        		//TODO: monta e envia mensagem com mudan√ßas feitas no estilo de escrita de log
 	        		int index = 1;
 	        		String s = "<label name=\"" + _labelstring + "\">";
 	        		while (index*3 < id)
 	        		{
-	        			//tipos possÌveis atualmente: TextView, EditText, Spinner
+	        			//tipos poss√≠veis atualmente: TextView, EditText, Spinner
 	        			View v = rLayout.findViewById(index*3);
 	        			s += "<item id=\"" + fR.getItemId(index - 1) + "\">";
 	        			String classname = v.getClass().toString().substring(21);
@@ -118,7 +117,7 @@ public class Dinamic extends Activity {
 	        		
 	        		//TODO: enviar mensagem
 	        		ap.sendSDDLMessage(s);
-	        		Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
+	        		//Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
 	        		finish();
 	        	}
 	        });
@@ -161,7 +160,8 @@ public class Dinamic extends Activity {
 		}
         
         //types: text(1), varchar(2), numeric(3), longvarchar(4), e roller(5)
-    	//sempre 3 ids por tipo, comeÁando por id = 1
+    	//TODO: boolean?
+    	//sempre 3 ids por tipo, come√ßando por id = 1
         if(type.equals("text"))
 		{    
         	LinearLayout outerLyt = new LinearLayout(this);
@@ -332,7 +332,7 @@ public class Dinamic extends Activity {
         }
         else if(type.equals("longvarchar"))
         {     
-        	//TODO: sempre below, mudar para poder ser RIGHT_OF tambÈm (È necess·rio?)
+        	//TODO: sempre below, mudar para poder ser RIGHT_OF tamb√©m (√© necess√°rio?)
     		TextView tv1 = new TextView(this);
 	        tv1.setId(id);
 	        tv1.setTextSize(18);
@@ -389,7 +389,7 @@ public class Dinamic extends Activity {
 	    	        	
         	if(currId.equals("CATEGORIA"))
 	        {
-        		//lista È de categorias
+        		//lista de categorias
         		list = populateCategoryList();
         		
         		//listener das categorias
@@ -470,7 +470,7 @@ public class Dinamic extends Activity {
 	}
     
     /**
-	 * Funcao que popula a lista de categorias disponÌveis
+	 * Fun√ß√£o que popula a lista de categorias dispon√≠veis
      * 
 	 */
     private List<String> populateCategoryList() {

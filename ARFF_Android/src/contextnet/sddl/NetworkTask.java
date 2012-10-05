@@ -62,7 +62,7 @@ public class NetworkTask extends AsyncTask<Void, byte[], Boolean> {
 				myConnection.connect(sc);
 			}
 			catch (IOException e) {
-				//cai aqui quando n„o conecta
+				//TODO: cai aqui quando n√£o conecta, tratar isso
 				result = false;
 				e.printStackTrace();
 			}
@@ -71,7 +71,7 @@ public class NetworkTask extends AsyncTask<Void, byte[], Boolean> {
 			{
 				connected = true;
 				application.setConnected();
-				//TODO: identificar veiculo propriamente pelo nome do usu·rio
+				//TODO: identificar veiculo propriamente pelo nome do usu√°rio
 		    	vehicleLocalInfo = new VehicleInformation(new UUID(1, 1));
 			}
 		}

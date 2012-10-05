@@ -35,7 +35,7 @@ public class App extends Application {
     //especifico de retorno de dialogs
     private String userName = "";
 
-	//TODO: passar variaveis mais vistas para c· tambÈm: path da pasta principal e nome do usu·rio
+	//TODO: passar variaveis mais vistas para c√° tamb√©m: path da pasta principal e nome do usu√°rio
     @Override
     public void onCreate() {
         super.onCreate();
@@ -94,7 +94,7 @@ public class App extends Application {
         			userName = input.getText().toString();
         		else if(type.equals("ip"))
         		{
-        			//TODO: fazer essa mudanÁa ser dinamica para a tela principal
+        			//TODO: fazer essa mudan√ßa ser dinamica para a tela principal
         			setConnecting();
         			networkTask = new NetworkTask(input.getText().toString(), myself);
         			networkTask.execute();

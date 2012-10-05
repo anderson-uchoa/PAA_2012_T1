@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 	private TextView tvTitle;
 	private Button btnAdv;
 	
-	//variaveis que ser„o repassadas
+	//variaveis que ser√£o repassadas
 	private FixedEnumerations.InspectionPlace _inspectionplace;
 	private String _cnetfolderpath;
 	
@@ -52,15 +52,14 @@ public class MainActivity extends Activity {
         
         ap = (App) getApplication();
         
-		aDlgIpInput = ap.setDialogInputBuilder(this, "Ip para conex„o (inclua os pontos): ", "ip").create();
+		aDlgIpInput = ap.setDialogInputBuilder(this, "Ip para conex√£o (inclua os pontos): ", "ip").create();
         aDlgIpInput.show();
         
-        aDlgUserInput = ap.setDialogInputBuilder(this, "Nome do funcion·rio corrente: ", "user").create();
+        aDlgUserInput = ap.setDialogInputBuilder(this, "Nome do funcion√°rio corrente: ", "user").create();
         aDlgUserInput.show();
         
-    	
         tvTitle = (TextView) findViewById(R.id.titlebar);
-        if(tvTitle != null) tvTitle.setText(getResources().getText(R.string.app_name) + " - Local da InspeÁ„o");
+        if(tvTitle != null) tvTitle.setText(getResources().getText(R.string.app_name) + " - Local da Inspe√ß√£o");
 
     	spnPlace = (Spinner) findViewById(R.id.spinner_place);
         if(spnPlace != null)
@@ -110,14 +109,14 @@ public class MainActivity extends Activity {
             			// Checa a existencia da pasta cnet-exportedforms}
             	        if(SDCardState(Environment.getExternalStorageState()) && safeDirectory(Environment.getExternalStorageDirectory().getAbsolutePath(), "/cnet-exportedfiles"))
             	        {
-	            			//AvanÁar para a proxima tela repassando o currentPlace para o uso da prÛxima atividade
+	            			//Avan√ßar para a proxima tela repassando o currentPlace para o uso da pr√≥xima atividade
 	            			Intent i = new Intent(view.getContext(), VehicleTypeActivity.class);
 	            			i.putExtra("inspectionplace", _inspectionplace);
 	            			i.putExtra("cnetfolderpath", _cnetfolderpath);
 	                		startActivity(i);
             	        }
             	        else
-            	        	Toast.makeText(getBaseContext(), "SD n„o est· pronto ou pasta base \"cnet-exportedfiles\" n„o foi encontrada!", Toast.LENGTH_LONG).show();
+            	        	Toast.makeText(getBaseContext(), "SD n√£o est√° pronto ou pasta base \"cnet-exportedfiles\" n√£o foi encontrada!", Toast.LENGTH_LONG).show();
          	        }
                 });
             }
@@ -134,7 +133,7 @@ public class MainActivity extends Activity {
      */
 
     /**
-	 * Funcao que popula a lista de lugares disponÌveis
+	 * Funcao que popula a lista de lugares dispon√≠veis
      * 
 	 */
     private void populateList() {

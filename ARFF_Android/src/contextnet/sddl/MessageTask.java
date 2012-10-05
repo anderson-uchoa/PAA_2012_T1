@@ -25,7 +25,8 @@ public class MessageTask extends AsyncTask<Void, byte[], Boolean> {
 	}
 	
 	@Override
-	protected Boolean doInBackground(Void... arg0) {
+	protected Boolean doInBackground(Void... arg0) 
+	{		
 		Boolean result = true;
 		
 		//enviar mensagem

@@ -39,9 +39,9 @@ public final class FixedEnumerations {
 	}
 	
 	public enum VehicleTypes {
-	    CAMINHAO(0, "Caminh„o", "caminhao"),
+	    CAMINHAO(0, "Caminh√£o", "caminhao"),
 	    PASSEIO(1, "Passeio", "passeio"),
-	    ONIBUS(2, "‘nibus", "onibus"),
+	    ONIBUS(2, "√înibus", "onibus"),
 	    ESPECIAL(3, "Carga-Especial", "especial");
 	    
 	    public static int MAX_NO = 4;

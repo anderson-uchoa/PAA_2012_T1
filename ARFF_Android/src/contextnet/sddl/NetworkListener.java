@@ -11,7 +11,7 @@ import lac.cnclib.sddl.serialization.Serialization;
 public class NetworkListener implements NodeConnectionListener {
 
 	public void connected(NodeConnection remoteCon) {
-	    System.out.println("Caminh„o conectado com sucesso!");
+	    System.out.println("Ve√≠culo conectado com sucesso!");
 	}
 
 	public void reconnected(NodeConnection remoteCon, SocketAddress endPoint,

@@ -32,7 +32,7 @@ public class FormActivity extends Activity {
 	private ListView listView;
 	private TextView tvBottom;
     
-	//variaveis que foram/serão repassadas
+	//variaveis que foram/serÃ£o repassadas
     private String _cnetfolderpath;
     private String _vehicletypestring;
     private String _inspectionplacestring;
@@ -54,12 +54,12 @@ public class FormActivity extends Activity {
         _cnetfolderpath = getIntent().getExtras().get("cnetfolderpath").toString();
         _labelList = getIntent().getStringArrayListExtra("nextlist");
         
-        /* Definição da lista */
+        /* DefiniÃ§Ã£o da lista */
         final ColorDrawable divcolor = new ColorDrawable(Color.LTGRAY);
 		
         tvTitle = (TextView) findViewById(R.id.titlebar);
         if(tvTitle != null) 
-        	tvTitle.setText(getResources().getText(R.string.app_name) + " - Formulário (" + _vehicletypestring + "):");
+        	tvTitle.setText(getResources().getText(R.string.app_name) + " - Formulï¿½rio (" + _vehicletypestring + "):");
         
         listView = (ListView) findViewById(R.id.listview);
 		if(listView==null)
@@ -68,7 +68,7 @@ public class FormActivity extends Activity {
 		listView.setDividerHeight(2);
 		listView.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item, _labelList));
 		listView.setTextFilterEnabled(true);
-        /* Fim da definição da lista */
+        /* Fim da definiÃ§Ã£o da lista */
         
         tvBottom = (TextView) findViewById(R.id.bottombar);
 		tvBottom.setText(ap.connectionString);
@@ -96,13 +96,13 @@ public class FormActivity extends Activity {
     }
     
     /**
-     * Métodos privados
+     * MÃ©todos privados
      */
     private boolean constructNextMenu(int pos) 
     {	
     	currNode = fR.getNode(pos);
 		
-    	//nova tela de opções
+    	//nova tela de opÃ§Ãµes
     	if(currNode.getNodeName().equals("label"))
     	{
     		_labelstring = fR.getItemName(pos);

@@ -2,7 +2,6 @@ package contextnet.form;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -135,38 +134,5 @@ public class FormReader extends XmlHandler {
 	public String getItemLength(int pos)
 	{
 		return ((Element)lNl.get(nivelHierarquico).get(pos)).getAttribute("length");
-	}
-
-	public List<String> genericHashParser(HashMap<String,String> h) {
-		
-		List<String> subNames = new ArrayList<String>();
-		
-		for(int i = 0; i < lNl.get(nivelHierarquico).size(); i++)
-		{
-			boolean flag = false;
-			for(int j = 0; j < lNl.get(nivelHierarquico).size(); j++)
-			{
-				String s1 = getItemId(i);
-				String s2 = getItemId(j);
-				String tp = getItemType(j);
-				if(tp.equals("bool") && s1.equals(s2))
-					flag = true;
-			}
-			if(flag)
-			{
-				if(h.get(getItemId(i)).equals("true"))
-					subNames.add("APROVADO");
-				else if(h.get(getItemId(i)).equals("null"))
-					subNames.add("NÃO APLICAVEL");
-				else if(h.get(getItemId(i)).equals("false"))
-					subNames.add("NÃO REALIZADO");
-				else
-					subNames.add("");
-			}
-			else
-				subNames.add(h.get(getItemId(i)));
-
-		}
-		return subNames;
 	}
 }

@@ -34,7 +34,7 @@ public class VehicleTypeActivity extends Activity {
     private String[] vehicleList;
 	private TextView tvBottom;
 	
-    //variaveis que ser„o repassadas
+    //variaveis que ser√£o repassadas
     private String _cnetfolderpath;
     private String _inspectionplacestring;
     private List<String> _nextList;
@@ -52,7 +52,7 @@ public class VehicleTypeActivity extends Activity {
 		
         tvTitle = (TextView) findViewById(R.id.titlebar);
         if(tvTitle != null) 
-        	tvTitle.setText(getResources().getText(R.string.app_name) + " - Tipo do VeÌculo (" + _inspectionplacestring + "):");
+        	tvTitle.setText(getResources().getText(R.string.app_name) + " - Tipo do Ve√≠culo (" + _inspectionplacestring + "):");
         
         populateList();
         listView = (ListView) findViewById(R.id.listview);
@@ -73,7 +73,7 @@ public class VehicleTypeActivity extends Activity {
         		aux = new File(_cnetfolderpath + "/form_" + vehicletype + ".xml");
 		    	if(!aux.exists())
 		    	{
-		    		Toast.makeText(getApplicationContext(), "Arquivo de formulario n„o encontrado!", Toast.LENGTH_SHORT).show();
+		    		Toast.makeText(getApplicationContext(), "Arquivo de formulario n√£o encontrado!", Toast.LENGTH_SHORT).show();
 		    		return;
 		    	}
 		    	
