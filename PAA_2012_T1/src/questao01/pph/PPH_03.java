@@ -11,10 +11,10 @@ import java.util.Scanner;
 
 import utilidade.Util;
 
-public class PPH_02 {
+public class PPH_03 {
 
 	// O nome do arquivo de input padrão(usado para testes).
-	private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_10.txt";
+	private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000.txt";
 
 	// A matriz que vai conter os valores que validam o lemma.
 	int[][] arrayS;
@@ -38,7 +38,7 @@ public class PPH_02 {
 			Util.isDebugging = false;
 		}
 
-		PPH_02 pph = new PPH_02();
+		PPH_03 pph = new PPH_03();
 		pph.run(inputFile);
 	}
 
@@ -56,8 +56,8 @@ public class PPH_02 {
 			// Obtém a quantidade de números contidos neste arquivo + 1(o a0 e
 			// b0 não entram) * 2(porque é a mesma quantidade para o A e para o
 			// B).
-			// int quantityOfInputValues = scanner.nextInt() + 1;
-			int quantityOfInputValues = 100000;
+			int quantityOfInputValues = scanner.nextInt() + 1;
+			//int quantityOfInputValues = 100;
 
 			// A razão que deve ser calculada e apresentada no final.
 			float finalRatio = 0;
@@ -68,13 +68,13 @@ public class PPH_02 {
 
 			int[][] arrayOrderedPairs = null;
 			// Obtém os valores que correspondem ao a = {1,.., n}
-			arrayOrderedPairs = getValuesFromInputFile(quantityOfInputValues);
-			// arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs,
-			// ColumnA, quantityOfInputValues, scanner);
+			//arrayOrderedPairs = getValuesFromInputFile(quantityOfInputValues);
+			 arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs,
+			 ColumnA, quantityOfInputValues, scanner);
 
 			// Obtém os valores que correspondem ao b = {1,.., n}
-			// arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs,
-			// ColumnB, quantityOfInputValues, scanner);
+			 arrayOrderedPairs = getValuesFromInputFile(arrayOrderedPairs,
+			 ColumnB, quantityOfInputValues, scanner);
 
 			// Inicia a matriz S com o tamanho de elementos de pares ordenados
 			// e 2 colunas.
@@ -88,7 +88,8 @@ public class PPH_02 {
 			Util.printOntoScreen("Calculando...");
 			// while (System.currentTimeMillis() - startTime < 5000) {
 			// Calcula a razão máxima.
-			finalRatio = maximumRation(calcRatio(aZero, bZero), arrayOrderedPairs);
+			bubbleSort(arrayOrderedPairs);
+			finalRatio = maximumRation(arrayOrderedPairs);
 			iterations++;
 			// }
 			long finishTime = System.currentTimeMillis() - startTime;
@@ -101,7 +102,7 @@ public class PPH_02 {
 			Util.printOntoScreen("Interaçoes realizadas: " + iterations);
 			Util.printOntoScreenF("Tempo de execução: %f\n", media);
 
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -134,8 +135,8 @@ public class PPH_02 {
 	 *            Objeto que lê do arquivo.
 	 * @return Obtém os valores que correspondem ao A ou ao B.
 	 */
-	private int[][] getValuesFromInputFile(int[][] arrayOrderedPairs, int index, int quantityOfInputValues,
-			Scanner scanner) {
+	private int[][] getValuesFromInputFile(int[][] arrayOrderedPairs,
+			int index, int quantityOfInputValues, Scanner scanner) {
 		// Cria a matriz com a quantidade de elementos que ele vai conter.
 		// 2 Linhas(uma para A e uma para B) e quantityOfInputValues de colunas.
 		if (arrayOrderedPairs == null) {
@@ -160,46 +161,30 @@ public class PPH_02 {
 	}
 
 	/**
-	 * @param previousRatio
-	 * @param arrayOrderedPairs
-	 * @return A razão máxima.
+	 
 	 */
-	private float maximumRation(float previousRatio, int[][] arrayOrderedPairs) {
-		// O a0 e o b0 já são automáticamente inseridos no array S*.
-		arrayS[0][ColumnA] = arrayOrderedPairs[0][ColumnA];
-		arrayS[0][ColumnB] = arrayOrderedPairs[0][ColumnB];
-		int cont = 1;
+	private float maximumRation(int[][] array) {
+		float aux = 0;
 
-		// O R inicial é calculado pelo a0 / b0.
-		float currentRatio = previousRatio;
-
-		float auxRatio;
-		for (int i = 1; i < arrayOrderedPairs.length; i++) {
-			auxRatio = calcRatio(arrayOrderedPairs[i][ColumnA], arrayOrderedPairs[i][ColumnB]);
-			Util.debugF("[%d, %d] = %f - %f", arrayOrderedPairs[i][ColumnA], arrayOrderedPairs[i][ColumnB], auxRatio,
-					currentRatio);
-			Util.debug("");
-
-			if (auxRatio > currentRatio) {
-				// Então coloca o ai e o bi no array S*.
-				arrayS[cont][ColumnA] = arrayOrderedPairs[i][ColumnA];
-				arrayS[cont][ColumnB] = arrayOrderedPairs[i][ColumnB];
-
-				// Incrementa o contatdor.
-				cont++;
-
-				// Atualiza o R(razão).
-				currentRatio = updateRatio(arrayS, cont);
-			}
-		}
-
-		Util.printOntoScreenF("Razão atual %f - Razão anterior %f\n", currentRatio, previousRatio);
-		if (currentRatio <= previousRatio) {
-			return previousRatio;
-		} else {
-			return maximumRation(currentRatio, arrayOrderedPairs);
-		}
-	}
+		int a = array[0][0];
+		int b = array[0][1];
+		float R = (float) a / b;
+		System.out.println("Razão AoB0: " +  R);
+		for (int i = 1; i < array.length; i++) {
+			aux = (float) array[i][0] / array[i][1];
+			System.out.println(" aux: " +  aux+ " = " +   array[i][0] + " / " +  array[i][1]);
+			if (aux > R) {
+				a += array[i][0];
+				b += array[i][1];
+				R = (float) a / b;
+				
+			} else
+				break;
+			System.out.println(" aux: " +  aux+ " R: " +  R);
+			// if
+		} // for i
+		return R;
+    }
 
 	/**
 	 * Calcula a razão baseado nos valores que existem no conjunto S*;
@@ -214,7 +199,8 @@ public class PPH_02 {
 		long b = 0;
 
 		for (int i = 0; i < cont; i++) {
-			Util.debugF("Somátorio de: [%d, %d]\n", arrayS[i][ColumnA], arrayS[i][ColumnB]);
+			Util.debugF("Somátorio de: [%d, %d]\n", arrayS[i][ColumnA],
+					arrayS[i][ColumnB]);
 			a += arrayS[i][ColumnA];
 			b += arrayS[i][ColumnB];
 		}
@@ -231,4 +217,21 @@ public class PPH_02 {
 	private float calcRatio(long a, long b) {
 		return (float) a / b;
 	}
+
+	private void bubbleSort(int[][] array) {
+
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 1; j < array.length - 1; j++) {
+				float razao = (float) array[j][0] / array[j][1];
+				float razaoProximoItem = (float) array[j + 1][0]
+						/ array[j + 1][1];
+				if (razaoProximoItem > razao) {
+					int p[] = array[j];
+					array[j] = array[j + 1];
+					array[j + 1] = p;
+				}
+			}
+		}
+    }
+
 }
