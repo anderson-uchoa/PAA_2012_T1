@@ -1,5 +1,6 @@
 /**
- * Esta o algoritmo que resolve a 1ª questão do T1 de PAA - PUC-Rio 2012.2. Alunos: Luciano Sampaio, Igor Oliveira e Marcio Rosemberg.
+ * Esta o algoritmo que resolve a 1ª questão do T1 de PAA - PUC-Rio 2012.2. <br/>
+ * Alunos: Luciano Sampaio, Igor Oliveira e Marcio Rosemberg. <br/>
  * http://en.wikipedia.org/wiki/Selection_algorithm#Properties_of_pivot
  */
 package questao01.pph;

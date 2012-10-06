@@ -7,7 +7,6 @@ public class Frascos_02 {
    * @param args the command line arguments
    */
   public static void main(String[] args) {
-    // TODO code application logic here
     String degrau = "00110011";
     int passos;
     passos = quebra(degrau, 2);
