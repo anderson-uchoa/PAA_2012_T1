@@ -1,5 +1,6 @@
 /**
  * Esta o algoritmo que resolve a 1ª questão do T1 de PAA - PUC-Rio 2012.2. Alunos: Luciano Sampaio, Igor Oliveira e Marcio Rosemberg.
+ * http://en.wikipedia.org/wiki/Selection_algorithm#Properties_of_pivot
  */
 package questao01.pph;
 
@@ -12,16 +13,16 @@ import java.util.Scanner;
 import utilidade.Log;
 import utilidade.Utils;
 
-public class PPH_04 {
+public class PPH_06 {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_10.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
 
   // Este é o par(a0, b0).
-  OrderedPair                 initialPar;
+  OrderedPair                 initialPair;
 
   public static void main(String[] args) {
     String inputFile;
@@ -39,7 +40,7 @@ public class PPH_04 {
       Log.isDebugging = false;
     }
 
-    PPH_04 pph = new PPH_04();
+    PPH_06 pph = new PPH_06();
     pph.run(inputFile);
   }
 
@@ -57,8 +58,8 @@ public class PPH_04 {
       // Obtém a quantidade de números contidos neste arquivo + 1(o a0 e
       // b0 não entram) * 2(porque é a mesma quantidade para o A e para o
       // B).
-      int quantityOfInputValues = scanner.nextInt() + 1;
-      // int quantityOfInputValues = 100000;
+      // int quantityOfInputValues = scanner.nextInt() + 1;
+      int quantityOfInputValues = 100;
 
       // A razão que deve ser calculada e apresentada no final.
       float finalRatio = 0;
@@ -68,20 +69,20 @@ public class PPH_04 {
       scanner.nextLine();
 
       // Obtém os valores que correspondem ao a = {1,.., n}
-      // List<OrderedPair> listNOfOrderedPairs =
-      // getValuesFromInputFile(quantityOfInputValues);
+      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
       Log.printOntoScreen("Obtendo valores do arquivo de entrada...");
-      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+      // List<OrderedPair> listNOfOrderedPairs = Utils
+      // .getValuesFromInputFile(scanner, quantityOfInputValues);
 
       // Este é o par(a0, b0).
-      initialPar = listNOfOrderedPairs.get(0);
+      initialPair = listNOfOrderedPairs.get(0);
       // Remove o par(a0, b0) da lista N de pares ordenados
       listNOfOrderedPairs.remove(0);
 
       long startTime = System.currentTimeMillis();
       long iterations = 0;
       Log.printOntoScreen("Calculando...");
-      // while (System.currentTimeMillis() - startTime < 5000) {
+      //while (System.currentTimeMillis() - startTime < 5000) {
       // Inicia a matriz S com o tamanho de elementos de pares
       // ordenados
       // e 2 colunas.
@@ -90,7 +91,7 @@ public class PPH_04 {
       // Calcula a razão máxima.
       finalRatio = maximumRatio(listNOfOrderedPairs);
       iterations++;
-      // }
+      //}
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
@@ -98,7 +99,8 @@ public class PPH_04 {
       Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
       Log.printList(listS);
 
-      Log.printOntoScreen("Interaçoes realizadas: " + iterations);
+      Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
+      Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
       Log.printOntoScreenF("Tempo de execução: %f\n", media);
 
     }
@@ -113,31 +115,38 @@ public class PPH_04 {
    */
   private float maximumRatio(List<OrderedPair> listNOfOrderedPairs) {
     // O R inicial é calculado pelo a0 / b0.
-    float maximumRatio = initialPar.getRatio();
+    float maximumRatio = initialPair.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
-    OrderedPair auxlPar;
-    for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
-      auxlPar = listNOfOrderedPairs.get(i);
+    long iterations = 0;
+    for (int k = 0; k < listNOfOrderedPairs.size(); k++) {
+      // Zerando as variáveis iniciais.
+      listS = new LinkedList<OrderedPair>();
 
-      Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
+      OrderedPair auxlPar;
+      for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
+        iterations++;
+        auxlPar = listNOfOrderedPairs.get(i);
 
-      if (auxlPar.getRatio() > maximumRatio) {
-        // Então coloca o par(ai e o bi) na lista S.
-        listS.add(auxlPar);
+        Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
 
-        // Atualiza o R(razão).
-        maximumRatio = updateRatio(listS);
-        Log.debugF("Nova razão: %f\n", maximumRatio);
+        if (auxlPar.getRatio() > maximumRatio) {
+          // Então coloca o par(ai e o bi) na lista S.
+          listS.add(auxlPar);
 
-        if (isLemmaNotValid(listS, maximumRatio)) {
-          // Se existir algum par(ai / bi) que não seja maior do que a
-          // razão atual, este par deve ser removido do listS e uma
-          // nova razão deve ser calculada.
+          // Atualiza o R(razão).
           maximumRatio = updateRatio(listS);
+          Log.debugF("Nova razão: %f\n", maximumRatio);
+
+          if (isLemmaNotValid(listS, maximumRatio)) {
+            // Se existir algum par(ai / bi) que não seja maior do que a razão atual, este par deve ser removido do listS e uma nova razão deve ser calculada.
+            maximumRatio = updateRatio(listS);
+          }
         }
       }
     }
+    Log.printOntoScreenF("Número de passos: %d\n", iterations);
+
     return maximumRatio;
   }
 
@@ -148,8 +157,8 @@ public class PPH_04 {
    * @return Atualiza a razão baseada em A0 + somatório Ai até BN dividido por B0 + somatório Bi até BN.
    */
   private float updateRatio(List<OrderedPair> listS) {
-    long a = initialPar.getA();
-    long b = initialPar.getB();
+    long a = initialPair.getA();
+    long b = initialPair.getB();
 
     OrderedPair auxlPar;
     for (int i = 0; i < listS.size(); i++) {
