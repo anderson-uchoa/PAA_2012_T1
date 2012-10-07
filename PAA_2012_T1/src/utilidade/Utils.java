@@ -91,7 +91,6 @@ public class Utils {
       int meio = (inicio + fim) / 2;
       merge(inicio, meio, list);
       merge(meio + 1, fim, list);
-      //mesclar(inicio, meio, fim, list);
       mesclarCormen(inicio, meio, fim, list);
     }
   }

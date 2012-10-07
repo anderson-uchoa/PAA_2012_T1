@@ -70,26 +70,32 @@ public class PPH_SelectSort {
       long startTime = System.currentTimeMillis();
 
       Log.printOntoScreen("Calculando...");
-      // while (System.currentTimeMillis() - startTime < 5000) {
-      listOrderedPairs = new LinkedList<OrderedPair>();
-      // Obtém os valores que correspondem ao b = {1,.., n}
-      listOrderedPairs.addAll(listOriginalPair);
-      // Atribuindo o par inicial
-      parInicial = listOrderedPairs.get(0);
-      // Removendo da lista o par inicial
-      listOrderedPairs.remove(0);
-      listS = new LinkedList<OrderedPair>();
-      // Ordanando a lista
-      utilidade.SelectionSort selectSort = new SelectionSort();
+      while (System.currentTimeMillis() - startTime < 5000) {
+        listOrderedPairs = new LinkedList<OrderedPair>();
+        // Obtém os valores que correspondem ao b = {1,.., n}
+        listOrderedPairs.addAll(listOriginalPair);
+        // Atribuindo o par inicial
+        parInicial = listOrderedPairs.get(0);
+        // Removendo da lista o par inicial
+        listOrderedPairs.remove(0);
 
-      OrderedPair teste = selectSort.select(listOrderedPairs, 0, listOrderedPairs.size(), listOrderedPairs.size() - 1);
-
-      MedianaPair mediana = selectSort.partition(listOrderedPairs, 0, listOrderedPairs.size(), teste);
-      mediana.setOrderedPair(teste);
-      //finalRatio = maximumRation(listOrderedPairs, listS, parInicial);
-      finalRatio = maximumRatio(listOrderedPairs, mediana);
-      iterations++;
-      // }
+        listS = new LinkedList<OrderedPair>();
+        // Ordanando a lista
+        utilidade.SelectionSort selectSort = new SelectionSort();
+        int size = listOrderedPairs.size();
+        OrderedPair teste = selectSort.select(listOrderedPairs, 0, size, size / 2);
+        //      for (int i = 0; i < listOrderedPairs.indexOf(teste); i++) {
+        //        if (listOrderedPairs.get(i).compareTo(teste) > 0) {
+        //          System.out.println("opsss1!!!!!");
+        //        }
+        //      }
+        //MedianaPair mediana = selectSort.partition(listOrderedPairs, 0, listOrderedPairs.size(), teste);
+        //mediana.setOrderedPair(teste);
+        //finalRatio = maximumRation(listOrderedPairs, listS, parInicial);
+        int index = listOrderedPairs.indexOf(teste);
+        finalRatio = maximumRatio(listOrderedPairs, new MedianaPair(teste, index));
+        iterations++;
+      }
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
@@ -112,33 +118,54 @@ public class PPH_SelectSort {
    * @return A razão máxima.
    */
   private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, MedianaPair mediana) {
-    // O R inicial é calculado pelo a0 / b0.
+
     float maximumRatio = parInicial.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
-    OrderedPair auxlPar;
-    for (int i = mediana.index; i < listNOfOrderedPairs.size(); i++) {
-      auxlPar = listNOfOrderedPairs.get(i);
+    long iterations = 0;
+    for (int k = mediana.index; k < listNOfOrderedPairs.size(); k++) {
+      // Zerando as variáveis iniciais.
+      listS = new LinkedList<OrderedPair>();
 
-      Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
+      OrderedPair auxlPar;
+      for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
+        iterations++;
+        auxlPar = listNOfOrderedPairs.get(i);
 
-      if (auxlPar.getRatio() > maximumRatio) {
-        // Então coloca o par(ai e o bi) na lista S.
-        listS.add(auxlPar);
+        Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
 
-        // Atualiza o R(razão).
-        maximumRatio = updateRatio(listS);
-        Log.debugF("Nova razão: %f\n", maximumRatio);
+        if (auxlPar.getRatio() > maximumRatio) {
+          // Então coloca o par(ai e o bi) na lista S.
+          listS.add(auxlPar);
 
-        if (isLemmaNotValid(listS, maximumRatio)) {
-          // Se existir algum par(ai / bi) que não seja maior do que a
-          // razão atual, este par deve ser removido do listS e uma
-          // nova razão deve ser calculada.
+          // Atualiza o R(razão).
           maximumRatio = updateRatio(listS);
+          Log.debugF("Nova razão: %f\n", maximumRatio);
+
+          if (isLemmaNotValid(listS, maximumRatio)) {
+            // Se existir algum par(ai / bi) que não seja maior do que a razão atual, este par deve ser removido do listS e uma nova razão deve ser calculada.
+            maximumRatio = updateRatio(listS);
+          }
         }
       }
     }
+    Log.printOntoScreenF("Número de passos: %d\n", iterations);
     return maximumRatio;
+    //float aux = 0;
+    //this.somaA = parInicial.getA();
+    //this.somaB = parInicial.getB();
+    //float maximumRation = parInicial.getRatio();
+    //for (int i = mediana.index; i <= listNOfOrderedPairs.size() - 1; i++) {
+    //  aux = listNOfOrderedPairs.get(i).getRatio();
+    //  if (aux > maximumRation) {
+    //   this.somaA += listNOfOrderedPairs.get(i).getA();
+    //   this.somaB += listNOfOrderedPairs.get(i).getB();
+    //   maximumRation = (float) this.somaA / this.somaB;
+    //  listS.add(listNOfOrderedPairs.get(i));
+    // }
+    // }
+    //return maximumRation;
+
   }
 
   /**

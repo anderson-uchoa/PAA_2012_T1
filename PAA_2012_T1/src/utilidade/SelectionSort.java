@@ -13,7 +13,7 @@ public class SelectionSort {
     // select pivotIndex between left and right
     // int pivotNewIndex = partition(list, left, right, pivotIndex);
     int median = medianOfMedians(list, left, right);
-    int pivotNewIndex = partition2(list, left, right, median);
+    int pivotNewIndex = partition(list, left, right, median);
     int pivotDist = pivotNewIndex - left + 1;
     // The pivot is in its final sorted position,
     // so pivotDist reflects its 1-based position if list were sorted
@@ -26,30 +26,8 @@ public class SelectionSort {
   }
 
   private int partition(List<OrderedPair> list, int left, int right, int pivotIndex) {
-    //float pivotValue = list.get(pivotIndex).getRatio();
-    OrderedPair swp, orderedPairpivot;
-    orderedPairpivot = list.get(pivotIndex);
-    // swap list[pivotIndex] and list[right] // Move pivot to end
-    int storeIndex = left;
-    for (int i = left; i < right - 1; i++) {
-      if (list.get(i).getRatio() <= orderedPairpivot.getRatio()) {
-        // Swapping
-        swp = list.get(storeIndex);
-        list.set(storeIndex, list.get(i));
-        list.set(i, swp);
-        storeIndex++;
-      }
-      // Move pivot to its final place
-      swp = list.get(right - 1);
-      list.set(right - 1, list.get(storeIndex));
-      list.set(storeIndex, swp);
-    }
-    return storeIndex;
-  }
-
-  private int partition2(List<OrderedPair> list, int left, int right, int pivotIndex) {
     OrderedPair swp;
-    OrderedPair x = list.get(right - 1);
+    OrderedPair x = list.get(pivotIndex);
     int i = left - 1;
     for (int j = left; j < right - 1; j++) {
       if (list.get(j).compareTo(x) < 1) {
@@ -62,27 +40,34 @@ public class SelectionSort {
     swp = list.get(i + 1);
     list.set(i + 1, list.get(right - 1));
     list.set(right - 1, swp);
+    //    for (int j = 0; j < i + 1; j++) {
+    //      if (list.get(j).compareTo(x) > 0) {
+    //        System.out.println("ops...");
+    //      }
+    //    }
     return i + 1;
   }
 
   public MedianaPair partition(List<OrderedPair> list, int left, int right, OrderedPair orderedPairpivot) {
-    OrderedPair swp = null;
-    // swap list[pivotIndex] and list[right] // Move pivot to end
-    int storeIndex = left;
-    for (int i = left; i < right - 1; i++) {
-      if (list.get(i).getRatio() <= orderedPairpivot.getRatio()) {
-        // Swapping
-        swp = list.get(storeIndex);
-        list.set(storeIndex, list.get(i));
-        list.set(i, swp);
-        storeIndex++;
+    OrderedPair swp;
+    int i = left - 1;
+    for (int j = left; j < right - 1; j++) {
+      if (list.get(j).compareTo(orderedPairpivot) < 1) {
+        i += 1;
+        swp = list.get(i);
+        list.set(i, list.get(j));
+        list.set(j, swp);
       }
-      // Move pivot to its final place
-      swp = list.get(right - 1);
-      list.set(right - 1, list.get(storeIndex));
-      list.set(storeIndex, swp);
     }
-    return new MedianaPair(swp, storeIndex);
+    swp = list.get(i + 1);
+    list.set(i + 1, list.get(right - 1));
+    list.set(right - 1, swp);
+    for (int j = 0; j < i + 1; j++) {
+      if (list.get(j).compareTo(orderedPairpivot) > 0) {
+        System.out.println("ops...");
+      }
+    }
+    return new MedianaPair(swp, i + 1);
   }
 
   // returns the index of the median of medians.
