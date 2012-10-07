@@ -104,8 +104,8 @@ public class Utils {
 			int meio = (inicio + fim) / 2;
 			merge(inicio, meio, list);
 			merge(meio + 1, fim, list);
-			mesclar(inicio, meio, fim, list);
-			
+			//mesclar(inicio, meio, fim, list);
+			mesclarCormen(inicio, meio, fim, list);
 		}
 	}
 
@@ -135,18 +135,50 @@ public class Utils {
 
 		// A depender das condições, recebe um elemento de um trecho ou outro
 		for (int posicao = 0; posicao < tamanho; posicao++) {
+			int pos = inicio + posicao;
 			if (j <= tamanho - 1) {
 				if (i <= meio - inicio) {
 					if (((T)temp.get(i)).compareTo((T)temp.get(j)) < 0 ) {
-						list.set(inicio + posicao, (T)temp.get(i++));
+						list.set(pos, (T)temp.get(i++));
 					} else {
-						list.set(inicio + posicao, (T)temp.get(j++));
+						list.set(pos, (T)temp.get(j++));
 					}
 				} else {
-					list.set(inicio + posicao, (T)temp.get(j++));
+					list.set(pos, (T)temp.get(j++));
 				}
 			} else {
-				list.set(inicio + posicao, (T)temp.get(i++));
+				
+				list.set(pos, (T)temp.get(i++));
+			}
+		}
+	}
+
+	private static  <T extends Comparable<T>> void mesclarCormen(int inicio, int meio, int fim, List<T> list) {
+
+		int n1 = meio - inicio + 1;
+		int n2 = fim - meio;
+		int i,j;
+		List<T> listaEsquerda = new LinkedList<T>();
+		List<T> listaDireita = new LinkedList<T>();
+		for (i = 0; i < n1; i++) {
+			listaEsquerda.add(list.get(inicio+i-1));
+		}
+		for (j = 0; j < n2; j++) {
+			listaDireita.add(list.get(meio+j));
+		}
+		//0listaEsquerda.add(n1+1, T);
+		//listaDireita.add(n2+1, T);
+		
+		i=0;
+		j=0;
+		for (int k = inicio; k < fim; k++) {
+			if (listaEsquerda.get(i).compareTo(listaDireita.get(j)) <=0){
+				list.set(k,listaEsquerda.get(i));
+				i++;
+			}
+			else{
+				list.set(k,listaDireita.get(j));
+				j++;
 			}
 		}
 	}
