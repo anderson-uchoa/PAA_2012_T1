@@ -1,6 +1,7 @@
 /**
  * Esta o algoritmo que resolve a 1ª questão do T1 de PAA - PUC-Rio 2012.2. <br/>
- * Alunos: Luciano Sampaio, Igor Oliveira e Marcio Rosemberg.
+ * Alunos: Luciano Sampaio, Igor Oliveira e Marcio Rosemberg. <br/>
+ * http://en.wikipedia.org/wiki/Selection_algorithm#Properties_of_pivot
  */
 package questao01.pph;
 
@@ -16,13 +17,13 @@ import utilidade.Utils;
 public class PPH_04 {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
 
   // Este é o par(a0, b0).
-  OrderedPair                 initialPar;
+  OrderedPair                 initialPair;
 
   public static void main(String[] args) {
     String inputFile;
@@ -51,6 +52,7 @@ public class PPH_04 {
    */
   private void run(String inputFile) {
     try {
+      Log.printOntoScreen("Iniciado...");
       // Abre o arquivo para que o dados possam ser lidos.
       Scanner scanner = new Scanner(new File(inputFile));
 
@@ -58,7 +60,7 @@ public class PPH_04 {
       // b0 não entram) * 2(porque é a mesma quantidade para o A e para o
       // B).
       int quantityOfInputValues = scanner.nextInt() + 1;
-      // int quantityOfInputValues = 100000;
+      //int quantityOfInputValues = 100;
 
       // A razão que deve ser calculada e apresentada no final.
       float finalRatio = 0;
@@ -68,12 +70,12 @@ public class PPH_04 {
       scanner.nextLine();
 
       // Obtém os valores que correspondem ao a = {1,.., n}
-      // List<OrderedPar> listNOfOrderedPairs =
-      // getValuesFromInputFile(quantityOfInputValues);
+      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
+      Log.printOntoScreen("Obtendo valores do arquivo de entrada...");
       List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
 
       // Este é o par(a0, b0).
-      initialPar = listNOfOrderedPairs.get(0);
+      initialPair = listNOfOrderedPairs.get(0);
       // Remove o par(a0, b0) da lista N de pares ordenados
       listNOfOrderedPairs.remove(0);
 
@@ -97,7 +99,8 @@ public class PPH_04 {
       Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
       Log.printList(listS);
 
-      Log.printOntoScreen("Interaçoes realizadas: " + iterations);
+      Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
+      Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
       Log.printOntoScreenF("Tempo de execução: %f\n", media);
 
     }
@@ -112,7 +115,7 @@ public class PPH_04 {
    */
   private float maximumRatio(List<OrderedPair> listNOfOrderedPairs) {
     // O R inicial é calculado pelo a0 / b0.
-    float maximumRatio = initialPar.getRatio();
+    float maximumRatio = initialPair.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     OrderedPair auxlPar;
@@ -147,8 +150,8 @@ public class PPH_04 {
    * @return Atualiza a razão baseada em A0 + somatório Ai até BN dividido por B0 + somatório Bi até BN.
    */
   private float updateRatio(List<OrderedPair> listS) {
-    long a = initialPar.getA();
-    long b = initialPar.getB();
+    long a = initialPair.getA();
+    long b = initialPair.getB();
 
     OrderedPair auxlPar;
     for (int i = 0; i < listS.size(); i++) {
