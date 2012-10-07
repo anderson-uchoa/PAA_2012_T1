@@ -5,7 +5,8 @@ import java.util.List;
 import questao01.pph.OrderedPair;
 
 /**
- * Esta o algoritmo que resolve a 2ª questão do T1 de PAA - PUC-Rio 2012.2. Alunos: Luciano Sampaio, Igor Oliveira e Marcio Rosemberg. <br/>
+ * Esta o algoritmo que resolve a 2ª questão do T1 de PAA - PUC-Rio 2012.2. <br/>
+ * Alunos: Luciano Sampaio, Igor Oliveira e Marcio Rosemberg. <br/>
  * Esta classe contém alguns métodos utils para ajudar no desenvolvimento.
  */
 public class Log {
