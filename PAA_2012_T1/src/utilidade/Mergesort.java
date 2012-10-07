@@ -31,6 +31,9 @@ import java.util.List;
 		    // Copy both parts into the helper array
 			  helper = new LinkedList<T>();
 			  helper.addAll(list);
+		    //for (int i = low; i <= high; i++) {
+		     // helper.set(i, list.get(i));
+		    //}
 
 		    int i = low;
 		    int j = middle + 1;
@@ -38,7 +41,6 @@ import java.util.List;
 		    // Copy the smallest values from either the left or the right side back
 		    // to the original array
 		    while (i <= middle && j <= high) {
-		    	this.iterations++;
 		      if (((T)helper.get(i)).compareTo((T)helper.get(j)) <= 0) {
 		        list.set(k, helper.get(i));
 		        i++;
