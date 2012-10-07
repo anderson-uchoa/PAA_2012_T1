@@ -17,7 +17,7 @@ import utilidade.Utils;
 public class PPH_06 {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_10.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -59,8 +59,8 @@ public class PPH_06 {
       // Obtém a quantidade de números contidos neste arquivo + 1(o a0 e
       // b0 não entram) * 2(porque é a mesma quantidade para o A e para o
       // B).
-      // int quantityOfInputValues = scanner.nextInt() + 1;
-      int quantityOfInputValues = 100;
+      int quantityOfInputValues = scanner.nextInt() + 1;
+      //int quantityOfInputValues = 100;
 
       // A razão que deve ser calculada e apresentada no final.
       float finalRatio = 0;
@@ -70,10 +70,9 @@ public class PPH_06 {
       scanner.nextLine();
 
       // Obtém os valores que correspondem ao a = {1,.., n}
-      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
+      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
       Log.printOntoScreen("Obtendo valores do arquivo de entrada...");
-      // List<OrderedPair> listNOfOrderedPairs = Utils
-      // .getValuesFromInputFile(scanner, quantityOfInputValues);
+      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
 
       // Este é o par(a0, b0).
       initialPair = listNOfOrderedPairs.get(0);
@@ -83,16 +82,16 @@ public class PPH_06 {
       long startTime = System.currentTimeMillis();
       long iterations = 0;
       Log.printOntoScreen("Calculando...");
-      //while (System.currentTimeMillis() - startTime < 5000) {
-      // Inicia a matriz S com o tamanho de elementos de pares
-      // ordenados
-      // e 2 colunas.
-      listS = new LinkedList<OrderedPair>();
+      while (System.currentTimeMillis() - startTime < 5000) {
+        // Inicia a matriz S com o tamanho de elementos de pares
+        // ordenados
+        // e 2 colunas.
+        listS = new LinkedList<OrderedPair>();
 
-      // Calcula a razão máxima.
-      finalRatio = maximumRatio(listNOfOrderedPairs);
-      iterations++;
-      //}
+        // Calcula a razão máxima.
+        finalRatio = maximumRatio(listNOfOrderedPairs);
+        iterations++;
+      }
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
