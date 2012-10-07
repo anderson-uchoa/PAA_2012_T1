@@ -11,7 +11,7 @@ import utilidade.Utils;
 
 public class PPH_SelectSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   LinkedList<OrderedPair>     listS;
@@ -65,37 +65,38 @@ public class PPH_SelectSort {
       scanner.nextLine();
 
       List<OrderedPair> listOrderedPairs = null;
+      Log.printOntoScreen("Lendo arquivo...");
       List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
-
+      Log.printOntoScreen("Arquivo completo...");
       long startTime = System.currentTimeMillis();
 
       Log.printOntoScreen("Calculando...");
-      while (System.currentTimeMillis() - startTime < 5000) {
-        listOrderedPairs = new LinkedList<OrderedPair>();
-        // Obtém os valores que correspondem ao b = {1,.., n}
-        listOrderedPairs.addAll(listOriginalPair);
-        // Atribuindo o par inicial
-        parInicial = listOrderedPairs.get(0);
-        // Removendo da lista o par inicial
-        listOrderedPairs.remove(0);
+      //while (System.currentTimeMillis() - startTime < 5000) {
+      listOrderedPairs = new LinkedList<OrderedPair>();
+      // Obtém os valores que correspondem ao b = {1,.., n}
+      listOrderedPairs.addAll(listOriginalPair);
+      // Atribuindo o par inicial
+      parInicial = listOrderedPairs.get(0);
+      // Removendo da lista o par inicial
+      listOrderedPairs.remove(0);
 
-        listS = new LinkedList<OrderedPair>();
-        // Ordanando a lista
-        utilidade.SelectionSort selectSort = new SelectionSort();
-        int size = listOrderedPairs.size();
-        OrderedPair teste = selectSort.select(listOrderedPairs, 0, size, size / 2);
-        //      for (int i = 0; i < listOrderedPairs.indexOf(teste); i++) {
-        //        if (listOrderedPairs.get(i).compareTo(teste) > 0) {
-        //          System.out.println("opsss1!!!!!");
-        //        }
-        //      }
-        //MedianaPair mediana = selectSort.partition(listOrderedPairs, 0, listOrderedPairs.size(), teste);
-        //mediana.setOrderedPair(teste);
-        //finalRatio = maximumRation(listOrderedPairs, listS, parInicial);
-        int index = listOrderedPairs.indexOf(teste);
-        finalRatio = maximumRatio(listOrderedPairs, new MedianaPair(teste, index));
-        iterations++;
-      }
+      listS = new LinkedList<OrderedPair>();
+      // Ordanando a lista
+      utilidade.SelectionSort selectSort = new SelectionSort();
+      int size = listOrderedPairs.size();
+      OrderedPair teste = selectSort.select(listOrderedPairs, 0, size, size / 2);
+      //      for (int i = 0; i < listOrderedPairs.indexOf(teste); i++) {
+      //        if (listOrderedPairs.get(i).compareTo(teste) > 0) {
+      //          System.out.println("opsss1!!!!!");
+      //        }
+      //      }
+      //MedianaPair mediana = selectSort.partition(listOrderedPairs, 0, listOrderedPairs.size(), teste);
+      //mediana.setOrderedPair(teste);
+      //finalRatio = maximumRation(listOrderedPairs, listS, parInicial);
+      int index = listOrderedPairs.indexOf(teste);
+      finalRatio = maximumRatio(listOrderedPairs, new MedianaPair(teste, index));
+      iterations++;
+      // }
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;

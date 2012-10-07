@@ -3,7 +3,7 @@ package utilidade;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Mergesort {
+public class MergeSort {
 	int iterations = 0;
 
 	public <T extends Comparable<T>> void sort(List<T> list) {

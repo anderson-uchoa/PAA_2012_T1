@@ -1,6 +1,5 @@
 package utilidade;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import questao01.pph.MedianaPair;
@@ -11,7 +10,6 @@ public class SelectionSort {
     if (left == right) // If the list contains only one element
       return list.get(left); // Return that element
     // select pivotIndex between left and right
-    // int pivotNewIndex = partition(list, left, right, pivotIndex);
     int median = medianOfMedians(list, left, right);
     int pivotNewIndex = partition(list, left, right, median);
     int pivotDist = pivotNewIndex - left + 1;
@@ -93,30 +91,17 @@ public class SelectionSort {
   }
 
   private int selectIdx(List<OrderedPair> list, int left, int right, int pivot) {
-    // Ordenando
-    List<OrderedPair> nova = new LinkedList<OrderedPair>();
-    //    for (int i = left; i < right; i++) {
-    //      nova.add(list.get(i));
-    //    }
     InsertionSort(list, left, right);
-    int idx, size;
-    size = nova.size();
-    //if (size > 1) {
-    //if (size % 2 == 0)
+    int idx;
     if ((left + right) % 2 == 0)
       idx = (left + right + 1) / 2;
     else {
       idx = (((left + right + 1) / 2) + ((left + right + 1) / 2) + 1) / 2;
     }
-    //return list.indexOf(nova.get(idx));
-    // return idx;
-    //}
-    //return 0;
     return idx;
   }
 
   private void InsertionSort(List<OrderedPair> list, int left, int right) {
-    //for (int j = 1; j < list.size(); j++) {
     for (int j = left + 1; j < right; j++) {
       OrderedPair orderedPairkey = list.get(j);
       int i = j - 1;
@@ -127,5 +112,4 @@ public class SelectionSort {
       list.set(i + 1, orderedPairkey);
     }
   }
-
 }
