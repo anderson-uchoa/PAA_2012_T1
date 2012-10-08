@@ -23,7 +23,7 @@ public class SelectionSort {
       return select(list, pivotNewIndex + 1, right, k - pivotDist);
   }
 
-  public OrderedPair selectIterativo(List<OrderedPair> list, int left, int right, int k) {
+  public MedianaPair selectIterativo(List<OrderedPair> list, int left, int right, int k) {
     // select pivotIndex between left and right
     //long startTime = System.currentTimeMillis();
     //System.out.println("selectIterativo - Início: " + startTime);
@@ -34,7 +34,8 @@ public class SelectionSort {
       // The pivot is in its final sorted position,
       // so pivotDist reflects its 1-based position if list were sorted
       if (pivotDist == k)
-        return list.get(pivotNewIndex);
+        //return list.get(pivotNewIndex);
+        return new MedianaPair(list.get(pivotNewIndex), pivotNewIndex);
       else if (k < pivotDist)
         right = pivotNewIndex - 1;
       else {
@@ -44,7 +45,8 @@ public class SelectionSort {
     }
     // long endTime = System.currentTimeMillis();
     // System.out.println("selectIterativo - Fim: " + (endTime - startTime));
-    return list.get(left);
+    //return list.get(left);
+    return new MedianaPair(list.get(left), left);
   }
 
   private int partition(List<OrderedPair> list, int left, int right, int pivotIndex) {
