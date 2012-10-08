@@ -85,16 +85,8 @@ public class PPH_SelectSort {
       utilidade.SelectionSort selectSort = new SelectionSort();
       int size = listOrderedPairs.size();
       OrderedPair teste = selectSort.selectIterativo(listOrderedPairs, 0, size, size / 2);
-      //      for (int i = 0; i < listOrderedPairs.indexOf(teste); i++) {
-      //        if (listOrderedPairs.get(i).compareTo(teste) > 0) {
-      //          System.out.println("opsss1!!!!!");
-      //        }
-      //      }
-      //MedianaPair mediana = selectSort.partition(listOrderedPairs, 0, listOrderedPairs.size(), teste);
-      //mediana.setOrderedPair(teste);
-      //finalRatio = maximumRation(listOrderedPairs, listS, parInicial);
       int index = listOrderedPairs.indexOf(teste);
-      finalRatio = maximumRatio(listOrderedPairs, new MedianaPair(teste, index));
+      finalRatio = maximumRatio(listOrderedPairs, size, new MedianaPair(teste, index));
       iterations++;
       // }
       long finishTime = System.currentTimeMillis() - startTime;
@@ -116,81 +108,58 @@ public class PPH_SelectSort {
 
   /**
    * @param listNOfOrderedPairs
+   * @param mediana
+   * @param count
    * @return A razão máxima.
    */
-  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, MedianaPair mediana) {
-    long startTime = System.currentTimeMillis();
+  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int count, MedianaPair mediana) {
+    //long startTime = System.currentTimeMillis();
     float maximumRatio = parInicial.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     long iterations = 0;
-    for (int k = mediana.index; k < listNOfOrderedPairs.size(); k++) {
-      // Zerando as variáveis iniciais.
-      listS = new LinkedList<OrderedPair>();
+    // Zerando as variáveis iniciais.
+    listS = new LinkedList<OrderedPair>();
 
-      OrderedPair auxlPar;
-      for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
-        iterations++;
-        auxlPar = listNOfOrderedPairs.get(i);
+    OrderedPair auxlPar;
+    for (int i = mediana.index; i < count; i++) {
+      iterations++;
+      auxlPar = listNOfOrderedPairs.get(i);
 
-        Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
+      Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
 
-        if (auxlPar.getRatio() > maximumRatio) {
-          // Então coloca o par(ai e o bi) na lista S.
-          listS.add(auxlPar);
+      if (auxlPar.getRatio() > maximumRatio) {
+        // Então coloca o par(ai e o bi) na lista S.
+        listS.add(auxlPar);
+        SomaRazao(auxlPar);
+        // Atualiza o R(razão).
+        maximumRatio = calcularRazao();
+        Log.debugF("Nova razão: %f\n", maximumRatio);
 
-          // Atualiza o R(razão).
-          //maximumRatio = updateRatio(listS);
+        if (isLemmaNotValid(listS, maximumRatio)) {
+          // Se existir algum par(ai / bi) que não seja maior do que a razão atual, este par deve ser removido do listS e uma nova razão deve ser calculada.
           maximumRatio = calcularRazao();
-          Log.debugF("Nova razão: %f\n", maximumRatio);
-
-          if (isLemmaNotValid(listS, maximumRatio)) {
-            // Se existir algum par(ai / bi) que não seja maior do que a razão atual, este par deve ser removido do listS e uma nova razão deve ser calculada.
-            maximumRatio = updateRatio(listS);
-          }
         }
       }
     }
-    long endTime = System.currentTimeMillis();
-    System.out.println("maximumRatio - Fim: " + (endTime - startTime));
+    //long endTime = System.currentTimeMillis();
+    //System.out.println("maximumRatio - Fim: " + (endTime - startTime));
     Log.printOntoScreenF("Número de passos: %d\n", iterations);
     return maximumRatio;
-    //float aux = 0;
-    //this.somaA = parInicial.getA();
-    //this.somaB = parInicial.getB();
-    //float maximumRation = parInicial.getRatio();
-    //for (int i = mediana.index; i <= listNOfOrderedPairs.size() - 1; i++) {
-    //  aux = listNOfOrderedPairs.get(i).getRatio();
-    //  if (aux > maximumRation) {
-    //   this.somaA += listNOfOrderedPairs.get(i).getA();
-    //   this.somaB += listNOfOrderedPairs.get(i).getB();
-    //   maximumRation = (float) this.somaA / this.somaB;
-    //  listS.add(listNOfOrderedPairs.get(i));
-    // }
-    // }
-    //return maximumRation;
-
   }
 
-  /**
-   * Calcula a razão baseado nos valores que existem no conjunto S*;
-   * 
-   * @param listS
-   * @return Atualiza a razão baseada em A0 + somatório Ai até BN dividido por B0 + somatório Bi até BN.
-   */
-  private float updateRatio(List<OrderedPair> listS) {
-    long a = parInicial.getA();
-    long b = parInicial.getB();
+  private void SomaRazao(OrderedPair auxlPar) {
+    this.somaA += auxlPar.getA();
+    this.somaB += auxlPar.getB();
+  }
 
-    OrderedPair auxlPar;
-    for (int i = 0; i < listS.size(); i++) {
-      auxlPar = listS.get(i);
-      // Util.debugF("Somátorio de: [%d, %d]\n", auxlPar.getA(),
-      // auxlPar.getB());
-      a += auxlPar.getA();
-      b += auxlPar.getB();
-    }
-    return Utils.calcRatio(a, b);
+  private void SubtracaoRazao(OrderedPair auxlPar) {
+    this.somaA -= auxlPar.getA();
+    this.somaB -= auxlPar.getB();
+  }
+
+  private float calcularRazao() {
+    return (float) (this.somaA + this.parInicial.getA()) / (this.somaB + this.parInicial.getB());
   }
 
   /**
@@ -213,6 +182,7 @@ public class PPH_SelectSort {
 
         // Tenho que remover o par ordenado na posição i.
         listS.remove(count);
+        SubtracaoRazao(auxlPar);
       }
       else {
         count++;
@@ -221,29 +191,4 @@ public class PPH_SelectSort {
 
     return invalid;
   }
-
-  private float calcularRazao() {
-    return (float) (this.somaA + this.parInicial.getA()) / (this.somaB + this.parInicial.getB());
-  }
-
-  /**
-   * Calcula a nova razão quando um par é removido de S
-   * 
-   * @param ultimoParRemovidoA
-   * @param ultimoParRemovidoB
-   * @return Nova razão
-   */
-  private float calcularRazao(double ultimoParRemovidoA, double ultimoParRemovidoB) {
-    //Apenas decrementa os valores dos somatórios com
-    //o valor do par removido e retorna a nova razão
-    //Atualiza o somatório A
-    this.somaA -= ultimoParRemovidoA;
-    //Atualiza o somatório B
-    this.somaB -= ultimoParRemovidoB;
-
-    //Calcula a razão e retorna o novo valor
-    return calcularRazao();
-    //return (this.somatorioA + this.parInicial.a) / (this.somatorioB + this.parInicial.b);
-  }
-
 }
