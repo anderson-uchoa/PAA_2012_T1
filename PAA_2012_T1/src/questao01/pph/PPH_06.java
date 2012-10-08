@@ -20,10 +20,10 @@ public class PPH_06 {
   private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
-  List<OrderedPair>           listS;
+  private List<OrderedPair>   listS;
 
   // Este é o par(a0, b0).
-  OrderedPair                 initialPair;
+  private OrderedPair         initialPair;
 
   public static void main(String[] args) {
     String inputFile;

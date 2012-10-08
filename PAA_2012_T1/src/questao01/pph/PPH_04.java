@@ -17,13 +17,16 @@ import utilidade.Utils;
 public class PPH_04 {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
-  List<OrderedPair>           listS;
+  private List<OrderedPair>   listS;
 
   // Este é o par(a0, b0).
-  OrderedPair                 initialPair;
+  private OrderedPair         initialPair;
+
+  private long                somatoryA;
+  private long                somatoryB;
 
   public static void main(String[] args) {
     String inputFile;
@@ -83,9 +86,9 @@ public class PPH_04 {
       long iterations = 0;
       Log.printOntoScreen("Calculando...");
       while (System.currentTimeMillis() - startTime < 5000) {
-        // Inicia a matriz S com o tamanho de elementos de pares
-        // ordenados
-        // e 2 colunas.
+        // Inicia a matriz S com o tamanho de elementos de pares ordenados e 2 colunas.
+        somatoryA = initialPair.getA();
+        somatoryB = initialPair.getB();
         listS = new LinkedList<OrderedPair>();
 
         // Calcula a razão máxima.
@@ -119,7 +122,9 @@ public class PPH_04 {
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     OrderedPair auxlPar;
+    long iterations = 0;
     for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
+      iterations++;
       auxlPar = listNOfOrderedPairs.get(i);
 
       Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
@@ -136,10 +141,13 @@ public class PPH_04 {
           // Se existir algum par(ai / bi) que não seja maior do que a
           // razão atual, este par deve ser removido do listS e uma
           // nova razão deve ser calculada.
-          maximumRatio = updateRatio(listS);
+          //          maximumRatio = updateRatio(listS);
+          maximumRatio = Utils.calcRatio(somatoryA, somatoryB);
         }
       }
     }
+    Log.debugF("Número de passos: %d\n", iterations);
+
     return maximumRatio;
   }
 
@@ -150,18 +158,18 @@ public class PPH_04 {
    * @return Atualiza a razão baseada em A0 + somatório Ai até BN dividido por B0 + somatório Bi até BN.
    */
   private float updateRatio(List<OrderedPair> listS) {
-    long a = initialPair.getA();
-    long b = initialPair.getB();
+    //    long a = initialPair.getA();
+    //    long b = initialPair.getB();
 
-    OrderedPair auxlPar;
-    for (int i = 0; i < listS.size(); i++) {
-      auxlPar = listS.get(i);
-      // Util.debugF("Somátorio de: [%d, %d]\n", auxlPar.getA(),
-      // auxlPar.getB());
-      a += auxlPar.getA();
-      b += auxlPar.getB();
-    }
-    return Utils.calcRatio(a, b);
+    //OrderedPair auxlPar;
+    //for (int i = 0; i < listS.size(); i++) {
+    //  auxlPar = listS.get(i);
+    // Util.debugF("Somátorio de: [%d, %d]\n", auxlPar.getA(),
+    // auxlPar.getB());
+    somatoryA += listS.get(listS.size() - 1).getA();
+    somatoryB += listS.get(listS.size() - 1).getB();
+    //}
+    return Utils.calcRatio(somatoryA, somatoryB);
   }
 
   /**
@@ -183,6 +191,8 @@ public class PPH_04 {
         invalid = true;
 
         // Tenho que remover o par ordenado na posição i.
+        somatoryA -= auxlPar.getA();
+        somatoryB -= auxlPar.getB();
         listS.remove(count);
       }
       else {
