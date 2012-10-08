@@ -1,10 +1,5 @@
 package questao01.pph;
 
-/**
- * 
- * 
- * @author Rafael Oliveira Vasconcelos
- */
 public class MedianaPair {
   OrderedPair orderedPair;
   int         index;
