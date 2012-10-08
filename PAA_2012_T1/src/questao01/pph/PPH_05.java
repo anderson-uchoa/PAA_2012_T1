@@ -78,8 +78,8 @@ public class PPH_05 {
       listOrderedPairs.remove(0);
       listS = new LinkedList<OrderedPair>();
       // Ordanando a lista
-      //utilidade.MergeSort merge = new utilidade.MergeSort();
-      //merge.sort(listOrderedPairs);
+      utilidade.MergeSort merge = new utilidade.MergeSort();
+      merge.sort(listOrderedPairs);
       finalRatio = maximumRatio(listOrderedPairs);
       iterations++;
       // }
