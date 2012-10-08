@@ -125,25 +125,24 @@ public class Frascos_03 {
     // A quantidade de frascos que já usamos.
     int usedFlasks = 0;
     while (usedFlasks < flasks) {
-      // Incrementa em 1 o valor do próximo degrau. Tenho que incrementar logo no inicio, 
-      // porque não existe degrau 00000000, o primeiro é 00000001.
-      increment(output, startPos, endPos);
-
       while (true) {
         // Aumenta a quantidade de passos(tentativas de quebrar um frasco) que já foram dados.
         iterations++;
 
-        // Verifica se o degrau que jogamos foi maior ou igual ao degrau que quebra.
-        if (!checkIfBreaks(output, startPos, endPos, inputValue)) {
-          // Log.debugF("%s:\n", convertFromArray(output));
+        // Incrementa em 1 o valor do próximo degrau. Tenho que incrementar logo no inicio, 
+        // porque não existe degrau 00000000, o primeiro é 00000001.
+        // Se não conseguir incrementar é porque houve um estouro 11 + 1 = 100.
+        increment(output, startPos, endPos);
 
-          if (!increment(output, startPos, endPos)) {
-            // Se não conseguir incrementar é porque houve um estouro 11 + 1 = 100.
-            break;
-          }
-        }
-        else {
+        // Verifica se o degrau que jogamos foi maior ou igual ao degrau que quebra.
+        int result = checkIfBreaks(output, startPos, endPos, inputValue);
+        if (result == 0) {
           // Se quebrou sai do loop de dentro.
+          break;
+        }
+        else if (result > 0) {
+          // Se jogou acima do degrau que quebra, então temos que voltar.
+          decrement(output, startPos, endPos);
           break;
         }
       }
@@ -166,12 +165,11 @@ public class Frascos_03 {
    * @param inputValue
    * @return True se quebrou, false se não quebrou.
    */
-  private boolean checkIfBreaks(boolean[] output, int startPos, int endPos, String inputValue) {
+  private int checkIfBreaks(boolean[] output, int startPos, int endPos, String inputValue) {
     // Converte o array em uma String para facilitar a comparação.
-    StringBuilder sbOutPut = new StringBuilder(convertFromArray(output, startPos, endPos));
+    StringBuilder sbOutPut = new StringBuilder(convertFromArray(output, startPos, endPos + 1));
 
-    int result = sbOutPut.toString().compareTo(inputValue);
-    return (result >= 0);
+    return sbOutPut.toString().compareTo(inputValue.substring(startPos, endPos + 1));
   }
 
   /**
@@ -234,6 +232,17 @@ public class Frascos_03 {
     // então retorna false que significa que não da mais para incrementar;
     // Se não teve overflow, retorna true dizendo que a operação foi concluída com sucesso.
     return !overFlow;
+  }
+
+  /**
+   * @param input
+   * @param startPos
+   * @param endPos
+   */
+  private void decrement(boolean[] input, int startPos, int endPos) {
+    for (int i = startPos; i <= endPos; i++) {
+      input[i] = false;
+    }
   }
 
   /**
