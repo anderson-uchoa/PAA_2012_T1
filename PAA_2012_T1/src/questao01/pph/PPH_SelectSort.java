@@ -84,7 +84,8 @@ public class PPH_SelectSort {
       // Ordanando a lista
       utilidade.SelectionSort selectSort = new SelectionSort();
       int size = listOrderedPairs.size();
-      OrderedPair teste = selectSort.selectIterativo(listOrderedPairs, 0, size, size / 2);
+      //OrderedPair teste = selectSort.selectIterativo(listOrderedPairs, 0, size, size / 2);
+      OrderedPair teste = null;
       int index = listOrderedPairs.indexOf(teste);
       finalRatio = maximumRatio(listOrderedPairs, size, new MedianaPair(teste, index));
       iterations++;
