@@ -8,20 +8,19 @@ public class MergeSort {
 
   public <T extends Comparable<T>> void sort(List<T> list) {
     LinkedList<T> helper = new LinkedList<T>();
-    mergesort(0, list.size() - 1, list, helper);
-    Log.printOntoScreen("Número de passos: " + this.iterations);
+    mergeSort(0, list.size() - 1, list, helper);
+    //Log.printOntoScreen("Número de passos: " + this.iterations);
   }
 
-  private <T extends Comparable<T>> void mergesort(int low, int high, List<T> list, List<T> helper) {
-    //oooooooq
+  private <T extends Comparable<T>> void mergeSort(int low, int high, List<T> list, List<T> helper) {
     //  Check if low is smaller then high, if not then the array is sorted
     if (low < high) {
       // Get the index of the element which is in the middle
       int middle = (low + high) / 2;
       // Sort the left side of the array
-      mergesort(low, middle, list, helper);
+      mergeSort(low, middle, list, helper);
       // Sort the right side of the array
-      mergesort(middle + 1, high, list, helper);
+      mergeSort(middle + 1, high, list, helper);
       // Combine them both
       merge(low, middle, high, list, helper);
     }

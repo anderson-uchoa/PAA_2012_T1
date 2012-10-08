@@ -1,5 +1,6 @@
 package utilidade;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -40,7 +41,7 @@ public class Utils {
   public static List<OrderedPair> getValuesFromInputFile(Scanner scanner, int quantityOfInputValues) {
     // Cria a lista de pares ordenados com a quantidade de elementos que ele
     // vai conter.
-    List<OrderedPair> listNOfOrderedPairs = new LinkedList<OrderedPair>();
+    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>();
 
     List<Integer> listA = getListFromInputFile(scanner, quantityOfInputValues);
     List<Integer> listB = getListFromInputFile(scanner, quantityOfInputValues);

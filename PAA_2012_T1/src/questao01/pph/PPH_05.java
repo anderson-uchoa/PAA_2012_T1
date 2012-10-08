@@ -92,7 +92,8 @@ public class PPH_05 {
       Log.printList(listS);
 
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
-      Log.printOntoScreenF("Tempo de execução: %f\n", media);
+      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime);
+      Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
 
     }
     catch (Exception e) {

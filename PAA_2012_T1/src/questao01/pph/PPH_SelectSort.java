@@ -67,6 +67,7 @@ public class PPH_SelectSort {
       List<OrderedPair> listOrderedPairs = null;
       Log.printOntoScreen("Lendo arquivo...");
       List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+
       Log.printOntoScreen("Arquivo completo...");
       long startTime = System.currentTimeMillis();
 
@@ -82,22 +83,22 @@ public class PPH_SelectSort {
 
       listS = new LinkedList<OrderedPair>();
 
-      startTime = System.currentTimeMillis();
+      //startTime = System.currentTimeMillis();
       // Ordanando a lista
       SelectionSort selectSort = new SelectionSort();
       //int size = listOrderedPairs.size();
       int size = quantityOfInputValues - 1;
       MedianaPair mediana = selectSort.selectIterativo(listOrderedPairs, 0, size, size / 2);
-      long finishTime = System.currentTimeMillis();
-      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
+      //long finishTime = System.currentTimeMillis();
+      //Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
 
-      startTime = System.currentTimeMillis();
+      //startTime = System.currentTimeMillis();
       finalRatio = maximumRatio(listOrderedPairs, size, mediana);
-      finishTime = System.currentTimeMillis();
-      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
+      long finishTime = System.currentTimeMillis() - startTime;
+      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime);
       iterations++;
       // }
-      finishTime = System.currentTimeMillis() - startTime;
+      //finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
       Log.printOntoScreenF("Razão final: %f\n", finalRatio);
@@ -106,7 +107,8 @@ public class PPH_SelectSort {
       Log.printList(listS);
 
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
-      Log.printOntoScreenF("Tempo de execução: %f\n", media);
+      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime);
+      Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
 
     }
     catch (Exception e) {
