@@ -19,7 +19,7 @@ public class Frascos_03 {
   /**
    * O nome do input padrão(usado para testes).
    */
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_01.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_03.txt";
 
   /**
    * A quantidade de iterações que foi necessária para que o resultado esperado fosse encontrado.
@@ -63,7 +63,7 @@ public class Frascos_03 {
       int quantityOfInputValues = scanner.nextInt();
 
       // A quantidade de frascos que vai ser usada em cada teste.
-      int[] quantityOfFlasks = { 1, 2, 4, 8 };
+      int[] quantityOfFlasks = { 16, 8, 4, 2 };
 
       // Esta linha é apenas para forçar uma quebra de linha depois dos
       // números.
