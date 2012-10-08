@@ -17,7 +17,7 @@ public class Utils {
   public static List<OrderedPair> getValuesFromInputFile(int quantityOfInputValues) {
     Random rnd = new Random();
 
-    List<OrderedPair> listNOfOrderedPairs = new LinkedList<OrderedPair>();
+    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>();
     int a;
     int b;
 
@@ -39,9 +39,9 @@ public class Utils {
    * @return Obtém os valores que correspondem ao A ou ao B.
    */
   public static List<OrderedPair> getValuesFromInputFile(Scanner scanner, int quantityOfInputValues) {
-    // Cria a lista de pares ordenados com a quantidade de elementos que ele
-    // vai conter.
-    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>();
+    // Cria a lista de pares ordenados com a quantidade de elementos que ele vai conter.
+    //List<OrderedPair> listNOfOrderedPairs = new LinkedList<OrderedPair>();
+    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(quantityOfInputValues);
 
     List<Integer> listA = getListFromInputFile(scanner, quantityOfInputValues);
     List<Integer> listB = getListFromInputFile(scanner, quantityOfInputValues);
@@ -61,7 +61,7 @@ public class Utils {
    * @return Obtém os valores que correspondem ao A ou ao B.
    */
   public static List<Integer> getListFromInputFile(Scanner scanner, int quantityOfInputValues) {
-    List<Integer> listTemp = new LinkedList<Integer>();
+    List<Integer> listTemp = new ArrayList<Integer>(quantityOfInputValues);
     int inputValue;
 
     for (int i = 0; i < quantityOfInputValues; i++) {
