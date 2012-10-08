@@ -64,8 +64,8 @@ public class PPH_04 {
       // Obtém a quantidade de números contidos neste arquivo + 1(o a0 e
       // b0 não entram) * 2(porque é a mesma quantidade para o A e para o
       // B).
-      int quantityOfInputValues = scanner.nextInt() + 1;
-      //int quantityOfInputValues = 100;
+      //int quantityOfInputValues = scanner.nextInt() + 1;
+      int quantityOfInputValues = 10000;
 
       // A razão que deve ser calculada e apresentada no final.
       float finalRatio = 0;
@@ -75,9 +75,9 @@ public class PPH_04 {
       scanner.nextLine();
 
       // Obtém os valores que correspondem ao a = {1,.., n}
-      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
+      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
       Log.printOntoScreen("Obtendo valores do arquivo de entrada...");
-      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
       long startTime = System.currentTimeMillis();
 
       // Este é o par(a0, b0).
@@ -105,7 +105,8 @@ public class PPH_04 {
 
       Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
-      Log.printOntoScreenF("Tempo de execução: %f\n", media);
+      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime);
+      Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
 
     }
     catch (FileNotFoundException e) {

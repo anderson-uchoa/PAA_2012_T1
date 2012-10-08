@@ -39,8 +39,7 @@ public class Utils {
    * @return Obtém os valores que correspondem ao A ou ao B.
    */
   public static List<OrderedPair> getValuesFromInputFile(Scanner scanner, int quantityOfInputValues) {
-    // Cria a lista de pares ordenados com a quantidade de elementos que ele
-    // vai conter.
+    // Cria a lista de pares ordenados com a quantidade de elementos que ele vai conter.
     //List<OrderedPair> listNOfOrderedPairs = new LinkedList<OrderedPair>();
     List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(quantityOfInputValues);
 
