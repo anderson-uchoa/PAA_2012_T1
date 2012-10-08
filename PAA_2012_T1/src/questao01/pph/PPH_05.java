@@ -80,7 +80,7 @@ public class PPH_05 {
       // Ordanando a lista
       utilidade.Mergesort merge = new utilidade.Mergesort();
       merge.sort(listOrderedPairs);
-      finalRatio = maximumRation(listOrderedPairs);
+      finalRatio = maximumRatio(listOrderedPairs);
       iterations++;
       // }
       long finishTime = System.currentTimeMillis() - startTime;
