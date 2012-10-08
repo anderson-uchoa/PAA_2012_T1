@@ -10,7 +10,7 @@ import utilidade.Utils;
 
 public class PPH_05 {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   LinkedList<OrderedPair>     listS;
