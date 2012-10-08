@@ -118,7 +118,7 @@ public class Frascos_03 {
     // Baseado na quantidade de frascos disponíveis, precisamos saber de quantos em quantos passos(bits) vamos andar.
     int eachStep = inputValue.length() / flasks;
 
-    int starPos = 0;
+    int startPos = 0;
     // O -1 é para evitar indexOutOfBound, porque um elemento com 8 bits, vai de 0 à 7.
     int endPos = eachStep - 1;
 
@@ -126,66 +126,77 @@ public class Frascos_03 {
     int usedFlasks = 0;
     while (usedFlasks < flasks) {
       // Incrementa em 1 o valor do próximo passo.
-      increment(output);
+      increment(output, startPos, endPos);
 
       while (true) {
         // Aumenta a quantidade de passos(tentativas de quebrar um frasco) que já foram dados.
         iterations++;
 
-        increment(output);
+        increment(output, startPos, endPos);
         break;
       }
 
       // Aumenta em 1 a quantidade de frascos usados.
       usedFlasks++;
-      starPos = endPos + 1;
+      startPos = endPos + 1;
       endPos += eachStep;
     }
 
     return convertFromArray(output);
   }
 
-  /**
-   * @param output
-   */
-  private void increment(boolean[] output) {
+  private boolean increment(boolean[] input, int startPos, int endPos) {
+    // Obtém o tamanho da entrada.
+    int length = input.length;
+
+    // O incremento para resolver a nossa questão do trabalho sempre será 1. 
+    boolean[] increment = new boolean[length];
+    increment[length - 1] = true;
+
+    // O array que irá conter o resultado final deste incremento.
+    boolean[] output = new boolean[length];
+
+    // Informa se houve um buffer over flow.
+    boolean overFlow = false;
+
+    return true;
   }
 
   /**
    * Converte a string de entrada em um array de booleans(true ou false).
    * 
-   * @param value O degrau em que temos certeza que vai quebrar, é um dado usado apenas para comparações.
+   * @param input O degrau em que temos certeza que vai quebrar, é um dado usado apenas para comparações.
    * @return Um array de boolean correspondente a string de entrada.
    */
-  private boolean[] convertFromString(String value) {
+  private boolean[] convertFromString(String input) {
     // Obtém o tamanho da entrada.
-    int length = value.length();
-    boolean[] input = new boolean[length];
+    int length = input.length();
+    boolean[] output = new boolean[length];
 
     for (int i = 0; i < length; i++) {
       // Se o valor for "0", então o valor false é adicionado.
       // Se o valor for "1", então o valor true é adicionado.
-      input[i] = (value.charAt(i) == '0') ? false : true;
+      output[i] = (input.charAt(i) == '0') ? false : true;
     }
 
-    return input;
+    return output;
   }
 
   /**
    * Converte um array de boolean para uma string, onde true = 1 e false = 0.
    * 
-   * @param value O array que vai ser convertido
+   * @param input O array que vai ser convertido
    * @return Uma string, onde true = 1 e false = 0.
    */
-  private String convertFromArray(boolean[] value) {
+  private String convertFromArray(boolean[] input) {
     StringBuilder output = new StringBuilder();
 
     // Obtém o tamanho da entrada.
-    int length = value.length;
+    int length = input.length;
     for (int i = 0; i < length; i++) {
       // Se o valor for true,  então o valor "1" é adicionado.
       // Se o valor for false, então o valor "0" é adicionado.
-      output.append((value[i]) ? "1" : "0");
+      output.append((input[i]) ? "1" : "0");
     }
 
     return output.toString();
