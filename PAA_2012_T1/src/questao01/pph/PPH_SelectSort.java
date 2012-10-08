@@ -81,16 +81,23 @@ public class PPH_SelectSort {
       listOrderedPairs.remove(0);
 
       listS = new LinkedList<OrderedPair>();
+
+      startTime = System.currentTimeMillis();
       // Ordanando a lista
-      utilidade.SelectionSort selectSort = new SelectionSort();
-      int size = listOrderedPairs.size();
-      //OrderedPair teste = selectSort.selectIterativo(listOrderedPairs, 0, size, size / 2);
-      OrderedPair teste = null;
-      int index = listOrderedPairs.indexOf(teste);
-      finalRatio = maximumRatio(listOrderedPairs, size, new MedianaPair(teste, index));
+      SelectionSort selectSort = new SelectionSort();
+      //int size = listOrderedPairs.size();
+      int size = quantityOfInputValues - 1;
+      MedianaPair mediana = selectSort.selectIterativo(listOrderedPairs, 0, size, size / 2);
+      long finishTime = System.currentTimeMillis();
+      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
+
+      startTime = System.currentTimeMillis();
+      finalRatio = maximumRatio(listOrderedPairs, size, mediana);
+      finishTime = System.currentTimeMillis();
+      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
       iterations++;
       // }
-      long finishTime = System.currentTimeMillis() - startTime;
+      finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
       Log.printOntoScreenF("Razão final: %f\n", finalRatio);
