@@ -17,7 +17,7 @@ import utilidade.Utils;
 public class PPH_04 {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_10000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   private List<OrderedPair>   listS;
@@ -161,13 +161,13 @@ public class PPH_04 {
     //    long a = initialPair.getA();
     //    long b = initialPair.getB();
 
-    //OrderedPair auxlPar;
+    OrderedPair auxlPar = listS.get(listS.size() - 1);
     //for (int i = 0; i < listS.size(); i++) {
     //  auxlPar = listS.get(i);
     // Util.debugF("Somátorio de: [%d, %d]\n", auxlPar.getA(),
     // auxlPar.getB());
-    somatoryA += listS.get(listS.size() - 1).getA();
-    somatoryB += listS.get(listS.size() - 1).getB();
+    somatoryA += auxlPar.getA();
+    somatoryB += auxlPar.getB();
     //}
     return Utils.calcRatio(somatoryA, somatoryB);
   }
