@@ -63,7 +63,7 @@ public class Frascos_03 {
       int quantityOfInputValues = scanner.nextInt();
 
       // A quantidade de frascos que vai ser usada em cada teste.
-      int[] quantityOfFlasks = { 1, 2, 4, 8, 16 };
+      int[] quantityOfFlasks = { 1, 2, 4, 8 };
 
       // Esta linha é apenas para forçar uma quebra de linha depois dos
       // números.
@@ -125,15 +125,27 @@ public class Frascos_03 {
     // A quantidade de frascos que já usamos.
     int usedFlasks = 0;
     while (usedFlasks < flasks) {
-      // Incrementa em 1 o valor do próximo passo.
+      // Incrementa em 1 o valor do próximo degrau. Tenho que incrementar logo no inicio, 
+      // porque não existe degrau 00000000, o primeiro é 00000001.
       increment(output, startPos, endPos);
 
       while (true) {
         // Aumenta a quantidade de passos(tentativas de quebrar um frasco) que já foram dados.
         iterations++;
 
-        increment(output, startPos, endPos);
-        break;
+        // Verifica se o degrau que jogamos foi maior ou igual ao degrau que quebra.
+        if (!checkIfBreaks(output, startPos, endPos, inputValue)) {
+          // Log.debugF("%s:\n", convertFromArray(output));
+
+          if (!increment(output, startPos, endPos)) {
+            // Se não conseguir incrementar é porque houve um estouro 11 + 1 = 100.
+            break;
+          }
+        }
+        else {
+          // Se quebrou sai do loop de dentro.
+          break;
+        }
       }
 
       // Aumenta em 1 a quantidade de frascos usados.
@@ -145,21 +157,83 @@ public class Frascos_03 {
     return convertFromArray(output);
   }
 
+  /**
+   * Verifica se o degrau que jogamos foi maior ou igual ao degrau que quebra.
+   * 
+   * @param output
+   * @param startPos
+   * @param endPos
+   * @param inputValue
+   * @return True se quebrou, false se não quebrou.
+   */
+  private boolean checkIfBreaks(boolean[] output, int startPos, int endPos, String inputValue) {
+    // Converte o array em uma String para facilitar a comparação.
+    StringBuilder sbOutPut = new StringBuilder(convertFromArray(output, startPos, endPos));
+
+    int result = sbOutPut.toString().compareTo(inputValue);
+    return (result >= 0);
+  }
+
+  /**
+   * Incrementa em 1 o valor do próximo degrau. Tenho que incrementar logo no inicio, porque não existe degrau 00000000, o primeiro é 00000001.
+   * 
+   * @param input
+   * @param startPos
+   * @param endPos
+   * @return True se foi possível incrementar, False se houve um estouro 11 + 1 = 100.
+   */
   private boolean increment(boolean[] input, int startPos, int endPos) {
     // Obtém o tamanho da entrada.
-    int length = input.length;
+    int length = (endPos - startPos) + 1;
 
-    // O incremento para resolver a nossa questão do trabalho sempre será 1. 
+    // O incremento para resolver a nossa questão do trabalho sempre será 1, 
+    // mas para que o código ficasse genérico, fizemos o array de incremento 
+    // com o mesmo tamanho do de entrada mas com todos os seus valores inicializados com 0 -> false.
     boolean[] increment = new boolean[length];
     increment[length - 1] = true;
-
-    // O array que irá conter o resultado final deste incremento.
-    boolean[] output = new boolean[length];
 
     // Informa se houve um buffer over flow.
     boolean overFlow = false;
 
-    return true;
+    // O índice J é para evitar indexOutOfBound porque nem sempre os array têm o mesmo tamanho.
+    int j = endPos;
+    for (int i = length - 1; i >= 0; i--) {
+
+      if ((!input[j]) && (!increment[i])) { // input = 0, increment = 0.
+        if (!overFlow) {
+          input[j] = false;
+        }
+        else {
+          input[j] = true;
+          overFlow = false;
+        }
+      }
+      else if ((input[j] ^ increment[i])) { // input = 0, increment = 1 or input = 1, increment = 0.
+        if (!overFlow) {
+          input[j] = true;
+        }
+        else {
+          input[j] = false;
+          overFlow = true;
+        }
+      }
+      else if ((input[j]) && (increment[i])) { // input = 1, increment = 1.
+        if (!overFlow) {
+          input[j] = false;
+        }
+        else {
+          input[j] = true;
+        }
+        overFlow = true;
+      }
+
+      j--;
+    }
+
+    // Se no final teve um overflow significa que estourou o valor máximo, 
+    // então retorna false que significa que não da mais para incrementar;
+    // Se não teve overflow, retorna true dizendo que a operação foi concluída com sucesso.
+    return !overFlow;
   }
 
   /**
@@ -189,11 +263,21 @@ public class Frascos_03 {
    * @return Uma string, onde true = 1 e false = 0.
    */
   private String convertFromArray(boolean[] input) {
+    return convertFromArray(input, 0, input.length);
+  }
+
+  /**
+   * Converte um array de boolean para uma string, onde true = 1 e false = 0.
+   * 
+   * @param input O array que vai ser convertido
+   * @param startPos
+   * @param endPos
+   * @return Uma string, onde true = 1 e false = 0.
+   */
+  private String convertFromArray(boolean[] input, int startPos, int endPos) {
     StringBuilder output = new StringBuilder();
 
-    // Obtém o tamanho da entrada.
-    int length = input.length;
-    for (int i = 0; i < length; i++) {
+    for (int i = startPos; i < endPos; i++) {
       // Se o valor for true,  então o valor "1" é adicionado.
       // Se o valor for false, então o valor "0" é adicionado.
       output.append((input[i]) ? "1" : "0");
