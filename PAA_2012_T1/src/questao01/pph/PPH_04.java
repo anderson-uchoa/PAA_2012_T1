@@ -28,6 +28,8 @@ public class PPH_04 {
   private long                somatoryA;
   private long                somatoryB;
 
+  long                        iterations              = 0;
+
   public static void main(String[] args) {
     String inputFile;
     // Verifica se o arquivo de input foi passado como parâmetro.
@@ -62,8 +64,8 @@ public class PPH_04 {
       // Obtém a quantidade de números contidos neste arquivo + 1(o a0 e
       // b0 não entram) * 2(porque é a mesma quantidade para o A e para o
       // B).
-      int quantityOfInputValues = scanner.nextInt() + 1;
-      //int quantityOfInputValues = 100;
+      //int quantityOfInputValues = scanner.nextInt() + 1;
+      int quantityOfInputValues = 10000;
 
       // A razão que deve ser calculada e apresentada no final.
       float finalRatio = 0;
@@ -73,28 +75,28 @@ public class PPH_04 {
       scanner.nextLine();
 
       // Obtém os valores que correspondem ao a = {1,.., n}
-      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
+      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
       Log.printOntoScreen("Obtendo valores do arquivo de entrada...");
-      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+      long startTime = System.currentTimeMillis();
 
       // Este é o par(a0, b0).
       initialPair = listNOfOrderedPairs.get(0);
       // Remove o par(a0, b0) da lista N de pares ordenados
       listNOfOrderedPairs.remove(0);
 
-      long startTime = System.currentTimeMillis();
       long iterations = 0;
       Log.printOntoScreen("Calculando...");
-      while (System.currentTimeMillis() - startTime < 5000) {
-        // Inicia a matriz S com o tamanho de elementos de pares ordenados e 2 colunas.
-        somatoryA = initialPair.getA();
-        somatoryB = initialPair.getB();
-        listS = new LinkedList<OrderedPair>();
+      //while (System.currentTimeMillis() - startTime < 5000) {
+      // Inicia a matriz S com o tamanho de elementos de pares ordenados e 2 colunas.
+      somatoryA = initialPair.getA();
+      somatoryB = initialPair.getB();
+      listS = new LinkedList<OrderedPair>();
 
-        // Calcula a razão máxima.
-        finalRatio = maximumRatio(listNOfOrderedPairs);
-        iterations++;
-      }
+      // Calcula a razão máxima.
+      finalRatio = maximumRatio(listNOfOrderedPairs);
+      iterations++;
+      //}
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
@@ -104,7 +106,8 @@ public class PPH_04 {
 
       Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
-      Log.printOntoScreenF("Tempo de execução: %f\n", media);
+      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime);
+      Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
 
     }
     catch (FileNotFoundException e) {
@@ -122,7 +125,7 @@ public class PPH_04 {
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     OrderedPair auxlPar;
-    long iterations = 0;
+
     for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
       iterations++;
       auxlPar = listNOfOrderedPairs.get(i);
@@ -146,7 +149,7 @@ public class PPH_04 {
         }
       }
     }
-    Log.debugF("Número de passos: %d\n", iterations);
+    Log.printOntoScreenF("Número de passos: %d\n", iterations);
 
     return maximumRatio;
   }
@@ -183,6 +186,7 @@ public class PPH_04 {
     OrderedPair auxlPar;
     int count = 0;
     while (count < listS.size()) {
+      iterations++;
       auxlPar = listS.get(count);
 
       // Se o ratio for menor, então o par ordenado deve ser removido.

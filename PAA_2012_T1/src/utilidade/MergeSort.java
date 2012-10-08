@@ -1,35 +1,35 @@
 package utilidade;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MergeSort {
   int iterations = 0;
 
   public <T extends Comparable<T>> void sort(List<T> list) {
-    LinkedList<T> helper = new LinkedList<T>();
-    mergeSort(0, list.size() - 1, list, helper);
+    //List<T> helper = new ArrayList<T>();
+    mergeSort(0, list.size() - 1, list);
     //Log.printOntoScreen("Número de passos: " + this.iterations);
   }
 
-  private <T extends Comparable<T>> void mergeSort(int low, int high, List<T> list, List<T> helper) {
+  private <T extends Comparable<T>> void mergeSort(int low, int high, List<T> list) {
     //  Check if low is smaller then high, if not then the array is sorted
     if (low < high) {
       // Get the index of the element which is in the middle
       int middle = (low + high) / 2;
       // Sort the left side of the array
-      mergeSort(low, middle, list, helper);
+      mergeSort(low, middle, list);
       // Sort the right side of the array
-      mergeSort(middle + 1, high, list, helper);
+      mergeSort(middle + 1, high, list);
       // Combine them both
-      merge(low, middle, high, list, helper);
+      merge(low, middle, high, list);
     }
   }
 
-  private <T extends Comparable<T>> void merge(int low, int middle, int high, List<T> list, List<T> helper) {
+  private <T extends Comparable<T>> void merge(int low, int middle, int high, List<T> list) {
 
     // Copy both parts into the helper array
-    helper = new LinkedList<T>();
+    List<T> helper = new ArrayList<T>(list.size());
     helper.addAll(list);
 
     int i = low;
@@ -39,7 +39,7 @@ public class MergeSort {
     // to the original array
     while (i <= middle && j <= high) {
       this.iterations++;
-      if (helper.get(i).compareTo(helper.get(j)) <= 0) {
+      if (helper.get(i).compareTo(helper.get(j)) > 0) {
         list.set(k, helper.get(i));
         i++;
       }
@@ -55,6 +55,5 @@ public class MergeSort {
       k++;
       i++;
     }
-
   }
 }
