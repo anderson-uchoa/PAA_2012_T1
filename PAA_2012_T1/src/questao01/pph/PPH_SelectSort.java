@@ -11,14 +11,14 @@ import utilidade.Utils;
 
 public class PPH_SelectSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_10000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   LinkedList<OrderedPair>     listS;
 
   // Para evitar colocar numeros literais no código.
-  int                         somaA                   = 0;
-  int                         somaB                   = 0;
+  private int                 somaA                   = 0;
+  private int                 somaB                   = 0;
   OrderedPair                 parInicial;
 
   public static void main(String[] args) {
@@ -84,7 +84,7 @@ public class PPH_SelectSort {
       // Ordanando a lista
       utilidade.SelectionSort selectSort = new SelectionSort();
       int size = listOrderedPairs.size();
-      OrderedPair teste = selectSort.select(listOrderedPairs, 0, size, size / 2);
+      OrderedPair teste = selectSort.selectIterativo(listOrderedPairs, 0, size, size / 2);
       //      for (int i = 0; i < listOrderedPairs.indexOf(teste); i++) {
       //        if (listOrderedPairs.get(i).compareTo(teste) > 0) {
       //          System.out.println("opsss1!!!!!");
@@ -119,7 +119,7 @@ public class PPH_SelectSort {
    * @return A razão máxima.
    */
   private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, MedianaPair mediana) {
-
+    long startTime = System.currentTimeMillis();
     float maximumRatio = parInicial.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
@@ -140,7 +140,8 @@ public class PPH_SelectSort {
           listS.add(auxlPar);
 
           // Atualiza o R(razão).
-          maximumRatio = updateRatio(listS);
+          //maximumRatio = updateRatio(listS);
+          maximumRatio = calcularRazao();
           Log.debugF("Nova razão: %f\n", maximumRatio);
 
           if (isLemmaNotValid(listS, maximumRatio)) {
@@ -150,6 +151,8 @@ public class PPH_SelectSort {
         }
       }
     }
+    long endTime = System.currentTimeMillis();
+    System.out.println("maximumRatio - Fim: " + (endTime - startTime));
     Log.printOntoScreenF("Número de passos: %d\n", iterations);
     return maximumRatio;
     //float aux = 0;
@@ -218,4 +221,29 @@ public class PPH_SelectSort {
 
     return invalid;
   }
+
+  private float calcularRazao() {
+    return (float) (this.somaA + this.parInicial.getA()) / (this.somaB + this.parInicial.getB());
+  }
+
+  /**
+   * Calcula a nova razão quando um par é removido de S
+   * 
+   * @param ultimoParRemovidoA
+   * @param ultimoParRemovidoB
+   * @return Nova razão
+   */
+  private float calcularRazao(double ultimoParRemovidoA, double ultimoParRemovidoB) {
+    //Apenas decrementa os valores dos somatórios com
+    //o valor do par removido e retorna a nova razão
+    //Atualiza o somatório A
+    this.somaA -= ultimoParRemovidoA;
+    //Atualiza o somatório B
+    this.somaB -= ultimoParRemovidoB;
+
+    //Calcula a razão e retorna o novo valor
+    return calcularRazao();
+    //return (this.somatorioA + this.parInicial.a) / (this.somatorioB + this.parInicial.b);
+  }
+
 }

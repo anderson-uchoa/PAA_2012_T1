@@ -23,7 +23,33 @@ public class SelectionSort {
       return select(list, pivotNewIndex + 1, right, k - pivotDist);
   }
 
+  public OrderedPair selectIterativo(List<OrderedPair> list, int left, int right, int k) {
+    // select pivotIndex between left and right
+    long startTime = System.currentTimeMillis();
+    //System.out.println("selectIterativo - Início: " + startTime);
+    while (left != right) {
+      int median = medianOfMedians(list, left, right);
+      int pivotNewIndex = partition(list, left, right, median);
+      int pivotDist = pivotNewIndex - left + 1;
+      // The pivot is in its final sorted position,
+      // so pivotDist reflects its 1-based position if list were sorted
+      if (pivotDist == k)
+        return list.get(pivotNewIndex);
+      else if (k < pivotDist)
+        right = pivotNewIndex - 1;
+      else {
+        k = k - pivotDist;
+        left = pivotNewIndex + 1;
+      }
+    }
+    long endTime = System.currentTimeMillis();
+    System.out.println("selectIterativo - Fim: " + (endTime - startTime));
+    return list.get(left);
+  }
+
   private int partition(List<OrderedPair> list, int left, int right, int pivotIndex) {
+    long startTime = System.currentTimeMillis();
+    //System.out.println("partition Pivot inteiro - Início: " + startTime);
     OrderedPair swp;
     OrderedPair x = list.get(pivotIndex);
     int i = left - 1;
@@ -43,10 +69,14 @@ public class SelectionSort {
     //        System.out.println("ops...");
     //      }
     //    }
+    long endTime = System.currentTimeMillis();
+    System.out.println("selectIterativo - Fim: " + (endTime - startTime));
     return i + 1;
   }
 
   public MedianaPair partition(List<OrderedPair> list, int left, int right, OrderedPair orderedPairpivot) {
+    long startTime = System.currentTimeMillis();
+    //System.out.println("partition Pivot OrderedPair - Início: " + startTime);
     OrderedPair swp;
     int i = left - 1;
     for (int j = left; j < right - 1; j++) {
@@ -65,6 +95,8 @@ public class SelectionSort {
         System.out.println("ops...");
       }
     }
+    long endTime = System.currentTimeMillis();
+    System.out.println("selectIterativo - Fim: " + (endTime - startTime));
     return new MedianaPair(swp, i + 1);
   }
 
@@ -72,6 +104,8 @@ public class SelectionSort {
   // requires a variant of select, "selectIdx" which returns the index of the
   // selected item rather than the value
   private int medianOfMedians(List<OrderedPair> list, int left, int right) {
+    long startTime = System.currentTimeMillis();
+    //System.out.println("medianOfMediansr - Início: " + startTime);
     int numMedians = (right - left) / 5;
     int swap;
     for (int i = 0; i < numMedians; i++) {
@@ -87,10 +121,14 @@ public class SelectionSort {
       medianIdx = swap;
     }
     // select the median from the contiguous block
+    long endTime = System.currentTimeMillis();
+    //System.out.println("medianOfMedians - Fim: " + (endTime - startTime));
     return selectIdx(list, left, left + numMedians, numMedians / 2);
   }
 
   private int selectIdx(List<OrderedPair> list, int left, int right, int pivot) {
+    long startTime = System.currentTimeMillis();
+    //System.out.println("selectIdx - Início: " + startTime);
     InsertionSort(list, left, right);
     int idx;
     if ((left + right) % 2 == 0)
@@ -98,10 +136,14 @@ public class SelectionSort {
     else {
       idx = (((left + right + 1) / 2) + ((left + right + 1) / 2) + 1) / 2;
     }
+    long endTime = System.currentTimeMillis();
+    System.out.println("selectIdx - Fim: " + (endTime - startTime));
     return idx;
   }
 
   private void InsertionSort(List<OrderedPair> list, int left, int right) {
+    long startTime = System.currentTimeMillis();
+    //System.out.println("InsertionSort - Início: " + startTime);
     for (int j = left + 1; j < right; j++) {
       OrderedPair orderedPairkey = list.get(j);
       int i = j - 1;
@@ -111,5 +153,7 @@ public class SelectionSort {
       }
       list.set(i + 1, orderedPairkey);
     }
+    long endTime = System.currentTimeMillis();
+    System.out.println("InsertionSort - Fim: " + (endTime - startTime));
   }
 }
