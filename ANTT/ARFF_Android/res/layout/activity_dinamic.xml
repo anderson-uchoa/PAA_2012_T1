@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF" >
+    <TextView android:id="@+id/titlebar"
+		android:layout_height="40dp"
+		android:layout_width="match_parent"
+		android:paddingLeft="8dp"
+ 		android:background="@color/title_background"
+		android:gravity="center_vertical"
+		android:textColor="@color/title_text"
+		android:textStyle="bold"
+ 		android:textSize="14sp" />
+    
+	<RelativeLayout android:id="@+id/itemlayout"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/titlebar" />
+	
+	<RelativeLayout android:id="@+id/base"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/emptylayout"
+		android:gravity="center_horizontal" >
+		<Button	android:id="@+id/save"
+			android:layout_width="148dp"
+			android:layout_height="60dp"
+			android:text="Salvar" />
+		<TextView android:id="@+id/emptyspace"
+			android:layout_width="8dp"
+			android:layout_height="wrap_content"
+			android:layout_alignTop="@+id/save"
+			android:layout_toRightOf="@+id/save" />
+		<Button android:id="@+id/discard"
+			android:layout_width="148dp"
+			android:layout_height="60dp"
+			android:text="Descartar"
+			android:layout_alignTop="@+id/save"
+			android:layout_toRightOf="@+id/emptyspace" />
+	</RelativeLayout>
+	
+	<RelativeLayout android:id="@+id/emptylayout"
+		android:layout_width="wrap_content"
+		android:layout_height="8dp" 
+		android:layout_above="@+id/bottombar"/>
+
+	<TextView android:id="@+id/bottombar"
+    	android:layout_alignParentBottom="true" 
+		android:layout_height="40dp"
+		android:layout_width="match_parent"
+		android:gravity="center_vertical"
+ 		android:paddingLeft="8dp"
+		android:textColor="#000000"
+		android:textStyle="bold"/>
+</RelativeLayout>
