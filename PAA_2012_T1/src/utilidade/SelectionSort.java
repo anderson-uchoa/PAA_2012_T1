@@ -44,7 +44,8 @@ public class SelectionSort {
     }
     // long endTime = System.currentTimeMillis();
     // System.out.println("selectIterativo - Fim: " + (endTime - startTime));
-    return list.get(left);
+    //return list.get(left);
+    return new MedianaPair(swp, i + 1)
   }
 
   private int partition(List<OrderedPair> list, int left, int right, int pivotIndex) {
