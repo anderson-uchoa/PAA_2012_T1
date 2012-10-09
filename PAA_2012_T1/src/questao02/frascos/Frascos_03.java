@@ -19,26 +19,26 @@ public class Frascos_03 {
   /**
    * O nome do input padrão(usado para testes).
    */
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_01.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_02.txt";
 
-  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_16_01.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_16_01.txt";
 
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_02.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_03.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_02.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_03.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_02.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_03.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_192_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_192_02.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_192_03.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_192_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_256_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_256_02.txt";
@@ -139,10 +139,11 @@ public class Frascos_03 {
 
     // Baseado na quantidade de frascos disponíveis, precisamos saber de quantos em quantos passos(bits) vamos andar.
     int eachStep = inputValue.length() / flasks;
+    eachStep = (eachStep > 0) ? eachStep : 1;
 
     int startPos = 0;
     // O -1 é para evitar indexOutOfBound, porque um elemento com 8 bits, vai de 0 à 7.
-    int endPos = eachStep - 1;
+    int endPos = (eachStep - 1);
 
     // A quantidade de frascos que já usamos.
     int usedFlasks = 0;
@@ -227,6 +228,8 @@ public class Frascos_03 {
           input[j] = true;
           overFlow = false;
         }
+        // Se esta situação acontecer, acaba.
+        break;
       }
       else if ((input[j] ^ increment[i])) { // input = 0, increment = 1 or input = 1, increment = 0.
         if (!overFlow) {
