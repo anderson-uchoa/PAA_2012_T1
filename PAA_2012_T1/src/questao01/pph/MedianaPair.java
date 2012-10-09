@@ -1,8 +1,8 @@
 package questao01.pph;
 
 public class MedianaPair {
-  OrderedPair orderedPair;
-  int         index;
+  private OrderedPair orderedPair;
+  private int         index;
 
   public MedianaPair(OrderedPair orderedPair, int index) {
     this.orderedPair = orderedPair;

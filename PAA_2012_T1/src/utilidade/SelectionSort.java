@@ -6,9 +6,9 @@ import questao01.pph.MedianaPair;
 import questao01.pph.OrderedPair;
 
 public class SelectionSort {
-  public OrderedPair select(List<OrderedPair> list, int left, int right, int k) {
+  public MedianaPair select(List<OrderedPair> list, int left, int right, int k) {
     if (left == right) // If the list contains only one element
-      return list.get(left); // Return that element
+      return new MedianaPair(list.get(left), left);//list.get(left); // Return that element
     // select pivotIndex between left and right
     int median = medianOfMedians(list, left, right);
     int pivotNewIndex = partition(list, left, right, median);
@@ -16,7 +16,7 @@ public class SelectionSort {
     // The pivot is in its final sorted position,
     // so pivotDist reflects its 1-based position if list were sorted
     if (pivotDist == k)
-      return list.get(pivotNewIndex);
+      return new MedianaPair(list.get(left), left);//list.get(pivotNewIndex);
     else if (k < pivotDist)
       return select(list, left, pivotNewIndex - 1, k);
     else
@@ -27,7 +27,7 @@ public class SelectionSort {
     // select pivotIndex between left and right
     while (left != right) {
       int median = medianOfMedians(list, left, right);
-      int pivotNewIndex = partition(list, left, right, median);
+      int pivotNewIndex = Testepartition(list, left, right, median);
       int pivotDist = pivotNewIndex - left + 1;
       // The pivot is in its final sorted position,
       // so pivotDist reflects its 1-based position if list were sorted
@@ -43,9 +43,48 @@ public class SelectionSort {
     return new MedianaPair(list.get(left), left);
   }
 
-  private int partition(List<OrderedPair> list, int left, int right, int pivotIndex) {
+  int Testepartition(List<OrderedPair> list, int left, int right, int pivotIndex) {
+    int i = left, j = right - 1;
+    OrderedPair tmp;
+    //int pivot = arr[(left + right) / 2];
+    OrderedPair pivot = list.get(pivotIndex);
+    while (i <= j) {
+      while (list.get(i).compareTo(pivot) < 0)
+        i++;
+      while (list.get(j).compareTo(pivot) > 1)
+        j--;
+      if (i <= j) {
+        tmp = list.get(i);
+        list.set(i, list.get(j));
+        list.set(j, tmp);
+        i++;
+        j--;
+      }
+    }
+    ;
+
+    //    OrderedPair x = list.get(i);
+    //    for (int k = 1; k <= i + 1; k++) {
+    //      if (list.get(k - 1).compareTo(x) > 0) {
+    //        System.out.println("há um par maior que o pivot à esquerda....");
+    //      }
+    //    }
+    //
+    //    //Testando se há um par maior que o pivot a direita
+    //    for (int k = i + 1; k < list.size(); k++) {
+    //      OrderedPair p = list.get(j);
+    //      if (p.compareTo(x) < 0) {
+    //        System.out.println("há um par maior que o pivot a direita....");
+    //      }
+    //    }
+
+    return i;
+  }
+
+  public int partition(List<OrderedPair> list, int left, int right, int pivotIndex) {
     OrderedPair swp;
     OrderedPair x = list.get(pivotIndex);
+
     int i = left - 1;
     for (int j = left; j < right - 1; j++) {
       if (list.get(j).compareTo(x) < 1) {
@@ -59,25 +98,63 @@ public class SelectionSort {
     list.set(i + 1, list.get(right - 1));
     list.set(right - 1, swp);
 
+    //swap list[pivotIndex] and list[right]  // Move pivot to end
+    // Versao Wikipedia - Não funciona
+    //    swp = list.get(pivotIndex);
+    //    list.set(pivotIndex, list.get(right - 1));
+    //    list.set(right - 1, swp);
+    //
+    //    int storeIndex = left;
+    //    for (int i = left; i <= right - 1; i++) {
+    //      if (list.get(i).compareTo(x) < 1) {
+    //        //swap list[storeIndex] and list[i]
+    //        swp = list.get(storeIndex);
+    //        list.set(pivotIndex, list.get(i));
+    //        list.set(i, swp);
+    //        storeIndex++;
+    //      }
+    //    }
+    //    //swap list[right] and list[storeIndex]  // Move pivot to its final place
+    //    swp = list.get(right - 1);
+    //    list.set(right - 1, list.get(storeIndex));
+    //    list.set(storeIndex, swp);
+    //return storeIndex;
+
+    // Testando se há um par maior que o pivot à esquerda
+    x = list.get(i + 1);
+    for (int j = 1; j <= i + 1; j++) {
+      if (list.get(j - 1).compareTo(x) > 0) {
+        System.out.println("há um par maior que o pivot à esquerda....");
+      }
+    }
+
+    //Testando se há um par maior que o pivot a direita
+    for (int j = i + 1; j < list.size(); j++) {
+      OrderedPair p = list.get(j);
+      if (p.compareTo(x) < 0) {
+        System.out.println("há um par maior que o pivot a direita....");
+      }
+    }
+
     return i + 1;
   }
 
-  public MedianaPair partition(List<OrderedPair> list, int left, int right, OrderedPair orderedPairpivot) {
-    OrderedPair swp;
-    int i = left - 1;
-    for (int j = left; j < right - 1; j++) {
-      if (list.get(j).compareTo(orderedPairpivot) < 1) {
-        i += 1;
-        swp = list.get(i);
-        list.set(i, list.get(j));
-        list.set(j, swp);
-      }
-    }
-    swp = list.get(i + 1);
-    list.set(i + 1, list.get(right - 1));
-    list.set(right - 1, swp);
-    return new MedianaPair(swp, i + 1);
-  }
+  //  public MedianaPair partition(List<OrderedPair> list, int left, int right, OrderedPair orderedPairpivot) {
+  //    OrderedPair swp;
+  //    int i = left - 1;
+  //    for (int j = left; j < right - 1; j++) {
+  //      if (list.get(j).compareTo(orderedPairpivot) < 1) {
+  //        i += 1;
+  //        swp = list.get(i);
+  //        list.set(i, list.get(j));
+  //        list.set(j, swp);
+  //      }
+  //    }
+  //    swp = list.get(i + 1);
+  //    list.set(i + 1, list.get(right - 1));
+  //    list.set(right - 1, swp);
+  //    return new MedianaPair(swp, i + 1);
+  //  }
 
   // returns the index of the median of medians.
   // requires a variant of select, "selectIdx" which returns the index of the
@@ -117,11 +194,11 @@ public class SelectionSort {
     return idx;
   }
 
-  private void InsertionSort(List<OrderedPair> list, int left, int right) {
-    for (int j = 0; j < list.size(); j++) {
+  public void InsertionSort(List<OrderedPair> list, int left, int right) {
+    for (int j = left + 1; j < list.size(); j++) {
       OrderedPair orderedPairkey = list.get(j);
       int i = j - 1;
-      while (i >= 0 && list.get(j).compareTo(orderedPairkey) > 0) {
+      while (i >= 0 && list.get(i).compareTo(orderedPairkey) > 0) {
         list.set(i + 1, list.get(i));
         i = i - 1;
       }
