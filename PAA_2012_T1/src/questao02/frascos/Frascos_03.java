@@ -22,11 +22,11 @@ public class Frascos_03 {
   //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_02.txt";
 
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_16_01.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_16_01.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_03.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_02.txt";
@@ -158,7 +158,7 @@ public class Frascos_03 {
         increment(output, startPos, endPos);
 
         // Verifica se o degrau que jogamos foi maior ou igual ao degrau que quebra.
-        int result = checkIfBreaks(output, startPos, endPos, inputValue);
+        int result = checkIfBreaks(output, startPos, endPos, input);
         if (result == 0) {
           // Se quebrou sai do loop de dentro.
           break;
@@ -185,14 +185,19 @@ public class Frascos_03 {
    * @param output
    * @param startPos
    * @param endPos
-   * @param inputValue
+   * @param input
    * @return True se quebrou, false se não quebrou.
    */
-  private int checkIfBreaks(boolean[] output, int startPos, int endPos, String inputValue) {
-    // Converte o array em uma String para facilitar a comparação.
-    String sbOutPut = convertFromArray(output, startPos, endPos + 1);
+  private int checkIfBreaks(boolean[] output, int startPos, int endPos, boolean[] input) {
+    for (int i = startPos; i <= endPos; i++) {
+      if (output[i] != input[i]) {
+        // output = 1 e input = 0.
+        return ((output[i]) && (!input[i])) ? 1 : -1;
+      }
+    }
 
-    return sbOutPut.compareTo(inputValue.substring(startPos, endPos + 1));
+    // Eles são iguais.
+    return 0;
   }
 
   /**
