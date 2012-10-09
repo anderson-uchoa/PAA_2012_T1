@@ -19,7 +19,30 @@ public class Frascos_03 {
   /**
    * O nome do input padrão(usado para testes).
    */
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_03.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_02.txt";
+
+  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_16_01.txt";
+
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_02.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_03.txt";
+
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_02.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_03.txt";
+
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_02.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_03.txt";
+
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_192_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_192_02.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_192_03.txt";
+
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_256_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_256_02.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_256_03.txt";
 
   /**
    * A quantidade de iterações que foi necessária para que o resultado esperado fosse encontrado.
@@ -31,7 +54,6 @@ public class Frascos_03 {
     // Verifica se o arquivo de input foi passado como parâmetro.
     if (args.length == 1) {
       inputFile = args[0];
-
     }
     else {
       // Caso nenhum arquivo tenha sido informado, testa com o arquivo
@@ -63,7 +85,7 @@ public class Frascos_03 {
       int quantityOfInputValues = scanner.nextInt();
 
       // A quantidade de frascos que vai ser usada em cada teste.
-      int[] quantityOfFlasks = { 16, 8, 4, 2 };
+      int[] quantityOfFlasks = { 16, 8, 4, 2, 1 };
 
       // Esta linha é apenas para forçar uma quebra de linha depois dos
       // números.
@@ -167,9 +189,9 @@ public class Frascos_03 {
    */
   private int checkIfBreaks(boolean[] output, int startPos, int endPos, String inputValue) {
     // Converte o array em uma String para facilitar a comparação.
-    StringBuilder sbOutPut = new StringBuilder(convertFromArray(output, startPos, endPos + 1));
+    String sbOutPut = convertFromArray(output, startPos, endPos + 1);
 
-    return sbOutPut.toString().compareTo(inputValue.substring(startPos, endPos + 1));
+    return sbOutPut.compareTo(inputValue.substring(startPos, endPos + 1));
   }
 
   /**
