@@ -102,7 +102,7 @@ public class Frascos_03 {
         inputValue = scanner.nextLine();
 
         String stepItBroke = null;
-        // Este loop vai iterar o mesmo número que foi lido do arquivo vezes a quantidade de frascos que vai ser testado. ex: 1, 2, 4, 8, 16
+        // Este loop vai iterar o mesmo número que foi lido do arquivo vezes a quantidade de frascos que vai ser testado. ex: 16, 8, 4, 2, 1
         for (int flasks : quantityOfFlasks) {
           startTime = System.currentTimeMillis();
           iterations = 0;
