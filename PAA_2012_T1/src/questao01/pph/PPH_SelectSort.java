@@ -1,6 +1,7 @@
 package questao01.pph;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ import utilidade.Utils;
 
 public class PPH_SelectSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -77,34 +78,25 @@ public class PPH_SelectSort {
       // Removendo da lista o par inicial
       listOriginalPair.remove(0);
 
-      listS = new LinkedList<OrderedPair>();
+      listS = new ArrayList<OrderedPair>();
 
-      startTime = System.currentTimeMillis();
+      //startTime = System.currentTimeMillis();
       // Ordanando a lista
       SelectionSort selectSort = new SelectionSort();
       //int size = listOrderedPairs.size();
       int size = quantityOfInputValues - 1;
-      // Testando o insertionSort - OK !
-      //      selectSort.InsertionSort(listOrderedPairs, 0, size);
-      //      for (int i = 1; i < listOrderedPairs.size(); i++) {
-      //        if (listOrderedPairs.get(i - 1).compareTo(listOrderedPairs.get(i)) > 0) {
-      //          System.out.println("Ops....");
-      //        }
-      //      }
-
-      //selectSort.partition(listOrderedPairs, 0, listOrderedPairs.size(), listOrderedPairs.size() / 2);
 
       MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
       long finishTime = System.currentTimeMillis();
       Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
 
-      startTime = System.currentTimeMillis();
+      //startTime = System.currentTimeMillis();
       finalRatio = maximumRatio(listOriginalPair, size, mediana);
       finishTime = System.currentTimeMillis();
       Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
       iterations++;
       // }
-      finishTime = System.currentTimeMillis() - startTime;
+      //finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
       Log.printOntoScreenF("Razão final: %f\n", finalRatio);

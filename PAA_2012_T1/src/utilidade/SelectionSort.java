@@ -53,6 +53,7 @@ public class SelectionSort {
         i++;
       while (list.get(j).compareTo(pivot) > 1)
         j--;
+
       if (i <= j) {
         tmp = list.get(i);
         list.set(i, list.get(j));
@@ -121,20 +122,20 @@ public class SelectionSort {
     //return storeIndex;
 
     // Testando se há um par maior que o pivot à esquerda
-    x = list.get(i + 1);
-    for (int j = 1; j <= i + 1; j++) {
-      if (list.get(j - 1).compareTo(x) > 0) {
-        System.out.println("há um par maior que o pivot à esquerda....");
-      }
-    }
-
-    //Testando se há um par maior que o pivot a direita
-    for (int j = i + 1; j < list.size(); j++) {
-      OrderedPair p = list.get(j);
-      if (p.compareTo(x) < 0) {
-        System.out.println("há um par maior que o pivot a direita....");
-      }
-    }
+    //    x = list.get(i + 1);
+    //    for (int j = 1; j <= i + 1; j++) {
+    //      if (list.get(j - 1).compareTo(x) > 0) {
+    //        System.out.println("há um par maior que o pivot à esquerda....");
+    //      }
+    //    }
+    //
+    //    //Testando se há um par maior que o pivot a direita
+    //    for (int j = i + 1; j < list.size(); j++) {
+    //      OrderedPair p = list.get(j);
+    //      if (p.compareTo(x) < 0) {
+    //        System.out.println("há um par maior que o pivot a direita....");
+    //      }
+    //    }
 
     return i + 1;
   }
@@ -205,5 +206,34 @@ public class SelectionSort {
 
       list.set(i + 1, orderedPairkey);
     }
+  }
+
+  ///////////////// Cormen achado na net em Java - Mesmo problema do meu
+  private int Teste2partition(List<OrderedPair> array, int left, int right, int pivotIdx) {
+
+    // Select pivot element
+    OrderedPair pivot = array.get(pivotIdx);
+
+    int i = left - 1;
+    for (int j = left; j < right - 1; j++) {
+      if (array.get(j).compareTo(pivot) < 1) {
+        i++;
+        swap(array, i, j);
+      }
+    }
+
+    // Move the pivot element in the middle of the array
+    swap(array, i + 1, right - 1);
+
+    // Return the pivot element index
+    return i + 1;
+  }
+
+  /** Swaps the values at the specified array indexes */
+  private void swap(List<OrderedPair> array, int a, int b) {
+    OrderedPair temp = array.get(a);
+    array.set(a, array.get(b));
+    array.set(b, temp);
+
   }
 }
