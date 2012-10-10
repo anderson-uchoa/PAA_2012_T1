@@ -1,6 +1,7 @@
 package questao01.pph;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,10 +12,10 @@ import utilidade.Utils;
 
 public class PPH_SelectSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_10.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
-  LinkedList<OrderedPair>     listS;
+  List<OrderedPair>           listS;
 
   // Para evitar colocar numeros literais no código.
   private int                 somaA                   = 0;
@@ -26,6 +27,7 @@ public class PPH_SelectSort {
     // Verifica se o arquivo de input foi passado como parâmetro.
     if (args.length == 1) {
       inputFile = args[0];
+
     }
     else {
       // Caso nenhum arquivo tenha sido informado, testa com o arquivo
@@ -65,7 +67,6 @@ public class PPH_SelectSort {
 
       Log.printOntoScreen("Lendo arquivo...");
       List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
-
       Log.printOntoScreen("Arquivo completo...");
       long startTime = System.currentTimeMillis();
 
@@ -77,22 +78,22 @@ public class PPH_SelectSort {
       // Removendo da lista o par inicial
       listOriginalPair.remove(0);
 
-      listS = new LinkedList<OrderedPair>();
+      listS = new ArrayList<OrderedPair>();
 
       //startTime = System.currentTimeMillis();
       // Ordanando a lista
       SelectionSort selectSort = new SelectionSort();
       //int size = listOrderedPairs.size();
       int size = quantityOfInputValues - 1;
+
       MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
-      //long finishTime = System.currentTimeMillis();
-      //Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
+      long finishTime = System.currentTimeMillis();
+      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
 
       //startTime = System.currentTimeMillis();
       finalRatio = maximumRatio(listOriginalPair, size, mediana);
-
-      long finishTime = System.currentTimeMillis() - startTime;
-      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime);
+      finishTime = System.currentTimeMillis();
+      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
       iterations++;
       // }
       //finishTime = System.currentTimeMillis() - startTime;
@@ -104,8 +105,7 @@ public class PPH_SelectSort {
       Log.printList(listS);
 
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
-      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime);
-      Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
+      Log.printOntoScreenF("Tempo de execução: %f\n", media);
 
     }
     catch (Exception e) {
@@ -129,7 +129,7 @@ public class PPH_SelectSort {
     listS = new LinkedList<OrderedPair>();
 
     OrderedPair auxlPar;
-    for (int i = mediana.index; i < count; i++) {
+    for (int i = count - 1; i >= mediana.getIndex(); i--) {
       iterations++;
       auxlPar = listNOfOrderedPairs.get(i);
 
@@ -138,13 +138,12 @@ public class PPH_SelectSort {
       if (auxlPar.getRatio() > maximumRatio) {
         // Então coloca o par(ai e o bi) na lista S.
         listS.add(auxlPar);
+        //  Atualiza o R(razão).
         SomaRazao(auxlPar);
-        // Atualiza o R(razão).
         maximumRatio = calcularRazao();
         Log.debugF("Nova razão: %f\n", maximumRatio);
       }
-      else
-        break;
+
     }
     //long endTime = System.currentTimeMillis();
     //System.out.println("maximumRatio - Fim: " + (endTime - startTime));
