@@ -27,7 +27,7 @@ public class SelectionSort {
     // select pivotIndex between left and right
     while (left != right) {
       int median = medianOfMedians(list, left, right);
-      int pivotNewIndex = Testepartition(list, left, right, median);
+      int pivotNewIndex = partition(list, left, right, median);
       int pivotDist = pivotNewIndex - left + 1;
       // The pivot is in its final sorted position,
       // so pivotDist reflects its 1-based position if list were sorted
@@ -43,7 +43,7 @@ public class SelectionSort {
     return new MedianaPair(list.get(left), left);
   }
 
-  int Testepartition(List<OrderedPair> list, int left, int right, int pivotIndex) {
+  private int partition(List<OrderedPair> list, int left, int right, int pivotIndex) {
     int i = left, j = right - 1;
     OrderedPair tmp;
     OrderedPair pivot = list.get(pivotIndex);
@@ -61,99 +61,8 @@ public class SelectionSort {
       j--;
     }
     ;
-
-    //    OrderedPair x = list.get(i - 1);
-    //    for (int k = 1; k <= i - 1; k++) {
-    //      if (list.get(k - 1).compareTo(x) > 0) {
-    //        System.out.println("há um par maior que o pivot à esquerda....");
-    //      }
-    //    }
-    //
-    //    //Testando se há um par maior que o pivot a direita
-    //    for (int k = i - 1; k < list.size(); k++) {
-    //      OrderedPair p = list.get(j);
-    //      if (p.compareTo(x) < 0) {
-    //        System.out.println("há um par maior que o pivot a direita....");
-    //      }
-    //    }
-
     return i;
   }
-
-  public int partition(List<OrderedPair> list, int left, int right, int pivotIndex) {
-    OrderedPair swp;
-    OrderedPair x = list.get(pivotIndex);
-
-    int i = left - 1;
-    for (int j = left; j < right - 1; j++) {
-      if (list.get(j).compareTo(x) < 1) {
-        i += 1;
-        swp = list.get(i);
-        list.set(i, list.get(j));
-        list.set(j, swp);
-      }
-    }
-    swp = list.get(i + 1);
-    list.set(i + 1, list.get(right - 1));
-    list.set(right - 1, swp);
-
-    //swap list[pivotIndex] and list[right]  // Move pivot to end
-    // Versao Wikipedia - Não funciona
-    //    swp = list.get(pivotIndex);
-    //    list.set(pivotIndex, list.get(right - 1));
-    //    list.set(right - 1, swp);
-    //
-    //    int storeIndex = left;
-    //    for (int i = left; i <= right - 1; i++) {
-    //      if (list.get(i).compareTo(x) < 1) {
-    //        //swap list[storeIndex] and list[i]
-    //        swp = list.get(storeIndex);
-    //        list.set(pivotIndex, list.get(i));
-    //        list.set(i, swp);
-    //        storeIndex++;
-    //      }
-    //    }
-    //    //swap list[right] and list[storeIndex]  // Move pivot to its final place
-    //    swp = list.get(right - 1);
-    //    list.set(right - 1, list.get(storeIndex));
-    //    list.set(storeIndex, swp);
-    //return storeIndex;
-
-    // Testando se há um par maior que o pivot à esquerda
-    //    x = list.get(i + 1);
-    //    for (int j = 1; j <= i + 1; j++) {
-    //      if (list.get(j - 1).compareTo(x) > 0) {
-    //        System.out.println("há um par maior que o pivot à esquerda....");
-    //      }
-    //    }
-    //
-    //    //Testando se há um par maior que o pivot a direita
-    //    for (int j = i + 1; j < list.size(); j++) {
-    //      OrderedPair p = list.get(j);
-    //      if (p.compareTo(x) < 0) {
-    //        System.out.println("há um par maior que o pivot a direita....");
-    //      }
-    //    }
-
-    return i + 1;
-  }
-
-  //  public MedianaPair partition(List<OrderedPair> list, int left, int right, OrderedPair orderedPairpivot) {
-  //    OrderedPair swp;
-  //    int i = left - 1;
-  //    for (int j = left; j < right - 1; j++) {
-  //      if (list.get(j).compareTo(orderedPairpivot) < 1) {
-  //        i += 1;
-  //        swp = list.get(i);
-  //        list.set(i, list.get(j));
-  //        list.set(j, swp);
-  //      }
-  //    }
-  //    swp = list.get(i + 1);
-  //    list.set(i + 1, list.get(right - 1));
-  //    list.set(right - 1, swp);
-  //    return new MedianaPair(swp, i + 1);
-  //  }
 
   // returns the index of the median of medians.
   // requires a variant of select, "selectIdx" which returns the index of the
@@ -201,30 +110,8 @@ public class SelectionSort {
         list.set(i + 1, list.get(i));
         i = i - 1;
       }
-
       list.set(i + 1, orderedPairkey);
     }
-  }
-
-  ///////////////// Cormen achado na net em Java - Mesmo problema do meu
-  private int Teste2partition(List<OrderedPair> array, int left, int right, int pivotIdx) {
-
-    // Select pivot element
-    OrderedPair pivot = array.get(pivotIdx);
-
-    int i = left - 1;
-    for (int j = left; j < right - 1; j++) {
-      if (array.get(j).compareTo(pivot) < 1) {
-        i++;
-        swap(array, i, j);
-      }
-    }
-
-    // Move the pivot element in the middle of the array
-    swap(array, i + 1, right - 1);
-
-    // Return the pivot element index
-    return i + 1;
   }
 
   /** Swaps the values at the specified array indexes */
@@ -234,46 +121,4 @@ public class SelectionSort {
     array.set(b, temp);
 
   }
-
-  public int partitionArray(OrderedPair[] array, int left, int right) {
-
-    // Select pivot element
-    OrderedPair pivot = array[right - 1];
-
-    int i = left - 1;
-    for (int j = left; j < right - 1; j++) {
-      if (array[j].compareTo(pivot) < 1) {
-        i++;
-        swapArray(array, i, j);
-      }
-    }
-
-    // Move the pivot element in the middle of the array
-    swapArray(array, i + 1, right - 1);
-
-    // Return the pivot element index
-    OrderedPair x = array[i + 1];
-    for (int k = 1; k <= i + 1; k++) {
-      if (array[k - 1].compareTo(x) > 0) {
-        System.out.println("há um par maior que o pivot à esquerda....");
-      }
-    }
-
-    //Testando se há um par maior que o pivot a direita
-    for (int k = i + 1; k < array.length; k++) {
-      OrderedPair p = array[k];
-      if (p.compareTo(x) < 0) {
-        System.out.println("há um par maior que o pivot a direita....");
-      }
-    }
-    return i + 1;
-  }
-
-  /** Swaps the values at the specified array indexes */
-  private void swapArray(OrderedPair[] array, int a, int b) {
-    OrderedPair temp = array[a];
-    array[a] = array[b];
-    array[b] = temp;
-  }
-
 }

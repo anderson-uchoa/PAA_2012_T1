@@ -12,7 +12,7 @@ import utilidade.Utils;
 
 public class PPH_SelectSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -37,7 +37,6 @@ public class PPH_SelectSort {
       // Informa que a applicação esta em modo debug.
       Log.isDebugging = false;
     }
-
     PPH_SelectSort pph = new PPH_SelectSort();
     pph.run(inputFile);
   }
@@ -83,19 +82,16 @@ public class PPH_SelectSort {
       // Ordanando a lista
       SelectionSort selectSort = new SelectionSort();
       int size = quantityOfInputValues - 1;
-      OrderedPair[] array = new OrderedPair[listOriginalPair.size()];
       MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
 
-      long finishTime = System.currentTimeMillis();
-      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
-
       finalRatio = maximumRatio(listOriginalPair, size, mediana);
-      finishTime = System.currentTimeMillis();
+      long finishTime = System.currentTimeMillis();
       Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
       iterations++;
       // }
       float media = (float) finishTime / iterations;
       Log.printOntoScreenF("Razão final: %f\n", finalRatio);
+      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
       Log.printOntoScreenF("Tamanho de S: %d \n", listS.size());
       Log.printOntoScreen("Conjunto S*: ");
       Log.printList(listS);
