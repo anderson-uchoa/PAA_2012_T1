@@ -19,14 +19,14 @@ public class Frascos_03 {
   /**
    * O nome do input padrão(usado para testes).
    */
-  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_01.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_01.txt";
   //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_02.txt";
 
   //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_16_01.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_02.txt";
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_03.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_02.txt";
@@ -111,10 +111,10 @@ public class Frascos_03 {
           findTheStepItBreaks(inputValue, flasks);
 
           finishTime = System.currentTimeMillis() - startTime;
-          Log.debugF("Tempo de execução: %d\n", finishTime);
+          Log.printOntoScreenF("Tempo de execução: %d\n", finishTime);
         }
 
-        Log.debug("");
+        Log.printOntoScreen("");
         cont++;
       }
     }
@@ -178,7 +178,8 @@ public class Frascos_03 {
     }
 
     String stepItBroke = convertFromArray(output);
-    Log.debugF("Entrada %s, saída %s com %2d frasco(s), quebraram %d e precisou de %2d passos. ", inputValue, stepItBroke, flasks, usedFlasks, iterations);
+    Log.printOntoScreenF("Entrada %s, saída %s com %2d frasco(s), quebraram %d e precisou de %2d passos. ", inputValue, stepItBroke, flasks, usedFlasks,
+      iterations);
 
     return stepItBroke;
   }
