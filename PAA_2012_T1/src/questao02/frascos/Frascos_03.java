@@ -111,7 +111,7 @@ public class Frascos_03 {
           findTheStepItBreaks(inputValue, flasks);
 
           finishTime = System.currentTimeMillis() - startTime;
-          Log.printOntoScreenF("Tempo de execução: %d\n", finishTime);
+          Log.printOntoScreenF("Tempo de execucao: %d\n", finishTime);
         }
 
         Log.printOntoScreen("");
@@ -178,7 +178,7 @@ public class Frascos_03 {
     }
 
     String stepItBroke = convertFromArray(output);
-    Log.printOntoScreenF("Entrada %s, saída %s com %2d frasco(s), quebraram %d e precisou de %2d passos. ", inputValue, stepItBroke, flasks, usedFlasks,
+    Log.printOntoScreenF("Entrada %s, saida %s com %2d frasco(s), quebraram %d e precisou de %2d passos. ", inputValue, stepItBroke, flasks, usedFlasks,
       iterations);
 
     return stepItBroke;
