@@ -20,7 +20,7 @@ public class Frascos_03 {
    * O nome do input padrão(usado para testes).
    */
   //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_02.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_02.txt";
 
   //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_16_01.txt";
 
@@ -101,16 +101,15 @@ public class Frascos_03 {
         // Exemplo: X = 00111110 = 62.
         inputValue = scanner.nextLine();
 
-        String stepItBroke = null;
+        //String stepItBroke = null;
         // Este loop vai iterar o mesmo número que foi lido do arquivo vezes a quantidade de frascos que vai ser testado. ex: 16, 8, 4, 2, 1
         for (int flasks : quantityOfFlasks) {
           startTime = System.currentTimeMillis();
           iterations = 0;
 
           // Encontra em que degrau da escada o frasco quebrou.
-          stepItBroke = findTheStepItBreaks(inputValue, flasks);
+          findTheStepItBreaks(inputValue, flasks);
 
-          Log.debugF("Entrada %s, saída %s com %2d frasco(s) precisou de %2d passos. ", inputValue, stepItBroke, flasks, iterations);
           finishTime = System.currentTimeMillis() - startTime;
           Log.debugF("Tempo de execução: %d\n", finishTime);
         }
@@ -137,6 +136,8 @@ public class Frascos_03 {
     // Um array que irá contér o degrau máximo em que o frasco é quebrado. 
     boolean[] output = new boolean[input.length];
 
+    int sizeInBitsOfInputValues = input.length;
+
     // Baseado na quantidade de frascos disponíveis, precisamos saber de quantos em quantos passos(bits) vamos andar.
     int eachStep = inputValue.length() / flasks;
     eachStep = (eachStep > 0) ? eachStep : 1;
@@ -147,7 +148,7 @@ public class Frascos_03 {
 
     // A quantidade de frascos que já usamos.
     int usedFlasks = 0;
-    while (usedFlasks < flasks) {
+    while (endPos < sizeInBitsOfInputValues) {
       while (true) {
         // Aumenta a quantidade de passos(tentativas de quebrar um frasco) que já foram dados.
         iterations++;
@@ -176,7 +177,10 @@ public class Frascos_03 {
       endPos += eachStep;
     }
 
-    return convertFromArray(output);
+    String stepItBroke = convertFromArray(output);
+    Log.debugF("Entrada %s, saída %s com %2d frasco(s), quebraram %d e precisou de %2d passos. ", inputValue, stepItBroke, flasks, usedFlasks, iterations);
+
+    return stepItBroke;
   }
 
   /**
