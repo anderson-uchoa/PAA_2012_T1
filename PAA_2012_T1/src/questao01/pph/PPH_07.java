@@ -195,12 +195,9 @@ public class PPH_07 {
     List<OrderedPair> listAux = new LinkedList<OrderedPair>();
 
     OrderedPair auxPar;
-    //    int count = 0;
-    //while (count < listS.size()) {
     for (Iterator<OrderedPair> iterator = listS.iterator(); iterator.hasNext();) {
       auxPar = iterator.next();
       iterations++;
-      //      auxPar = listS.get(count);
 
       // Se o ratio for menor, então o par ordenado deve ser removido.
       if (auxPar.getRatio() < maximumRatio) {
@@ -210,14 +207,12 @@ public class PPH_07 {
         // Tenho que remover o par ordenado na posição i.
         somatoryA -= auxPar.getA();
         somatoryB -= auxPar.getB();
-        //        listS.remove(auxPar);
+        // Adiciona o item para ser removido.
         listAux.add(auxPar);
       }
-      //      else {
-      //        count++;
-      //      }
     }
 
+    // Remove os itens do conjunto S*.
     listS.removeAll(listAux);
 
     return invalid;
