@@ -19,12 +19,12 @@ public class Frascos_03 {
   /**
    * O nome do input padrão(usado para testes).
    */
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_01.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_01.txt";
   //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_02.txt";
 
   //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_16_01.txt";
 
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_01.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_02.txt";
   //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_03.txt";
 
@@ -85,7 +85,8 @@ public class Frascos_03 {
       int quantityOfInputValues = scanner.nextInt();
 
       // A quantidade de frascos que vai ser usada em cada teste.
-      int[] quantityOfFlasks = { 32, 16, 8, 4, 2, 1 };
+      // 256 simula a quantidade infinita de frascos.
+      int[] quantityOfFlasks = { 256, 32, 16, 8, 4, 2, 1 };
 
       // Esta linha é apenas para forçar uma quebra de linha depois dos
       // números.
@@ -178,7 +179,7 @@ public class Frascos_03 {
     }
 
     String stepItBroke = convertFromArray(output);
-    Log.printOntoScreenF("Entrada %s, saida %s com %2d frasco(s), quebraram %d e precisou de %2d passos. ", inputValue, stepItBroke, flasks, usedFlasks,
+    Log.printOntoScreenF("Entrada %s, saida %s com %3d frasco(s), quebraram %3d e precisou de %2d passos. ", inputValue, stepItBroke, flasks, usedFlasks,
       iterations);
 
     return stepItBroke;
