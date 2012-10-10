@@ -46,33 +46,31 @@ public class SelectionSort {
   int Testepartition(List<OrderedPair> list, int left, int right, int pivotIndex) {
     int i = left, j = right - 1;
     OrderedPair tmp;
-    //int pivot = arr[(left + right) / 2];
     OrderedPair pivot = list.get(pivotIndex);
-    while (i <= j) {
-      while (list.get(i).compareTo(pivot) < 0)
+    while (i < j) {
+      while (list.get(i).compareTo(pivot) < 0 && i < j)
         i++;
-      while (list.get(j).compareTo(pivot) > 1)
+      while (list.get(j).compareTo(pivot) > 1 && i < j)
         j--;
 
-      if (i <= j) {
-        tmp = list.get(i);
-        list.set(i, list.get(j));
-        list.set(j, tmp);
-        i++;
-        j--;
-      }
+      //if (i <= j) {
+      tmp = list.get(i);
+      list.set(i, list.get(j));
+      list.set(j, tmp);
+      i++;
+      j--;
     }
     ;
 
-    //    OrderedPair x = list.get(i);
-    //    for (int k = 1; k <= i + 1; k++) {
+    //    OrderedPair x = list.get(i - 1);
+    //    for (int k = 1; k <= i - 1; k++) {
     //      if (list.get(k - 1).compareTo(x) > 0) {
     //        System.out.println("há um par maior que o pivot à esquerda....");
     //      }
     //    }
     //
     //    //Testando se há um par maior que o pivot a direita
-    //    for (int k = i + 1; k < list.size(); k++) {
+    //    for (int k = i - 1; k < list.size(); k++) {
     //      OrderedPair p = list.get(j);
     //      if (p.compareTo(x) < 0) {
     //        System.out.println("há um par maior que o pivot a direita....");
@@ -236,4 +234,46 @@ public class SelectionSort {
     array.set(b, temp);
 
   }
+
+  public int partitionArray(OrderedPair[] array, int left, int right) {
+
+    // Select pivot element
+    OrderedPair pivot = array[right - 1];
+
+    int i = left - 1;
+    for (int j = left; j < right - 1; j++) {
+      if (array[j].compareTo(pivot) < 1) {
+        i++;
+        swapArray(array, i, j);
+      }
+    }
+
+    // Move the pivot element in the middle of the array
+    swapArray(array, i + 1, right - 1);
+
+    // Return the pivot element index
+    OrderedPair x = array[i + 1];
+    for (int k = 1; k <= i + 1; k++) {
+      if (array[k - 1].compareTo(x) > 0) {
+        System.out.println("há um par maior que o pivot à esquerda....");
+      }
+    }
+
+    //Testando se há um par maior que o pivot a direita
+    for (int k = i + 1; k < array.length; k++) {
+      OrderedPair p = array[k];
+      if (p.compareTo(x) < 0) {
+        System.out.println("há um par maior que o pivot a direita....");
+      }
+    }
+    return i + 1;
+  }
+
+  /** Swaps the values at the specified array indexes */
+  private void swapArray(OrderedPair[] array, int a, int b) {
+    OrderedPair temp = array[a];
+    array[a] = array[b];
+    array[b] = temp;
+  }
+
 }
