@@ -23,6 +23,26 @@ public class SelectionSort {
       return select(list, pivotNewIndex + 1, right, k - pivotDist);
   }
 
+  public MedianaPair SelectFixedPivot(List<OrderedPair> list, int left, int right, int pivot) {
+    // select pivotIndex between left and right
+    while (left != right) {
+      // Mediana das medianas
+      int pivotNewIndex = partition(list, left, right, pivot);
+      int pivotDist = pivotNewIndex - left + 1;
+      // The pivot is in its final sorted position,
+      // so pivotDist reflects its 1-based position if list were sorted
+      if (pivotDist == pivot)
+        return new MedianaPair(list.get(pivotNewIndex), pivotNewIndex);
+      else if (pivot < pivotDist)
+        right = pivotNewIndex - 1;
+      else {
+        pivot = pivot - pivotDist;
+        left = pivotNewIndex + 1;
+      }
+    }
+    return new MedianaPair(list.get(left), left);
+  }
+
   public MedianaPair selectIterativo(List<OrderedPair> list, int left, int right, int k) {
     // select pivotIndex between left and right
     while (left != right) {

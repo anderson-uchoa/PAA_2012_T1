@@ -10,7 +10,7 @@ import utilidade.Utils;
 
 public class PPH_05 {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -79,6 +79,9 @@ public class PPH_05 {
       Log.printOntoScreen("Ordenando...");
       merge.sort(listOriginalPair);
       finalRatio = maximumRatio(listOriginalPair);
+
+      listS.add(0, parInicial);
+
       iterations++;
       // }
       long finishTime = System.currentTimeMillis() - startTime;

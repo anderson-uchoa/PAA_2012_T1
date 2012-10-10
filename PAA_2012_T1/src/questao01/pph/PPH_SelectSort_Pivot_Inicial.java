@@ -1,6 +1,7 @@
 package questao01.pph;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,9 +10,9 @@ import utilidade.Log;
 import utilidade.SelectionSort;
 import utilidade.Utils;
 
-public class PPH_SelectSort {
-  // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
+public class PPH_SelectSort_Pivot_Inicial {
+  //O nome do arquivo de input padrão(usado para testes).
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_10.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -36,7 +37,7 @@ public class PPH_SelectSort {
       // Informa que a applicação esta em modo debug.
       Log.isDebugging = false;
     }
-    PPH_SelectSort pph = new PPH_SelectSort();
+    PPH_SelectSort_Pivot_Inicial pph = new PPH_SelectSort_Pivot_Inicial();
     pph.run(inputFile);
   }
 
@@ -76,16 +77,14 @@ public class PPH_SelectSort {
       // Removendo da lista o par inicial
       listOriginalPair.remove(0);
 
-      listS = new LinkedList<OrderedPair>();
+      listS = new ArrayList<OrderedPair>();
 
       // Ordanando a lista
       SelectionSort selectSort = new SelectionSort();
       int size = quantityOfInputValues - 1;
-      MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
+      MedianaPair mediana = selectSort.SelectFixedPivot(listOriginalPair, 0, size, 0);
 
       finalRatio = maximumRatio(listOriginalPair, size, mediana);
-      listS.add(0, parInicial);
-
       long finishTime = System.currentTimeMillis();
       Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
       iterations++;
@@ -96,9 +95,11 @@ public class PPH_SelectSort {
       Log.printOntoScreenF("Tamanho de S: %d \n", listS.size());
       Log.printOntoScreen("Conjunto S*: ");
       Log.printList(listS);
+      Log.printOntoScreen("Conjunto N: ");
+      Log.printList(listOriginalPair);
 
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
-      Log.printOntoScreenF("Média de execução: %f\n", media);
+      Log.printOntoScreenF("Tempo de execução: %f\n", media);
 
     }
     catch (Exception e) {
@@ -135,6 +136,18 @@ public class PPH_SelectSort {
         SomaRazao(auxlPar);
         maximumRatio = calcularRazao();
         Log.debugF("Nova razão: %f\n", maximumRatio);
+        int idx = 0;
+        float menor = listNOfOrderedPairs.get(0).getRatio();
+        //        for (i = 0; i < listNOfOrderedPairs.size(); i++) {
+        //          if (listNOfOrderedPairs.get(i).getRatio() >= maximumRatio) {
+        //            if (menor <= listNOfOrderedPairs.get(i).getRatio()) {
+        //              menor = listNOfOrderedPairs.get(i).getRatio();
+        //              idx = i;
+        //            }
+        //          }
+        //        }
+        //        SelectionSort selectSort = new SelectionSort();
+        //        selectSort.SelectFixedPivot(listNOfOrderedPairs, 0, listNOfOrderedPairs.size(), idx);
       }
     }
     Log.printOntoScreenF("Número de passos: %d\n", iterations);
@@ -150,4 +163,37 @@ public class PPH_SelectSort {
     return (float) (this.somaA + this.parInicial.getA()) / (this.somaB + this.parInicial.getB());
   }
 
+  private int maximumRation(List<OrderedPair> listOrderedPairs) {
+    float aux = 0;
+
+    this.somaA = parInicial.getA();
+    this.somaB = parInicial.getB();
+    // int indexS = 0;
+    float R = parInicial.getRatio();
+    // System.out.println("Razão AoB0: " + R);
+    for (int i = 0; i < listOrderedPairs.size(); i++) {
+      aux = (float) listOrderedPairs.get(i).getA() / listOrderedPairs.get(i).getB();
+      // System.out.println(" aux: " + aux+ " = " +
+      // arrayOrderedPairs[i][0] + " / " + arrayOrderedPairs[i][1]);
+      if (aux > R) {
+        this.somaA += listOrderedPairs.get(i).getA();
+        this.somaB += listOrderedPairs.get(i).getB();
+        R = (float) this.somaA / this.somaB;
+        listS.add(listOrderedPairs.get(i));
+      }
+      // if
+    } // for i
+    int i, idx = 0;
+    float menor = listOrderedPairs.get(0).getRatio();
+    for (i = 0; i < listOrderedPairs.size(); i++) {
+      if (listOrderedPairs.get(i).getRatio() >= R) {
+        if (menor <= listOrderedPairs.get(i).getRatio()) {
+          menor = listOrderedPairs.get(i).getRatio();
+          idx = i;
+        }
+      }
+    }
+    System.out.println(listOrderedPairs.get(idx).getRatio());
+    return idx;
+  }
 }
