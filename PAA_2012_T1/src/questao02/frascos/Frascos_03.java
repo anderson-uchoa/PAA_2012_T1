@@ -85,7 +85,7 @@ public class Frascos_03 {
       int quantityOfInputValues = scanner.nextInt();
 
       // A quantidade de frascos que vai ser usada em cada teste.
-      int[] quantityOfFlasks = { 16, 8, 4, 2, 1 };
+      int[] quantityOfFlasks = { 32, 16, 8, 4, 2, 1 };
 
       // Esta linha é apenas para forçar uma quebra de linha depois dos
       // números.
