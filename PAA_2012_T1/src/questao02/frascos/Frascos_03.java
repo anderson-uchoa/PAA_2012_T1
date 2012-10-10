@@ -135,7 +135,7 @@ public class Frascos_03 {
     boolean[] input = convertFromString(inputValue);
     // Um array que irá contér o degrau máximo em que o frasco é quebrado. 
     boolean[] output = new boolean[input.length];
-
+    // Obtém o tamanho em bits dos números contidos neste arquivo.
     int sizeInBitsOfInputValues = input.length;
 
     // Baseado na quantidade de frascos disponíveis, precisamos saber de quantos em quantos passos(bits) vamos andar.
