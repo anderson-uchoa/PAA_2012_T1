@@ -7,6 +7,7 @@ package questao01.pph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ import java.util.Scanner;
 import utilidade.Log;
 import utilidade.Utils;
 
-public class PPH_04 {
+public class PPH_07 {
 
   // O nome do arquivo de input padrão(usado para testes).
   private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100000.txt";
@@ -46,7 +47,7 @@ public class PPH_04 {
       Log.isDebugging = false;
     }
 
-    PPH_04 pph = new PPH_04();
+    PPH_07 pph = new PPH_07();
     pph.run(inputFile);
   }
 
@@ -108,7 +109,7 @@ public class PPH_04 {
       Log.printList(listS);
 
       Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
-      Log.printOntoScreen("Iterações realizadas: " + iterations);
+      Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
       Log.printOntoScreenF("Tempo de execução: %d\n", finishTime);
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
 
@@ -191,11 +192,15 @@ public class PPH_04 {
   private boolean isLemmaNotValid(List<OrderedPair> listS, float maximumRatio) {
     boolean invalid = false;
 
+    List<OrderedPair> listAux = new LinkedList<OrderedPair>();
+
     OrderedPair auxPar;
-    int count = 0;
-    while (count < listS.size()) {
+    //    int count = 0;
+    //while (count < listS.size()) {
+    for (Iterator<OrderedPair> iterator = listS.iterator(); iterator.hasNext();) {
+      auxPar = iterator.next();
       iterations++;
-      auxPar = listS.get(count);
+      //      auxPar = listS.get(count);
 
       // Se o ratio for menor, então o par ordenado deve ser removido.
       if (auxPar.getRatio() < maximumRatio) {
@@ -205,12 +210,15 @@ public class PPH_04 {
         // Tenho que remover o par ordenado na posição i.
         somatoryA -= auxPar.getA();
         somatoryB -= auxPar.getB();
-        listS.remove(count);
+        //        listS.remove(auxPar);
+        listAux.add(auxPar);
       }
-      else {
-        count++;
-      }
+      //      else {
+      //        count++;
+      //      }
     }
+
+    listS.removeAll(listAux);
 
     return invalid;
   }
