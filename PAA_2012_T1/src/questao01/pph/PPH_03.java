@@ -15,7 +15,7 @@ import utilidade.Utils;
 public class PPH_03 {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   LinkedList<OrderedPair>     listS;
@@ -67,30 +67,28 @@ public class PPH_03 {
       // números.
       scanner.nextLine();
 
-      List<OrderedPair> listOrderedPairs = null;
       List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+      OrderedPair parInicial = new OrderedPair(listOriginalPair.get(0).getA(), listOriginalPair.get(0).getB());
 
       long startTime = System.currentTimeMillis();
       long iterations = 0;
       Log.printOntoScreen("Calculando...");
+      // Removendo da lista o par inicial
+      listOriginalPair.remove(0);
       while (System.currentTimeMillis() - startTime < 5000) {
-        listOrderedPairs = new LinkedList<OrderedPair>();
         // Obtém os valores que correspondem ao b = {1,.., n}
-        listOrderedPairs.addAll(listOriginalPair);
         // Inicia a Lista S com o tamanho de elementos de pares
         // ordenados
         // e 2 colunas.
 
-        OrderedPair parInicial = new OrderedPair(listOrderedPairs.get(0).getA(), listOrderedPairs.get(0).getB());
-        // Removendo da lista o par inicial
-        listOrderedPairs.remove(0);
         listS = new LinkedList<OrderedPair>();
         // Ordanando a lista
-        bubbleSort(listOrderedPairs);
-        finalRatio = maximumRation(listOrderedPairs, listS, parInicial);
-        iterations++;
+        bubbleSort(listOriginalPair);
+        finalRatio = maximumRation(listOriginalPair, listS, parInicial);
 
+        iterations++;
       }
+      listS.add(parInicial);
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;

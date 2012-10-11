@@ -6,18 +6,20 @@ import java.util.List;
 import java.util.Scanner;
 
 import utilidade.Log;
+import utilidade.SelectionSortExtend;
 import utilidade.Utils;
 
-public class PPH_05 {
-  // O nome do arquivo de input padrão(usado para testes).
+public class PPH_SelectionSortExtend {
+  //O nome do arquivo de input padrão(usado para testes).
   private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
-  OrderedPair                 parInicial;
+
   // Para evitar colocar numeros literais no código.
-  int                         somaA                   = 0;
-  int                         somaB                   = 0;
+  private int                 somaA                   = 0;
+  private int                 somaB                   = 0;
+  OrderedPair                 parInicial;
 
   public static void main(String[] args) {
     String inputFile;
@@ -34,8 +36,7 @@ public class PPH_05 {
       // Informa que a applicação esta em modo debug.
       Log.isDebugging = false;
     }
-
-    PPH_05 pph = new PPH_05();
+    PPH_SelectionSortExtend pph = new PPH_SelectionSortExtend();
     pph.run(inputFile);
   }
 
@@ -46,7 +47,7 @@ public class PPH_05 {
    */
   public void run(String inputFile) {
     try {
-      Log.printOntoScreen("Iniciado MergeSort - O(n log(n))...");
+      Log.printOntoScreen("Iniciado SelectionSort Pivot - Pior Caso O(N^2)...");
       // Abre o arquivo para que o dados possam ser lidos.
       Scanner scanner = new Scanner(new File(inputFile));
 
@@ -62,16 +63,13 @@ public class PPH_05 {
       // Esta linha é apenas para forçar uma quebra de linha depois dos
       // números.
       scanner.nextLine();
-
       List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
-
       long startTime = System.currentTimeMillis();
+      Log.printOntoScreen("Calculando...");
       // Atribuindo o par inicial
       parInicial = listOriginalPair.get(0);
       // Removendo da lista o par inicial
       listOriginalPair.remove(0);
-      Log.printOntoScreen("Calculando...");
-
       while (System.currentTimeMillis() - startTime < 5000) {
         // Obtém os valores que correspondem ao b = {1,.., n}
         listS = new LinkedList<OrderedPair>();
@@ -81,12 +79,12 @@ public class PPH_05 {
         somaB = 0;
 
         // Ordanando a lista
-        utilidade.MergeSort merge = new utilidade.MergeSort();
-        merge.sort(listOriginalPair);
-        finalRatio = maximumRatio(listOriginalPair);
+        SelectionSortExtend selectSort = new SelectionSortExtend();
+        int size = quantityOfInputValues - 1;
+        MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, 0);
+        finalRatio = maximumRatio(listOriginalPair, size, mediana);
 
         listS.add(0, parInicial);
-
         iterations++;
       }
       long finishTime = System.currentTimeMillis() - startTime;
@@ -100,7 +98,6 @@ public class PPH_05 {
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
       Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
-
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -109,15 +106,16 @@ public class PPH_05 {
 
   /**
    * @param listNOfOrderedPairs
+   * @param mediana
+   * @param count
    * @return A razão máxima.
    */
-  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs) {
-    // O R inicial é calculado pelo a0 / b0.
+  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int count, MedianaPair mediana) {
     float maximumRatio = parInicial.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     OrderedPair auxlPar;
-    for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
+    for (int i = count - 1; i >= mediana.getIndex(); i--) {
       auxlPar = listNOfOrderedPairs.get(i);
 
       Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
@@ -125,16 +123,12 @@ public class PPH_05 {
       if (auxlPar.getRatio() > maximumRatio) {
         // Então coloca o par(ai e o bi) na lista S.
         listS.add(auxlPar);
-
-        // Atualiza o R(razão).
+        //  Atualiza o R(razão).
         SomaRazao(auxlPar);
         maximumRatio = calcularRazao();
-        Log.debugF("Nova razão: %f\n", maximumRatio);
+        // Log.debugF("Nova razão: %f\n", maximumRatio);
       }
-      else
-        break;
     }
-    Log.debug("Fim !!!");
     return maximumRatio;
   }
 

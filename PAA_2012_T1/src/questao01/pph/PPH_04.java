@@ -17,7 +17,7 @@ import utilidade.Utils;
 public class PPH_04 {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   private List<OrderedPair>   listS;
@@ -125,7 +125,7 @@ public class PPH_04 {
   private float maximumRatio(List<OrderedPair> listNOfOrderedPairs) {
     // O R inicial é calculado pelo a0 / b0.
     float maximumRatio = initialPair.getRatio();
-    Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
+    //Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     OrderedPair auxPar;
     iterations = 0;
