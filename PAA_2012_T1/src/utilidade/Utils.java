@@ -17,7 +17,7 @@ public class Utils {
   public static List<OrderedPair> getValuesFromInputFile(int quantityOfInputValues) {
     Random rnd = new Random();
 
-    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>();
+    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(quantityOfInputValues);
     int a;
     int b;
 

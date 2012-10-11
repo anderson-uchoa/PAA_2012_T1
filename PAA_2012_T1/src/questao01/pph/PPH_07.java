@@ -18,7 +18,7 @@ import utilidade.Utils;
 public class PPH_07 {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   private List<OrderedPair>   listS;
@@ -65,8 +65,8 @@ public class PPH_07 {
       // Obtém a quantidade de números contidos neste arquivo + 1(o a0 e
       // b0 não entram) * 2(porque é a mesma quantidade para o A e para o
       // B).
-      int quantityOfInputValues = scanner.nextInt() + 1;
-      //int quantityOfInputValues = 10000;
+      //int quantityOfInputValues = scanner.nextInt() + 1;
+      int quantityOfInputValues = 1000;
 
       // A razão que deve ser calculada e apresentada no final.
       float finalRatio = 0;
@@ -76,9 +76,9 @@ public class PPH_07 {
       scanner.nextLine();
 
       // Obtém os valores que correspondem ao a = {1,.., n}
-      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
+      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
       Log.printOntoScreen("Obtendo valores do arquivo de entrada...");
-      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
       long startTime = System.currentTimeMillis();
 
       // Este é o par(a0, b0).
