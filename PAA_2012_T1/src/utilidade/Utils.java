@@ -1,6 +1,7 @@
 package utilidade;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class Utils {
   public static List<OrderedPair> getValuesFromInputFile(int quantityOfInputValues) {
     Random rnd = new Random();
 
-    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>();
+    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(quantityOfInputValues);
     int a;
     int b;
 
@@ -45,8 +46,12 @@ public class Utils {
     List<Integer> listA = getListFromInputFile(scanner, quantityOfInputValues);
     List<Integer> listB = getListFromInputFile(scanner, quantityOfInputValues);
 
-    for (int i = 0; i < quantityOfInputValues; i++) {
-      listNOfOrderedPairs.add(new OrderedPair(listA.get(i), listB.get(i)));
+    Iterator<Integer> iteratorA = listA.iterator();
+    Iterator<Integer> iteratorB = listB.iterator();
+
+    // As listas de A e B têm a mesma quantidade de elementos.
+    while (iteratorA.hasNext()) {
+      listNOfOrderedPairs.add(new OrderedPair(iteratorA.next(), iteratorB.next()));
     }
 
     return listNOfOrderedPairs;
