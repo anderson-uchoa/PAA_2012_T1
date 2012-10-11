@@ -5,8 +5,15 @@ import java.util.List;
 import questao01.pph.MedianaPair;
 import questao01.pph.OrderedPair;
 
-public class SelectionSort {
+public class SelectionSortExtend {
+
+  private int         somaA = 0;
+  private int         somaB = 0;
+  private OrderedPair parInicial;
+
   public MedianaPair select(List<OrderedPair> list, int left, int right, int k) {
+    parInicial = list.get(0);
+
     if (left == right) // If the list contains only one element
       return new MedianaPair(list.get(left), left);//list.get(left); // Return that element
     // select pivotIndex between left and right
@@ -24,8 +31,10 @@ public class SelectionSort {
   }
 
   public MedianaPair selectIterativo(List<OrderedPair> list, int left, int right, int k) {
+    parInicial = list.get(0);
+
     // select pivotIndex between left and right
-    while (left != right) {
+    while (left != right && right > 0) {
       int median = medianOfMedians(list, left, right);
       int pivotNewIndex = partition(list, left, right, median);
       int pivotDist = pivotNewIndex - left + 1;
@@ -64,26 +73,33 @@ public class SelectionSort {
     return i;
   }
 
-  // returns the index of the median of medians.
-  // requires a variant of select, "selectIdx" which returns the index of the
-  // selected item rather than the value
+  // returns the index of the median of medians. Based on the ratio of N
   private int medianOfMedians(List<OrderedPair> list, int left, int right) {
+    float maximumRatio = parInicial.getRatio();
     int numMedians = (right - left) / 5;
-    int swap;
-    for (int i = 0; i < numMedians; i++) {
-      // get the median of the five-element subgroup
-      int subLeft = left + i * 5;
-      int subRight = subLeft + 5;
-      int medianIdx = selectIdx(list, subLeft, subRight, 2);
-      // alternatively, use a faster method that works on lists of size 5
-      // move the median to a contiguous block at the beginning of the
-      // list
-      swap = i;
-      i = medianIdx;
-      medianIdx = swap;
+    int idx = left;
+
+    if (idx == 0)
+      idx++;
+
+    for (int i = left; i < right; i++) {
+      OrderedPair auxlPar = list.get(i);
+      if (auxlPar.getRatio() > maximumRatio) {
+        SomaRazao(auxlPar);
+        maximumRatio = calcularRazao();
+      }
     }
-    // select the median from the contiguous block
+
     return selectIdx(list, left, left + numMedians, numMedians / 2);
+  }
+
+  private void SomaRazao(OrderedPair auxlPar) {
+    this.somaA += auxlPar.getA();
+    this.somaB += auxlPar.getB();
+  }
+
+  private float calcularRazao() {
+    return (float) (this.somaA + this.parInicial.getA()) / (this.somaB + this.parInicial.getB());
   }
 
   private int selectIdx(List<OrderedPair> list, int left, int right, int pivot) {
@@ -118,4 +134,5 @@ public class SelectionSort {
     array.set(b, temp);
 
   }
+
 }
