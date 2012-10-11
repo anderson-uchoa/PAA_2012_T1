@@ -82,6 +82,50 @@ public class Utils {
     return listTemp;
   }
 
+  public static List<OrderedPair> getListBetterCase(int quantityOfInputValues) {
+
+    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>();
+    listNOfOrderedPairs.add(new OrderedPair(1000000, 1));
+
+    Random rnd = new Random();
+    int a;
+    int b;
+
+    for (int i = 0; i < quantityOfInputValues; i++) {
+      a = rnd.nextInt(500) + 1;
+      b = rnd.nextInt(7000) + 1;
+
+      listNOfOrderedPairs.add(new OrderedPair(a, b));
+    }
+    return listNOfOrderedPairs;
+  }
+
+  public static List<OrderedPair> getListWorstCase(int quantityOfInputValues) {
+    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>();
+
+    Random rnd = new Random();
+    int a = 1;
+    int b = 1000;
+    float razao = (float) a / b;
+    listNOfOrderedPairs.add(new OrderedPair(a, b));
+    for (int i = 0; i < quantityOfInputValues; i++) {
+      a += 100;
+      //b += 1;
+      float aux = (float) a / b;
+      //boolean teste = aux < razao;
+      //      while (teste) {
+      //        a *= 2;
+      //        aux = (float) a / b;
+      //        //b = rnd.nextInt(500);
+      //        teste = aux < razao;
+      //      }
+      listNOfOrderedPairs.add(new OrderedPair(a, b));
+      razao += (float) a / b;
+    }
+    //Log.printList(listNOfOrderedPairs);
+    return listNOfOrderedPairs;
+  }
+
   /**
    * Calcula a razão.
    * 
