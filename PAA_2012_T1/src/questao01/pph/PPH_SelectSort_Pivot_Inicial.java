@@ -1,18 +1,17 @@
 package questao01.pph;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 import utilidade.Log;
-import utilidade.SelectionSort;
+import utilidade.SelectionSortExtend;
 import utilidade.Utils;
 
 public class PPH_SelectSort_Pivot_Inicial {
   //O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_10.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -77,14 +76,16 @@ public class PPH_SelectSort_Pivot_Inicial {
       // Removendo da lista o par inicial
       listOriginalPair.remove(0);
 
-      listS = new ArrayList<OrderedPair>();
+      listS = new LinkedList<OrderedPair>();
 
       // Ordanando a lista
-      SelectionSort selectSort = new SelectionSort();
+      SelectionSortExtend selectSort = new SelectionSortExtend();
       int size = quantityOfInputValues - 1;
-      MedianaPair mediana = selectSort.SelectFixedPivot(listOriginalPair, 0, size, 0);
+      MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, 0);
 
       finalRatio = maximumRatio(listOriginalPair, size, mediana);
+      listS.add(0, parInicial);
+
       long finishTime = System.currentTimeMillis();
       Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
       iterations++;
@@ -95,8 +96,8 @@ public class PPH_SelectSort_Pivot_Inicial {
       Log.printOntoScreenF("Tamanho de S: %d \n", listS.size());
       Log.printOntoScreen("Conjunto S*: ");
       Log.printList(listS);
-      Log.printOntoScreen("Conjunto N: ");
-      Log.printList(listOriginalPair);
+      //Log.printOntoScreen("Conjunto N: ");
+      //Log.printList(listOriginalPair);
 
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
       Log.printOntoScreenF("Tempo de execução: %f\n", media);
@@ -120,7 +121,7 @@ public class PPH_SelectSort_Pivot_Inicial {
 
     long iterations = 0;
     // Zerando as variáveis iniciais.
-    listS = new LinkedList<OrderedPair>();
+    //listS = new LinkedList<OrderedPair>();
 
     OrderedPair auxlPar;
     for (int i = count - 1; i >= mediana.getIndex(); i--) {
@@ -137,7 +138,7 @@ public class PPH_SelectSort_Pivot_Inicial {
         maximumRatio = calcularRazao();
         Log.debugF("Nova razão: %f\n", maximumRatio);
         int idx = 0;
-        float menor = listNOfOrderedPairs.get(0).getRatio();
+        //float menor = listNOfOrderedPairs.get(0).getRatio();
         //        for (i = 0; i < listNOfOrderedPairs.size(); i++) {
         //          if (listNOfOrderedPairs.get(i).getRatio() >= maximumRatio) {
         //            if (menor <= listNOfOrderedPairs.get(i).getRatio()) {

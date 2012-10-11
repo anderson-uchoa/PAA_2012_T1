@@ -11,7 +11,7 @@ import utilidade.Utils;
 
 public class PPH_SelectSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -119,7 +119,7 @@ public class PPH_SelectSort {
 
     long iterations = 0;
     // Zerando as variáveis iniciais.
-    listS = new LinkedList<OrderedPair>();
+    //listS = new LinkedList<OrderedPair>();
 
     OrderedPair auxlPar;
     for (int i = count - 1; i >= mediana.getIndex(); i--) {
