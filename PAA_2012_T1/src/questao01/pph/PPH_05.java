@@ -62,7 +62,8 @@ public class PPH_05 {
       // números.
       scanner.nextLine();
 
-      List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+      List<OrderedPair> listOriginalPair = Utils.getListWorstCase(10000);
+      //Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
 
       long startTime = System.currentTimeMillis();
 
