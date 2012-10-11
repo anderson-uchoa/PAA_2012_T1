@@ -19,30 +19,30 @@ public class Frascos_03 {
   /**
    * O nome do input padrão(usado para testes).
    */
-  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_01.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_08_02.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_08_01.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_08_02.txt";
 
-  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_16_01.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_16_01.txt";
 
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_32_03.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_32_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_32_02.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_32_03.txt";
 
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_64_03.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_64_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_64_02.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_64_03.txt";
 
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_128_03.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_02.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_03.txt";
 
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_192_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_192_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_192_03.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_192_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_192_02.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_192_03.txt";
 
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_256_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_256_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "src/questao02/frascos/bignum_256_03.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_256_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_256_02.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_256_03.txt";
 
   /**
    * A quantidade de iterações que foi necessária para que o resultado esperado fosse encontrado.
@@ -73,7 +73,7 @@ public class Frascos_03 {
    * 
    * @param inputFile
    */
-  private void run(String inputFile) {
+  public void run(String inputFile) {
     try {
       // Abre o arquivo para que o dados possam ser lidos.
       Scanner scanner = new Scanner(new File(inputFile));
