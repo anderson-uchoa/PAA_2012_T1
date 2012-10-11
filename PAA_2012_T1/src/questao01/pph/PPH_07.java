@@ -18,7 +18,7 @@ import utilidade.Utils;
 public class PPH_07 {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   private List<OrderedPair>   listS;
@@ -65,8 +65,8 @@ public class PPH_07 {
       // Obtém a quantidade de números contidos neste arquivo + 1(o a0 e
       // b0 não entram) * 2(porque é a mesma quantidade para o A e para o
       // B).
-      int quantityOfInputValues = scanner.nextInt() + 1;
-      //int quantityOfInputValues = 1000;
+      //int quantityOfInputValues = scanner.nextInt() + 1;
+      int quantityOfInputValues = 1000000;
 
       // A razão que deve ser calculada e apresentada no final.
       float finalRatio = 0;
@@ -76,9 +76,9 @@ public class PPH_07 {
       scanner.nextLine();
 
       // Obtém os valores que correspondem ao a = {1,.., n}
-      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
-      Log.printOntoScreen("Obtendo valores do arquivo de entrada...");
-      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+
+      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
+      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
       long startTime = System.currentTimeMillis();
 
       // Este é o par(a0, b0).
@@ -104,14 +104,14 @@ public class PPH_07 {
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
-      Log.printOntoScreenF("Razão final: %f\n", finalRatio);
-      Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
       Log.printList(listS);
 
+      Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
       Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
+      Log.printOntoScreenF("Razão final: %f\n", finalRatio);
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
-      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime);
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
+      Log.printOntoScreenF("Tempo de execução Total: %d\n", finishTime);
 
     }
     catch (FileNotFoundException e) {
@@ -126,7 +126,7 @@ public class PPH_07 {
   private float maximumRatio(List<OrderedPair> listNOfOrderedPairs) {
     // O R inicial é calculado pelo a0 / b0.
     float maximumRatio = initialPair.getRatio();
-    Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
+    //Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     OrderedPair auxPar;
     iterations = 0;
@@ -138,7 +138,7 @@ public class PPH_07 {
       iterations++;
       auxPar = listNOfOrderedPairs.get(i);
 
-      Log.debugF("[%d, %d] = %f - %f\n", auxPar.getA(), auxPar.getB(), auxPar.getRatio(), maximumRatio);
+      //Log.debugF("[%d, %d] = %f - %f\n", auxPar.getA(), auxPar.getB(), auxPar.getRatio(), maximumRatio);
 
       if (auxPar.getRatio() > maximumRatio) {
         // Então coloca o par(ai e o bi) na lista S.
@@ -146,7 +146,7 @@ public class PPH_07 {
 
         // Atualiza o R(razão).
         maximumRatio = updateRatio(listS);
-        Log.debugF("Nova razão: %f\n", maximumRatio);
+        //Log.debugF("Nova razão: %f\n", maximumRatio);
 
         if (isLemmaNotValid(listS, maximumRatio)) {
           // Se existir algum par(ai / bi) que não seja maior do que a
@@ -201,7 +201,7 @@ public class PPH_07 {
 
       // Se o ratio for menor, então o par ordenado deve ser removido.
       if (auxPar.getRatio() < maximumRatio) {
-        Log.debugF("Lemma não é verdade em :[%d, %d] = %f - %f\n", auxPar.getA(), auxPar.getB(), auxPar.getRatio(), maximumRatio);
+        //Log.debugF("Lemma não é verdade em :[%d, %d] = %f - %f\n", auxPar.getA(), auxPar.getB(), auxPar.getRatio(), maximumRatio);
         invalid = true;
 
         // Tenho que remover o par ordenado na posição i.

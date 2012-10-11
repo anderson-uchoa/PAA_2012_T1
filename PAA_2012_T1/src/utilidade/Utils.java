@@ -15,6 +15,7 @@ public class Utils {
    * @return A lista de pares ordenados criada aleatóriamente.
    */
   public static List<OrderedPair> getValuesFromInputFile(int quantityOfInputValues) {
+    Log.printOntoScreen("Obtendo valores randomicamente...");
     Random rnd = new Random();
 
     List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(quantityOfInputValues);
@@ -39,6 +40,7 @@ public class Utils {
    * @return Obtém os valores que correspondem ao A ou ao B.
    */
   public static List<OrderedPair> getValuesFromInputFile(Scanner scanner, int quantityOfInputValues) {
+    Log.printOntoScreen("Obtendo valores do arquivo de entrada...");
     // Cria a lista de pares ordenados com a quantidade de elementos que ele vai conter.
     //List<OrderedPair> listNOfOrderedPairs = new LinkedList<OrderedPair>();
     List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(quantityOfInputValues);
