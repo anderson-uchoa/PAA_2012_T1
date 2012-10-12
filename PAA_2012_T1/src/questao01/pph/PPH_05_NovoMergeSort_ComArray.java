@@ -1,7 +1,6 @@
 package questao01.pph;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +8,7 @@ import java.util.Scanner;
 import utilidade.Log;
 import utilidade.Utils;
 
-public class PPH_05_NovoMergeSort {
+public class PPH_05_NovoMergeSort_ComArray {
   // O nome do arquivo de input padrão(usado para testes).
   private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000.txt";
 
@@ -36,7 +35,7 @@ public class PPH_05_NovoMergeSort {
       Log.isDebugging = false;
     }
 
-    PPH_05_NovoMergeSort pph = new PPH_05_NovoMergeSort();
+    PPH_05_NovoMergeSort_ComArray pph = new PPH_05_NovoMergeSort_ComArray();
     pph.run(inputFile);
   }
 
@@ -47,7 +46,7 @@ public class PPH_05_NovoMergeSort {
    */
   public void run(String inputFile) {
     try {
-      Log.printOntoScreen("Iniciado Novo MergeSort - O(n log(n))...");
+      Log.printOntoScreen("Iniciado Novo MergeSort com array - O(n log(n))...");
       // Abre o arquivo para que o dados possam ser lidos.
       Scanner scanner = new Scanner(new File(inputFile));
 
@@ -65,6 +64,8 @@ public class PPH_05_NovoMergeSort {
       scanner.nextLine();
 
       List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+      OrderedPair[] arrayOriginalPair = new OrderedPair[listOriginalPair.size()];
+      listOriginalPair.toArray(arrayOriginalPair);
 
       long startTime = System.currentTimeMillis();
       // Atribuindo o par inicial
@@ -72,6 +73,7 @@ public class PPH_05_NovoMergeSort {
       // Removendo da lista o par inicial
       listOriginalPair.remove(0);
       Log.printOntoScreen("Calculando...");
+      OrderedPair[] listToSort = null;
 
       while (System.currentTimeMillis() - startTime < 5000) {
         // Obtém os valores que correspondem ao b = {1,.., n}
@@ -81,18 +83,19 @@ public class PPH_05_NovoMergeSort {
         somaA = 0;
         somaB = 0;
 
-        // Ordanando a lista
-        //utilidade.MergeSort merge = new utilidade.MergeSort();
+        // Ordenando a lista.
         questao01.algoritmos.ordenacao.MergeSort merge = new questao01.algoritmos.ordenacao.MergeSort();
-        List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
-        merge.sortAscending(listNOfOrderedPairs);
 
-        finalRatio = maximumRatio(listNOfOrderedPairs);
+        listToSort = arrayOriginalPair.clone();
+        merge.sortAscending(listToSort);
+
+        finalRatio = maximumRatio(listToSort);
 
         listS.add(0, parInicial);
 
         iterations++;
       }
+
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
@@ -115,14 +118,14 @@ public class PPH_05_NovoMergeSort {
    * @param listNOfOrderedPairs
    * @return A razão máxima.
    */
-  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs) {
+  private float maximumRatio(OrderedPair[] listNOfOrderedPairs) {
     // O R inicial é calculado pelo a0 / b0.
     float maximumRatio = parInicial.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     OrderedPair auxlPar;
-    for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
-      auxlPar = listNOfOrderedPairs.get(i);
+    for (int i = 0; i < listNOfOrderedPairs.length; i++) {
+      auxlPar = listNOfOrderedPairs[i];
 
       Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
 

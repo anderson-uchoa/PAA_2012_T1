@@ -21,7 +21,7 @@ public class ComparingMergeSort {
    */
   private void run() {
     // Obtém a quantidade de números que serão testados.
-    int quantityOfInputValues = 10000;
+    int quantityOfInputValues = 100000;
 
     List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
     //    Log.printList(listNOfOrderedPairs);

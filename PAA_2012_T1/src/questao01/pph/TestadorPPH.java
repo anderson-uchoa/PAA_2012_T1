@@ -16,6 +16,8 @@ public class TestadorPPH {
 
     // Instância da classe que vai ser executada.
     PPH_05 p5 = new PPH_05();
+    PPH_05_NovoMergeSort p5_NovoMergeSort = new PPH_05_NovoMergeSort();
+    PPH_05_NovoMergeSort_ComArray pph_05_NovoMergeSort_ComArray = new PPH_05_NovoMergeSort_ComArray();
     PPH_07 p7 = new PPH_07();
     PPH_SelectSort pSelectSort = new PPH_SelectSort();
     PPH_SelectionSortExtend pSelectSortExtend = new PPH_SelectionSortExtend();
@@ -29,6 +31,8 @@ public class TestadorPPH {
             fileNameAndPath = path + files;
             System.out.println(path + files);
             p7.run(fileNameAndPath);
+            pph_05_NovoMergeSort_ComArray.run(fileNameAndPath);
+            p5_NovoMergeSort.run(fileNameAndPath);
             p5.run(fileNameAndPath);
             pSelectSort.run(fileNameAndPath);
             pSelectSortExtend.run(fileNameAndPath);
