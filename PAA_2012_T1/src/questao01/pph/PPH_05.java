@@ -1,7 +1,6 @@
 package questao01.pph;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,7 +10,7 @@ import utilidade.Utils;
 
 public class PPH_05 {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_05.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -83,10 +82,8 @@ public class PPH_05 {
 
         // Ordanando a lista
         utilidade.MergeSort merge = new utilidade.MergeSort();
-        List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
-        merge.sortAscending(listNOfOrderedPairs);
-
-        finalRatio = maximumRatio(listNOfOrderedPairs);
+        merge.sort(listOriginalPair);
+        finalRatio = maximumRatio(listOriginalPair);
 
         listS.add(0, parInicial);
 
@@ -104,8 +101,6 @@ public class PPH_05 {
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
       Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
 
-      // Fecha o scanner.
-      scanner.close();
     }
     catch (Exception e) {
       e.printStackTrace();

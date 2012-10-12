@@ -82,9 +82,9 @@ public class PPH_RandomizedSelect {
       somaB = 0;
 
       // Ordanando a lista
-      RandomizedSelect selectSort = new RandomizedSelect();
+      RandomizedSelect randomizedSelect = new RandomizedSelect();
       int size = quantityOfInputValues - 1;
-      MedianaPair mediana = selectSort.sort(listOriginalPair, 0, size, size / 2);
+      MedianaPair mediana = randomizedSelect.sortIterativo(listOriginalPair, 0, size, size / 2);
       //        System.out.println("Razão");
       //        System.out.println("A: " + mediana.getOrderedPair().getA() + " B: " + mediana.getOrderedPair().getB() + " Razão: "
       //          + mediana.getOrderedPair().getRatio());
@@ -104,7 +104,7 @@ public class PPH_RandomizedSelect {
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
-      //Log.printList(listS);
+      Log.printList(listS);
 
       Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
       Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
@@ -131,6 +131,7 @@ public class PPH_RandomizedSelect {
     // Zerando as variáveis iniciais.
     OrderedPair auxlPar;
     for (int i = count - 1; i >= mediana.getIndex(); i--) {
+      //for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
       auxlPar = listNOfOrderedPairs.get(i);
 
       Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);

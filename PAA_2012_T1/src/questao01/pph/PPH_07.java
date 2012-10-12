@@ -18,7 +18,7 @@ import utilidade.Utils;
 public class PPH_07 {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_100000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_1000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   private List<OrderedPair>   listS;
@@ -112,8 +112,6 @@ public class PPH_07 {
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
       Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
 
-      // Fecha o scanner.
-      scanner.close();
     }
     catch (FileNotFoundException e) {
       e.printStackTrace();

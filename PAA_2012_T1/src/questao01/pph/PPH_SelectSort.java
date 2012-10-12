@@ -11,7 +11,7 @@ import utilidade.Utils;
 
 public class PPH_SelectSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_100.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -82,8 +82,8 @@ public class PPH_SelectSort {
 
         // Ordanando a lista
         SelectionSort selectSort = new SelectionSort();
-        int size = quantityOfInputValues;
-        MedianaPair<OrderedPair> mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
+        int size = listOriginalPair.size();
+        MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
         finalRatio = maximumRatio(listOriginalPair, size, mediana);
 
         listS.add(0, parInicial);
@@ -101,9 +101,6 @@ public class PPH_SelectSort {
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
       Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
-
-      // Fecha o scanner.
-      scanner.close();
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -116,13 +113,14 @@ public class PPH_SelectSort {
    * @param count
    * @return A razão máxima.
    */
-  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int count, MedianaPair<OrderedPair> mediana) {
+  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int count, MedianaPair mediana) {
     float maximumRatio = parInicial.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     // Zerando as variáveis iniciais.
     OrderedPair auxlPar;
-    for (int i = count - 1; i >= mediana.getIndex(); i--) {
+    //for (int i = count - 1; i >= mediana.getIndex(); i--) {
+    for (int i = mediana.getIndex(); i < count; i++) {
       auxlPar = listNOfOrderedPairs.get(i);
 
       Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
@@ -136,6 +134,7 @@ public class PPH_SelectSort {
         Log.debugF("Nova razão: %f\n", maximumRatio);
       }
     }
+    Log.debug("Fim !!");
     return maximumRatio;
   }
 

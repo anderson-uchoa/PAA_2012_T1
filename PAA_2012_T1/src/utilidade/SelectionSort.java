@@ -97,8 +97,8 @@ public class SelectionSort implements ISortable {
   }
 
   private <T extends Comparable<T>> int selectIdx(List<T> list, int left, int right, int pivot) {
-    if (right - left < 6)
-      InsertionSort(list, left, right);
+    //if (right - left < 6)
+    InsertionSort(list, left, right);
 
     int idx;
     if ((left + right) % 2 == 0)
@@ -110,7 +110,7 @@ public class SelectionSort implements ISortable {
   }
 
   public <T extends Comparable<T>> void InsertionSort(List<T> list, int left, int right) {
-    for (int j = left + 1; j < list.size(); j++) {
+    for (int j = left + 1; j < right; j++) {
       T orderedPairkey = list.get(j);
       int i = j - 1;
       while (i >= 0 && list.get(i).compareTo(orderedPairkey) > 0) {
