@@ -6,13 +6,12 @@ import java.util.List;
 import questao01.algoritmos.ordenacao.Sorter;
 import questao01.pph.OrderedPair;
 import utilidade.Log;
-import utilidade.MergeSort;
 import utilidade.Utils;
 
-public class ComparingMergeSort {
+public class ComparingAllSortingAlgorithms {
 
   public static void main(String[] args) {
-    ComparingMergeSort cms = new ComparingMergeSort();
+    ComparingAllSortingAlgorithms cms = new ComparingAllSortingAlgorithms();
     cms.run();
   }
 
@@ -21,26 +20,24 @@ public class ComparingMergeSort {
    */
   private void run() {
     // Obtém a quantidade de números que serão testados.
-    int quantityOfInputValues = 10;
+    int quantityOfInputValues = 100000;
 
     List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
-    //    Log.printList(listNOfOrderedPairs);
     List<OrderedPair> listToSort1 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
     List<OrderedPair> listToSort2 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
-    OrderedPair[] listToSort3 = new OrderedPair[listNOfOrderedPairs.size()];
+    List<OrderedPair> listToSort3 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
 
-    Log.printOntoScreen("Calculando MergeSort atual...");
-    MergeSort m1 = new MergeSort();
-    performSorting(m1, listToSort1);
+    Log.printOntoScreen("Calculando QuickSort net...");
+    questao01.algoritmos.ordenacao.QuickSortNET qs1 = new questao01.algoritmos.ordenacao.QuickSortNET();
+    performSorting(qs1, listToSort1);
 
     Log.printOntoScreen("Calculando MergeSort concorrente...");
-    questao01.algoritmos.ordenacao.MergeSort m2 = new questao01.algoritmos.ordenacao.MergeSort();
-    performSorting(m2, listToSort2);
+    questao01.algoritmos.ordenacao.MergeSort m1 = new questao01.algoritmos.ordenacao.MergeSort();
+    performSorting(m1, listToSort2);
 
-    Log.printOntoScreen("Calculando MergeSort com array...");
-    questao01.algoritmos.ordenacao.MergeSort m3 = new questao01.algoritmos.ordenacao.MergeSort();
-    listNOfOrderedPairs.toArray(listToSort3);
-    performSorting(m3, listToSort3);
+    Log.printOntoScreen("Calculando SelectSort concorrente...");
+    questao01.algoritmos.ordenacao.SelectionSort ss1 = new questao01.algoritmos.ordenacao.SelectionSort();
+    performSorting(ss1, listToSort3);
   }
 
   private void performSorting(Sorter sorter, List<OrderedPair> listToSort) {
@@ -55,17 +52,4 @@ public class ComparingMergeSort {
     Log.printOntoScreen("Iterações: " + sorter.getIterations());
     Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
   }
-
-  private void performSorting(Sorter sorter, OrderedPair[] listToSort) {
-    long startTime = System.currentTimeMillis();
-
-    sorter.sortAscending(listToSort);
-
-    long finishTime = System.currentTimeMillis() - startTime;
-
-    Log.printOntoScreen("Tamanho do N: " + listToSort.length);
-    Log.printOntoScreen("Iterações: " + sorter.getIterations());
-    Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
-  }
-
 }

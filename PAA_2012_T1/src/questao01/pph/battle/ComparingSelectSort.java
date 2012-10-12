@@ -28,7 +28,6 @@ public class ComparingSelectSort {
     List<OrderedPair> listToSort1 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
     List<OrderedPair> listToSort2 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
     OrderedPair[] listToSort3 = new OrderedPair[listNOfOrderedPairs.size()];
-    List<OrderedPair> listToSort4 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
 
     Log.printOntoScreen("Calculando SelectSort atual...");
     SelectionSort ss1 = new SelectionSort();
@@ -42,10 +41,6 @@ public class ComparingSelectSort {
     questao01.algoritmos.ordenacao.SelectionSort ss3 = new questao01.algoritmos.ordenacao.SelectionSort();
     listNOfOrderedPairs.toArray(listToSort3);
     performSorting(ss3, listToSort3);
-
-    Log.printOntoScreen("Calculando QuickSort concorrente...");
-    questao01.algoritmos.ordenacao.QuickSort qs1 = new questao01.algoritmos.ordenacao.QuickSort();
-    performSorting(qs1, listToSort4);
   }
 
   private void performSorting(Sorter sorter, List<OrderedPair> listToSort) {
