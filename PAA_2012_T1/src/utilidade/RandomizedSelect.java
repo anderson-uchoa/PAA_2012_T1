@@ -24,9 +24,26 @@ public class RandomizedSelect {
   }
 
   private int RandomizedPartition(List<OrderedPair> list, int left, int right) {
-    Random rdn = new Random();
-
+    int index = Random(left, right);
+    swap(list, right, index);
     return 0;
+  }
+
+  private int Random(int left, int right) {
+    Random rdn = new Random();
+    int index = rdn.nextInt();
+    while (index < left || index > right) {
+      index = rdn.nextInt();
+    }
+    return index;
+  }
+
+  /** Swaps the values at the specified array indexes */
+  private void swap(List<OrderedPair> list, int idxa, int idxb) {
+    OrderedPair temp = list.get(idxa);
+    list.set(idxa, list.get(idxb));
+    list.set(idxb, temp);
+
   }
 
 }
