@@ -11,7 +11,7 @@ import utilidade.Utils;
 
 public class PPH_SelectSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_100.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -82,7 +82,7 @@ public class PPH_SelectSort {
 
         // Ordanando a lista
         SelectionSort selectSort = new SelectionSort();
-        int size = quantityOfInputValues - 1;
+        int size = listOriginalPair.size();
         MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
         finalRatio = maximumRatio(listOriginalPair, size, mediana);
 
@@ -93,7 +93,7 @@ public class PPH_SelectSort {
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
-      //Log.printList(listS);
+      Log.printList(listS);
 
       Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
       Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
@@ -119,7 +119,8 @@ public class PPH_SelectSort {
 
     // Zerando as variáveis iniciais.
     OrderedPair auxlPar;
-    for (int i = count - 1; i >= mediana.getIndex(); i--) {
+    //for (int i = count - 1; i >= mediana.getIndex(); i--) {
+    for (int i = mediana.getIndex(); i < count; i++) {
       auxlPar = listNOfOrderedPairs.get(i);
 
       Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
@@ -133,6 +134,7 @@ public class PPH_SelectSort {
         Log.debugF("Nova razão: %f\n", maximumRatio);
       }
     }
+    Log.debug("Fim !!");
     return maximumRatio;
   }
 

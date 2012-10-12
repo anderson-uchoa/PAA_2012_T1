@@ -8,34 +8,56 @@ import questao01.pph.OrderedPair;
 public class RandomizedSelect {
 
   public MedianaPair sort(List<OrderedPair> list, int left, int right, int i) {
-    System.out.println("Sort");
     if (left == i)
       return new MedianaPair(list.get(left), left);
 
-    int q = RandomizedPartition(list, left, right);
-    int k = q - left + 1;
-    if (i == k)
-      return new MedianaPair(list.get(q), q);
-    else if (i < k)
-      return sort(list, left, q - 1, i);
+    int pivotNewIndex = RandomizedPartition(list, left, right);
+    int pivotDist = pivotNewIndex - left + 1;
+    if (i == pivotDist)
+      return new MedianaPair(list.get(pivotNewIndex), pivotNewIndex);
+    else if (i < pivotDist)
+      return sort(list, left, pivotNewIndex - 1, i);
+    else {
+      return sort(list, pivotNewIndex + 1, right, i - pivotDist);
+    }
+  }
 
-    else
-      return sort(list, q + 1, right, i - k);
+  public MedianaPair sortIterativo(List<OrderedPair> list, int left, int right, int i) {
+    //System.out.println("Sort");
+    while (left != right) {
+      if (left == i)
+        return new MedianaPair(list.get(left), left);
+
+      int pivotNewIndex = RandomizedPartition(list, left, right);
+      int pivotDist = pivotNewIndex - left + 1;
+      if (i == pivotDist)
+        return new MedianaPair(list.get(pivotNewIndex), pivotNewIndex);
+      else if (i < pivotDist)
+        right = pivotNewIndex - 1;
+      else {
+        i = i - pivotDist;
+        left = pivotNewIndex + 1;
+      }
+    }
+    return new MedianaPair(list.get(left), left);
   }
 
   private int RandomizedPartition(List<OrderedPair> list, int left, int right) {
-    System.out.println("RandomizedPartition");
+    //System.out.println("RandomizedPartition");
+    // Escolhendo aleatoreamente um pivot entre "left" e "right"
     int index = Random(left, right);
 
+    //swap
     OrderedPair aux = list.get(index);
-    list.set(right - 1, list.get(index));
-    list.set(index, aux);
+    list.set(index, list.get(right - 1));
+    list.set(right - 1, aux);
+
     //swap(list, right, index);
     return partition(list, left, right);
   }
 
   private int partition(List<OrderedPair> list, int left, int right) {
-    System.out.println("partition");
+    //System.out.println("partition");
     int i = left, j = right - 1;
     OrderedPair tmp;
     OrderedPair pivot = list.get(j);
@@ -56,33 +78,18 @@ public class RandomizedSelect {
   }
 
   private int Random(int left, int right) {
-    System.out.println("Random");
-    if (left == right)
+
+    //System.out.println("Random");
+    if (left == right || (right - left == 1))
       return left;
 
-    int idx;
-    if ((right - left) % 2 == 0)
-      idx = (left + right + 1) / 2;
-    else {
-      idx = (((left + right + 1) / 2) + ((left + right + 1) / 2) + 1) / 2;
-    }
+    java.util.Random rdn = new java.util.Random();
+    int index = randomIndex(rdn.nextInt(right), left, right);
 
-    System.out.println("left  : " + left);
-    System.out.println("right :" + right);
-    System.out.println("index : " + idx);
-    return idx + 1;
-
-    //    Random rdn = new Random();
-    //    int index = rdn.nextInt(right);
-    //    while ((index <= left) && (index <= right)) {
-    //      int dif = right - left;
-    //      index += dif > 0 ? dif : left;
-    //      //index = rdn.nextInt(right);
-    //    }
     //    System.out.println("left  : " + left);
     //    System.out.println("right :" + right);
     //    System.out.println("index : " + index);
-    //    return index;
+    return index;
   }
 
   /**
@@ -101,5 +108,17 @@ public class RandomizedSelect {
     OrderedPair temp = list.get(idxa);
     list.set(idxa, list.get(idxb));
     list.set(idxb, temp);
+  }
+
+  private int randomIndex(int randomIndex, int left, int right) {
+    int result = -1;
+    while (result <= left || result >= right) {
+      result = new java.util.Random().nextInt(right);
+      if ((right + result) % 2 == 0)
+        result = (result + right + 1) / 2;
+      else
+        result = (((result + right + 1) / 2) + ((result + right + 1) / 2) + 1) / 2;
+    }
+    return result;
   }
 }
