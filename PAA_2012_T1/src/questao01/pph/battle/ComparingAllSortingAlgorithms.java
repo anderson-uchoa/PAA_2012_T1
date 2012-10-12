@@ -20,7 +20,7 @@ public class ComparingAllSortingAlgorithms {
    */
   private void run() {
     // Obtém a quantidade de números que serão testados.
-    int quantityOfInputValues = 100000;
+    int quantityOfInputValues = 10000;
 
     List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
     List<OrderedPair> listToSort1 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
