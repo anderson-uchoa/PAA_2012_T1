@@ -18,7 +18,7 @@ import utilidade.Utils;
 public class PPH_07 {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_1000000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_100.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   private List<OrderedPair>   listS;
@@ -29,7 +29,7 @@ public class PPH_07 {
   private long                somatoryA;
   private long                somatoryB;
 
-  private long                iterations              = 0;
+  private long                steps;
 
   public static void main(String[] args) {
     String inputFile;
@@ -56,17 +56,17 @@ public class PPH_07 {
    * 
    * @param inputFile
    */
-  private void run(String inputFile) {
+  public void run(String inputFile) {
     try {
-      Log.printOntoScreen("Iniciado...");
+      Log.printOntoScreen("Iniciado em O(N^2)...");
       // Abre o arquivo para que o dados possam ser lidos.
       Scanner scanner = new Scanner(new File(inputFile));
 
       // Obtém a quantidade de números contidos neste arquivo + 1(o a0 e
       // b0 não entram) * 2(porque é a mesma quantidade para o A e para o
       // B).
-      //int quantityOfInputValues = scanner.nextInt() + 1;
-      int quantityOfInputValues = 1000000;
+      int quantityOfInputValues = scanner.nextInt() + 1;
+      //int quantityOfInputValues = 1000000;
 
       // A razão que deve ser calculada e apresentada no final.
       float finalRatio = 0;
@@ -77,18 +77,18 @@ public class PPH_07 {
 
       // Obtém os valores que correspondem ao a = {1,.., n}
 
-      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
-      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+      //List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
+      List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
       long startTime = System.currentTimeMillis();
 
       // Este é o par(a0, b0).
       initialPair = listNOfOrderedPairs.get(0);
       // Remove o par(a0, b0) da lista N de pares ordenados
       listNOfOrderedPairs.remove(0);
-
       long iterations = 0;
       Log.printOntoScreen("Calculando...");
       while (System.currentTimeMillis() - startTime < 5000) {
+
         // Inicia a matriz S com o tamanho de elementos de pares ordenados e 2 colunas.
         somatoryA = initialPair.getA();
         somatoryB = initialPair.getB();
@@ -96,22 +96,21 @@ public class PPH_07 {
         // Calcula a razão máxima.
         finalRatio = maximumRatio(listNOfOrderedPairs);
 
-        // Como informa na questão o par ordenado (a0, b0) sempre estará em S*.
-        listS.add(0, initialPair);
-
         iterations++;
       }
+      // Como informa na questão o par ordenado (a0, b0) sempre estará em S*.
+      listS.add(0, initialPair);
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
-      Log.printList(listS);
+      //Log.printList(listS);
 
       Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
       Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
       Log.printOntoScreenF("Razão final: %f\n", finalRatio);
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
-      Log.printOntoScreenF("Tempo de execução Total: %d\n", finishTime);
+      Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
 
     }
     catch (FileNotFoundException e) {
@@ -129,13 +128,13 @@ public class PPH_07 {
     //Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     OrderedPair auxPar;
-    iterations = 0;
+    steps = 0;
     //    for (int k = 0; k < listNOfOrderedPairs.size(); k++) {
     // Zerando as variáveis iniciais.
     listS = new LinkedList<OrderedPair>();
 
     for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
-      iterations++;
+      steps++;
       auxPar = listNOfOrderedPairs.get(i);
 
       //Log.debugF("[%d, %d] = %f - %f\n", auxPar.getA(), auxPar.getB(), auxPar.getRatio(), maximumRatio);
@@ -158,7 +157,7 @@ public class PPH_07 {
       }
     }
     //    }
-    Log.debugF("Número de passos: %d\n", iterations);
+    //Log.debugF("Número de passos: %d\n", steps);
 
     return maximumRatio;
   }
@@ -197,7 +196,7 @@ public class PPH_07 {
     OrderedPair auxPar;
     for (Iterator<OrderedPair> iterator = listS.iterator(); iterator.hasNext();) {
       auxPar = iterator.next();
-      iterations++;
+      steps++;
 
       // Se o ratio for menor, então o par ordenado deve ser removido.
       if (auxPar.getRatio() < maximumRatio) {

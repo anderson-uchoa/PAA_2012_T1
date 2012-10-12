@@ -11,7 +11,7 @@ import utilidade.Utils;
 
 public class PPH_SelectSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "src/questao01/pph/pph_100000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -45,8 +45,9 @@ public class PPH_SelectSort {
    * 
    * @param inputFile
    */
-  private void run(String inputFile) {
+  public void run(String inputFile) {
     try {
+      Log.printOntoScreen("Iniciado SelectionSort - O(n)...");
       // Abre o arquivo para que o dados possam ser lidos.
       Scanner scanner = new Scanner(new File(inputFile));
 
@@ -63,43 +64,43 @@ public class PPH_SelectSort {
       // números.
       scanner.nextLine();
 
-      Log.printOntoScreen("Lendo arquivo...");
       List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
-      Log.printOntoScreen("Arquivo completo...");
       long startTime = System.currentTimeMillis();
-
       Log.printOntoScreen("Calculando...");
-      //while (System.currentTimeMillis() - startTime < 5000) {
-      // Obtém os valores que correspondem ao b = {1,.., n}
       // Atribuindo o par inicial
       parInicial = listOriginalPair.get(0);
       // Removendo da lista o par inicial
       listOriginalPair.remove(0);
 
-      listS = new LinkedList<OrderedPair>();
+      while (System.currentTimeMillis() - startTime < 5000) {
+        // Obtém os valores que correspondem ao b = {1,.., n}
+        listS = new LinkedList<OrderedPair>();
 
-      // Ordanando a lista
-      SelectionSort selectSort = new SelectionSort();
-      int size = quantityOfInputValues - 1;
-      MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
+        // Inicia a matriz S com o tamanho de elementos de pares ordenados e 2 colunas.
+        somaA = 0;
+        somaB = 0;
 
-      finalRatio = maximumRatio(listOriginalPair, size, mediana);
-      listS.add(0, parInicial);
+        // Ordanando a lista
+        SelectionSort selectSort = new SelectionSort();
+        int size = quantityOfInputValues - 1;
+        MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
+        finalRatio = maximumRatio(listOriginalPair, size, mediana);
 
-      long finishTime = System.currentTimeMillis();
-      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
-      iterations++;
-      // }
+        listS.add(0, parInicial);
+
+        iterations++;
+      }
+      long finishTime = System.currentTimeMillis() - startTime;
+
       float media = (float) finishTime / iterations;
+      //Log.printList(listS);
+
+      Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
+      Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
       Log.printOntoScreenF("Razão final: %f\n", finalRatio);
-      Log.printOntoScreenF("Tempo de execução: %d\n", finishTime - startTime);
-      Log.printOntoScreenF("Tamanho de S: %d \n", listS.size());
-      Log.printOntoScreen("Conjunto S*: ");
-      Log.printList(listS);
-
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
-      Log.printOntoScreenF("Média de execução: %f\n", media);
-
+      Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
+      Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -113,17 +114,12 @@ public class PPH_SelectSort {
    * @return A razão máxima.
    */
   private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int count, MedianaPair mediana) {
-    //long startTime = System.currentTimeMillis();
     float maximumRatio = parInicial.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
-    long iterations = 0;
     // Zerando as variáveis iniciais.
-    //listS = new LinkedList<OrderedPair>();
-
     OrderedPair auxlPar;
     for (int i = count - 1; i >= mediana.getIndex(); i--) {
-      iterations++;
       auxlPar = listNOfOrderedPairs.get(i);
 
       Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
@@ -137,7 +133,6 @@ public class PPH_SelectSort {
         Log.debugF("Nova razão: %f\n", maximumRatio);
       }
     }
-    Log.printOntoScreenF("Número de passos: %d\n", iterations);
     return maximumRatio;
   }
 
@@ -149,5 +144,4 @@ public class PPH_SelectSort {
   private float calcularRazao() {
     return (float) (this.somaA + this.parInicial.getA()) / (this.somaB + this.parInicial.getB());
   }
-
 }

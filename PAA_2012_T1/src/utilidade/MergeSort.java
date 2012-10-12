@@ -7,9 +7,7 @@ public class MergeSort {
   int iterations = 0;
 
   public <T extends Comparable<T>> void sort(List<T> list) {
-    //List<T> helper = new ArrayList<T>();
     mergeSort(0, list.size() - 1, list);
-    //Log.printOntoScreen("Número de passos: " + this.iterations);
   }
 
   private <T extends Comparable<T>> void mergeSort(int low, int high, List<T> list) {
@@ -27,7 +25,6 @@ public class MergeSort {
   }
 
   private <T extends Comparable<T>> void merge(int low, int middle, int high, List<T> list) {
-
     // Copy both parts into the helper array
     List<T> helper = new ArrayList<T>(list.size());
     helper.addAll(list);
