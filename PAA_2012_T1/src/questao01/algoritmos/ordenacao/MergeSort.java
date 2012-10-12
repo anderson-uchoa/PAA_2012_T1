@@ -1,5 +1,7 @@
 package questao01.algoritmos.ordenacao;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -9,6 +11,24 @@ import java.util.Vector;
  * 
  */
 public class MergeSort extends Sorter implements ISortable {
+
+  @Override
+  public <T extends Comparable<T>> void sortAscending(List<T> list) {
+    //    @SuppressWarnings("unchecked")
+    //    T[] arValues = list.toArray((T[]) new OrderedPair[list.size()]);
+
+    // Desta forma ficou genérico.
+    @SuppressWarnings("unchecked")
+    T[] arValues = (T[]) java.lang.reflect.Array.newInstance(list.get(0).getClass(), list.size());
+    for (int i = 0; i < list.size(); i++) {
+      arValues[i] = list.get(i);
+    }
+
+    sortAscending(arValues);
+
+    list.clear();
+    list.addAll(Arrays.asList(arValues));
+  }
 
   /**
    * @param arValues The array that will be sorted.
@@ -82,7 +102,7 @@ public class MergeSort extends Sorter implements ISortable {
         middleMoves++;
         middleValue = null;
       }
-      else if (leftValue.compareTo(middleValue) <= 0) {
+      else if (leftValue.compareTo(middleValue) > 0) {
         arTemp.add(i, leftValue);
         leftMoves++;
         leftValue = null;

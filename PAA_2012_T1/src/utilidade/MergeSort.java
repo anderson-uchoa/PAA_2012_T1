@@ -1,12 +1,25 @@
 package utilidade;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class MergeSort {
+import questao01.algoritmos.ordenacao.ISortable;
+
+public class MergeSort implements ISortable {
   int iterations = 0;
 
   public <T extends Comparable<T>> void sort(List<T> list) {
+    sortAscending(list);
+  }
+
+  @Override
+  public <T extends Comparable<T>> void sortAscending(T[] arValues) {
+    sortAscending(Arrays.asList(arValues));
+  }
+
+  @Override
+  public <T extends Comparable<T>> void sortAscending(List<T> list) {
     mergeSort(0, list.size() - 1, list);
   }
 

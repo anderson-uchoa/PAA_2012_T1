@@ -1,5 +1,7 @@
 package questao01.algoritmos.ordenacao;
 
+import java.util.List;
+
 /**
  * This class sorts an array using the Quick Sort algorithm. <br/>
  * http://www.algolist.net/Algorithms/Sorting/Quicksort
@@ -8,6 +10,10 @@ package questao01.algoritmos.ordenacao;
  * 
  */
 public class QuickSort extends Sorter implements ISortable {
+
+  @Override
+  public <T extends Comparable<T>> void sortAscending(List<T> list) {
+  }
 
   /**
    * @param arValues The array that will be sorted.

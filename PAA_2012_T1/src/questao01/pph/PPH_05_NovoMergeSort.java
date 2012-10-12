@@ -2,6 +2,7 @@ package questao01.pph;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ import java.util.Scanner;
 import utilidade.Log;
 import utilidade.Utils;
 
-public class PPH_05 {
+public class PPH_05_NovoMergeSort {
   // O nome do arquivo de input padrão(usado para testes).
   private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_100000.txt";
 
@@ -36,7 +37,7 @@ public class PPH_05 {
       Log.isDebugging = false;
     }
 
-    PPH_05 pph = new PPH_05();
+    PPH_05_NovoMergeSort pph = new PPH_05_NovoMergeSort();
     pph.run(inputFile);
   }
 
@@ -47,7 +48,7 @@ public class PPH_05 {
    */
   public void run(String inputFile) {
     try {
-      Log.printOntoScreen("Iniciado MergeSort - O(n log(n))...");
+      Log.printOntoScreen("Iniciado Novo MergeSort - O(n log(n))...");
       // Abre o arquivo para que o dados possam ser lidos.
       Scanner scanner = new Scanner(new File(inputFile));
 
@@ -82,9 +83,17 @@ public class PPH_05 {
         somaB = 0;
 
         // Ordanando a lista
-        utilidade.MergeSort merge = new utilidade.MergeSort();
-        List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
-        merge.sortAscending(listNOfOrderedPairs);
+        //utilidade.MergeSort merge = new utilidade.MergeSort();
+        questao01.algoritmos.ordenacao.MergeSort merge = new questao01.algoritmos.ordenacao.MergeSort();
+        //        List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
+        //        merge.sortAscending(listNOfOrderedPairs);
+
+        OrderedPair[] listToSort = new OrderedPair[listOriginalPair.size()];
+        listOriginalPair.toArray(listToSort);
+        merge.sortAscending(listToSort);
+
+        List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair.size());
+        listNOfOrderedPairs.addAll(Arrays.asList(listToSort));
 
         finalRatio = maximumRatio(listNOfOrderedPairs);
 
@@ -100,7 +109,7 @@ public class PPH_05 {
       Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
       Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
       Log.printOntoScreenF("Razão final: %f\n", finalRatio);
-      Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
+      Log.printOntoScreen("Iterações realizadas: " + iterations);
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
       Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
 
