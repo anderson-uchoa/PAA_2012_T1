@@ -1,5 +1,6 @@
 package questao01.algoritmos.ordenacao;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,6 +14,17 @@ public class QuickSort extends Sorter implements ISortable {
 
   @Override
   public <T extends Comparable<T>> void sortAscending(List<T> list) {
+    // Desta forma ficou genérico.
+    @SuppressWarnings("unchecked")
+    T[] arValues = (T[]) java.lang.reflect.Array.newInstance(list.get(0).getClass(), list.size());
+    for (int i = 0; i < list.size(); i++) {
+      arValues[i] = list.get(i);
+    }
+
+    sortAscending(arValues);
+
+    list.clear();
+    list.addAll(Arrays.asList(arValues));
   }
 
   /**
@@ -54,7 +66,8 @@ public class QuickSort extends Sorter implements ISortable {
     //
     swap(arValues, indexPivot, right);
     for (int i = indexPivot = left; i < right; i++) {
-      if (arValues[i].compareTo(pivot) <= 0) {
+      this.incIterations();
+      if (arValues[i].compareTo(pivot) >= 0) {
         swap(arValues, indexPivot++, i);
       }
     }

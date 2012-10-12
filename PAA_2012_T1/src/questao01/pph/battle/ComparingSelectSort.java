@@ -3,7 +3,7 @@ package questao01.pph.battle;
 import java.util.ArrayList;
 import java.util.List;
 
-import questao01.algoritmos.ordenacao.ISortable;
+import questao01.algoritmos.ordenacao.Sorter;
 import questao01.pph.OrderedPair;
 import utilidade.Log;
 import utilidade.SelectionSort;
@@ -28,6 +28,7 @@ public class ComparingSelectSort {
     List<OrderedPair> listToSort1 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
     List<OrderedPair> listToSort2 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
     OrderedPair[] listToSort3 = new OrderedPair[listNOfOrderedPairs.size()];
+    List<OrderedPair> listToSort4 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
 
     Log.printOntoScreen("Calculando SelectSort atual...");
     SelectionSort ss1 = new SelectionSort();
@@ -39,32 +40,36 @@ public class ComparingSelectSort {
 
     Log.printOntoScreen("Calculando SelectSort com array...");
     questao01.algoritmos.ordenacao.SelectionSort ss3 = new questao01.algoritmos.ordenacao.SelectionSort();
-
     listNOfOrderedPairs.toArray(listToSort3);
     performSorting(ss3, listToSort3);
 
+    Log.printOntoScreen("Calculando QuickSort concorrente...");
+    questao01.algoritmos.ordenacao.QuickSort qs1 = new questao01.algoritmos.ordenacao.QuickSort();
+    performSorting(qs1, listToSort4);
   }
 
-  private void performSorting(ISortable selectSort, List<OrderedPair> listToSort) {
+  private void performSorting(Sorter sorter, List<OrderedPair> listToSort) {
     long startTime = System.currentTimeMillis();
 
-    selectSort.sortAscending(listToSort);
+    sorter.sortAscending(listToSort);
 
     long finishTime = System.currentTimeMillis() - startTime;
 
     //Log.printList(listToSort);
     Log.printOntoScreen("Tamanho do N: " + listToSort.size());
+    Log.printOntoScreen("Iterações: " + sorter.getIterations());
     Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
   }
 
-  private void performSorting(ISortable selectSort, OrderedPair[] listToSort) {
+  private void performSorting(Sorter sorter, OrderedPair[] listToSort) {
     long startTime = System.currentTimeMillis();
 
-    selectSort.sortAscending(listToSort);
+    sorter.sortAscending(listToSort);
 
     long finishTime = System.currentTimeMillis() - startTime;
 
     Log.printOntoScreen("Tamanho do N: " + listToSort.length);
+    Log.printOntoScreen("Iterações: " + sorter.getIterations());
     Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
   }
 

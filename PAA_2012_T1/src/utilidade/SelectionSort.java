@@ -2,10 +2,10 @@ package utilidade;
 
 import java.util.List;
 
-import questao01.algoritmos.ordenacao.ISortable;
+import questao01.algoritmos.ordenacao.Sorter;
 import questao01.pph.MedianaPair;
 
-public class SelectionSort implements ISortable {
+public class SelectionSort extends Sorter {
 
   @Override
   public <T extends Comparable<T>> void sortAscending(T[] arValues) {

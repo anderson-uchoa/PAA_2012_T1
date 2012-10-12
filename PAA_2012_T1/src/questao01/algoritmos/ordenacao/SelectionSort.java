@@ -38,6 +38,7 @@ public class SelectionSort extends Sorter implements ISortable {
       positionSmallestValue = i;
 
       for (int j = (i + 1); j < arValues.length; j++) {
+        this.incIterations();
         if ((arValues[positionSmallestValue].compareTo(arValues[j])) > 0) {
           // It gets the new smallest value.
           positionSmallestValue = j;

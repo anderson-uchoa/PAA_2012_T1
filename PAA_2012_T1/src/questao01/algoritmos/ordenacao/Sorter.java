@@ -4,7 +4,9 @@ package questao01.algoritmos.ordenacao;
  * @author Luciano Sampaio
  * 
  */
-public abstract class Sorter {
+public abstract class Sorter implements ISortable {
+
+  private long iterations;
 
   /**
    * Swap the position of the elements in the array.
@@ -17,5 +19,13 @@ public abstract class Sorter {
     T temp = arValues[one];
     arValues[one] = arValues[two];
     arValues[two] = temp;
+  }
+
+  public long getIterations() {
+    return iterations;
+  }
+
+  public void incIterations() {
+    this.iterations++;
   }
 }

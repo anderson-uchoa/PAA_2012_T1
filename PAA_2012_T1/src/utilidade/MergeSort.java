@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import questao01.algoritmos.ordenacao.ISortable;
+import questao01.algoritmos.ordenacao.Sorter;
 
-public class MergeSort implements ISortable {
+public class MergeSort extends Sorter {
   int iterations = 0;
 
   public <T extends Comparable<T>> void sort(List<T> list) {

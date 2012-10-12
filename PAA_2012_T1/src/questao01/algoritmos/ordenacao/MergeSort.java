@@ -47,7 +47,6 @@ public class MergeSort extends Sorter implements ISortable {
    * @param right
    */
   private <T extends Comparable<T>> void mergeSort(T[] arValues, int left, int right) {
-
     if (left < right) {
       // Get the middle of the array.
       int middle = (left + right) / 2;
@@ -83,6 +82,7 @@ public class MergeSort extends Sorter implements ISortable {
     Vector<T> arTemp = new Vector<T>(nrTimes);
 
     for (int i = 0; i < nrTimes; i++) {
+      this.incIterations();
 
       if (leftMoves <= middle) {
         leftValue = arValues[leftMoves];
@@ -117,6 +117,7 @@ public class MergeSort extends Sorter implements ISortable {
 
     // Transfer the sorted elements to the original array.
     for (int i = 0; i < nrTimes; i++) {
+      this.incIterations();
       arValues[left + i] = arTemp.get(i);
     }
   }
