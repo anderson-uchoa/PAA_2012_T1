@@ -19,18 +19,18 @@ public class Frascos_03 {
   /**
    * O nome do input padrão(usado para testes).
    */
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_08_01.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_08_02.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_008_01.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_008_02.txt";
 
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_16_01.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_016_01.txt";
 
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_32_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_32_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_32_03.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_02.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_03.txt";
 
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_64_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_64_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_64_03.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_02.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_02.txt";
@@ -112,10 +112,9 @@ public class Frascos_03 {
           findTheStepItBreaks(inputValue, flasks);
 
           finishTime = System.currentTimeMillis() - startTime;
-          Log.printOntoScreenF("Tempo de execucao: %d\n", finishTime);
+          Log.printOntoScreenF("Tempo de execucao: %d\n\n", finishTime);
         }
 
-        Log.printOntoScreen("");
         cont++;
       }
     }
@@ -179,8 +178,7 @@ public class Frascos_03 {
     }
 
     String stepItBroke = convertFromArray(output);
-    Log.printOntoScreenF("Entrada %s, saida %s com %3d frasco(s), quebraram %3d e precisou de %2d passos. ", inputValue, stepItBroke, flasks, usedFlasks,
-      iterations);
+    Log.printOntoScreenF("Entrada: %s, saida: %s \nFrascos: %3d, quebraram %3d em %2d passos, ", inputValue, stepItBroke, flasks, usedFlasks, iterations);
 
     return stepItBroke;
   }
