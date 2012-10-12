@@ -1,4 +1,4 @@
-package questao01.algoritmos.ordenacao;
+package questao01.pph.ordenacao;
 
 /**
  * @author Luciano Sampaio

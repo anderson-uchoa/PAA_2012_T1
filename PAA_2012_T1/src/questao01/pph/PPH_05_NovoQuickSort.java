@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import questao01.algoritmos.ordenacao.QuickSortNET;
+import questao01.pph.ordenacao.QuickSortNET;
 import utilidade.Log;
 import utilidade.Utils;
 

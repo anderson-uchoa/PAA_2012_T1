@@ -2,8 +2,8 @@ package utilidade;
 
 import java.util.List;
 
-import questao01.algoritmos.ordenacao.Sorter;
 import questao01.pph.MedianaPair;
+import questao01.pph.ordenacao.Sorter;
 
 public class SelectionSort extends Sorter {
 

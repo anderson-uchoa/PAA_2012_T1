@@ -3,8 +3,8 @@ package questao01.pph.battle;
 import java.util.ArrayList;
 import java.util.List;
 
-import questao01.algoritmos.ordenacao.Sorter;
 import questao01.pph.OrderedPair;
+import questao01.pph.ordenacao.Sorter;
 import utilidade.Log;
 import utilidade.MergeSort;
 import utilidade.Utils;
@@ -34,11 +34,11 @@ public class ComparingMergeSort {
     performSorting(m1, listToSort1);
 
     Log.printOntoScreen("Calculando MergeSort concorrente...");
-    questao01.algoritmos.ordenacao.MergeSort m2 = new questao01.algoritmos.ordenacao.MergeSort();
+    questao01.pph.ordenacao.MergeSort m2 = new questao01.pph.ordenacao.MergeSort();
     performSorting(m2, listToSort2);
 
     Log.printOntoScreen("Calculando MergeSort com array...");
-    questao01.algoritmos.ordenacao.MergeSort m3 = new questao01.algoritmos.ordenacao.MergeSort();
+    questao01.pph.ordenacao.MergeSort m3 = new questao01.pph.ordenacao.MergeSort();
     listNOfOrderedPairs.toArray(listToSort3);
     performSorting(m3, listToSort3);
   }

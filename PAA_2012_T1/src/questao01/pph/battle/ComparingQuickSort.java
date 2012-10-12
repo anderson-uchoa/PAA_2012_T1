@@ -3,8 +3,8 @@ package questao01.pph.battle;
 import java.util.ArrayList;
 import java.util.List;
 
-import questao01.algoritmos.ordenacao.Sorter;
 import questao01.pph.OrderedPair;
+import questao01.pph.ordenacao.Sorter;
 import utilidade.Log;
 import utilidade.Utils;
 
@@ -28,11 +28,11 @@ public class ComparingQuickSort {
     List<OrderedPair> listToSort2 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
 
     Log.printOntoScreen("Calculando QuickSort meu...");
-    questao01.algoritmos.ordenacao.QuickSort qs1 = new questao01.algoritmos.ordenacao.QuickSort();
+    questao01.pph.ordenacao.QuickSort qs1 = new questao01.pph.ordenacao.QuickSort();
     performSorting(qs1, listToSort1);
 
     Log.printOntoScreen("Calculando QuickSort net...");
-    questao01.algoritmos.ordenacao.QuickSortNET qs2 = new questao01.algoritmos.ordenacao.QuickSortNET();
+    questao01.pph.ordenacao.QuickSortNET qs2 = new questao01.pph.ordenacao.QuickSortNET();
     performSorting(qs2, listToSort2);
 
   }

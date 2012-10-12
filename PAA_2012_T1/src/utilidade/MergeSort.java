@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import questao01.algoritmos.ordenacao.Sorter;
+import questao01.pph.ordenacao.Sorter;
 
 public class MergeSort extends Sorter {
   int iterations = 0;

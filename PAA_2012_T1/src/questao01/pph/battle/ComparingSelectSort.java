@@ -3,8 +3,8 @@ package questao01.pph.battle;
 import java.util.ArrayList;
 import java.util.List;
 
-import questao01.algoritmos.ordenacao.Sorter;
 import questao01.pph.OrderedPair;
+import questao01.pph.ordenacao.Sorter;
 import utilidade.Log;
 import utilidade.SelectionSort;
 import utilidade.Utils;
@@ -34,11 +34,11 @@ public class ComparingSelectSort {
     performSorting(ss1, listToSort1);
 
     Log.printOntoScreen("Calculando SelectSort concorrente...");
-    questao01.algoritmos.ordenacao.SelectionSort ss2 = new questao01.algoritmos.ordenacao.SelectionSort();
+    questao01.pph.ordenacao.SelectionSort ss2 = new questao01.pph.ordenacao.SelectionSort();
     performSorting(ss2, listToSort2);
 
     Log.printOntoScreen("Calculando SelectSort com array...");
-    questao01.algoritmos.ordenacao.SelectionSort ss3 = new questao01.algoritmos.ordenacao.SelectionSort();
+    questao01.pph.ordenacao.SelectionSort ss3 = new questao01.pph.ordenacao.SelectionSort();
     listNOfOrderedPairs.toArray(listToSort3);
     performSorting(ss3, listToSort3);
   }

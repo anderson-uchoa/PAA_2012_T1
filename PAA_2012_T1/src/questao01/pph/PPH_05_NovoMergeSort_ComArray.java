@@ -84,7 +84,7 @@ public class PPH_05_NovoMergeSort_ComArray {
         somaB = 0;
 
         // Ordenando a lista.
-        questao01.algoritmos.ordenacao.MergeSort merge = new questao01.algoritmos.ordenacao.MergeSort();
+        questao01.pph.ordenacao.MergeSort merge = new questao01.pph.ordenacao.MergeSort();
 
         listToSort = arrayOriginalPair.clone();
         merge.sortAscending(listToSort);

@@ -83,7 +83,7 @@ public class PPH_05_NovoMergeSort {
 
         // Ordanando a lista
         //utilidade.MergeSort merge = new utilidade.MergeSort();
-        questao01.algoritmos.ordenacao.MergeSort merge = new questao01.algoritmos.ordenacao.MergeSort();
+        questao01.pph.ordenacao.MergeSort merge = new questao01.pph.ordenacao.MergeSort();
         List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
         merge.sortAscending(listNOfOrderedPairs);
 
