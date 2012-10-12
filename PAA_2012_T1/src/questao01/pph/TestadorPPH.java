@@ -26,7 +26,7 @@ public class TestadorPPH {
 
       if (listOfFiles[i].isFile()) {
         files = listOfFiles[i].getName();
-        if (files.endsWith(".txt")) {
+        if (files.endsWith(".txt") || files.endsWith(".dat")) {
           try {
             fileNameAndPath = path + files;
             System.out.println(path + files);

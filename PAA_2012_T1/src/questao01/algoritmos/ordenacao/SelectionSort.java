@@ -1,5 +1,6 @@
 package questao01.algoritmos.ordenacao;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -12,6 +13,17 @@ public class SelectionSort extends Sorter implements ISortable {
 
   @Override
   public <T extends Comparable<T>> void sortAscending(List<T> list) {
+    // Desta forma ficou genérico.
+    @SuppressWarnings("unchecked")
+    T[] arValues = (T[]) java.lang.reflect.Array.newInstance(list.get(0).getClass(), list.size());
+    for (int i = 0; i < list.size(); i++) {
+      arValues[i] = list.get(i);
+    }
+
+    sortAscending(arValues);
+
+    list.clear();
+    list.addAll(Arrays.asList(arValues));
   }
 
   /**

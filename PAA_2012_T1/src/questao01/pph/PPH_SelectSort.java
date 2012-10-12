@@ -82,8 +82,8 @@ public class PPH_SelectSort {
 
         // Ordanando a lista
         SelectionSort selectSort = new SelectionSort();
-        int size = quantityOfInputValues - 1;
-        MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
+        int size = quantityOfInputValues;
+        MedianaPair<OrderedPair> mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
         finalRatio = maximumRatio(listOriginalPair, size, mediana);
 
         listS.add(0, parInicial);
@@ -101,6 +101,9 @@ public class PPH_SelectSort {
       Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
       Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
+
+      // Fecha o scanner.
+      scanner.close();
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -113,7 +116,7 @@ public class PPH_SelectSort {
    * @param count
    * @return A razão máxima.
    */
-  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int count, MedianaPair mediana) {
+  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int count, MedianaPair<OrderedPair> mediana) {
     float maximumRatio = parInicial.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 

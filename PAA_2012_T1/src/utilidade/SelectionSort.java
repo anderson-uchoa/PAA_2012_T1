@@ -2,13 +2,23 @@ package utilidade;
 
 import java.util.List;
 
+import questao01.algoritmos.ordenacao.ISortable;
 import questao01.pph.MedianaPair;
-import questao01.pph.OrderedPair;
 
-public class SelectionSort {
-  public MedianaPair select(List<OrderedPair> list, int left, int right, int k) {
+public class SelectionSort implements ISortable {
+
+  @Override
+  public <T extends Comparable<T>> void sortAscending(T[] arValues) {
+  }
+
+  @Override
+  public <T extends Comparable<T>> void sortAscending(List<T> list) {
+    selectIterativo(list, 0, list.size(), list.size() / 2);
+  }
+
+  public <T extends Comparable<T>> MedianaPair<T> select(List<T> list, int left, int right, int k) {
     if (left == right) // If the list contains only one element
-      return new MedianaPair(list.get(left), left);//list.get(left); // Return that element
+      return new MedianaPair<T>(list.get(left), left);//list.get(left); // Return that element
     // select pivotIndex between left and right
     int median = medianOfMedians(list, left, right);
     int pivotNewIndex = partition(list, left, right, median);
@@ -16,14 +26,14 @@ public class SelectionSort {
     // The pivot is in its final sorted position,
     // so pivotDist reflects its 1-based position if list were sorted
     if (pivotDist == k)
-      return new MedianaPair(list.get(left), left);//list.get(pivotNewIndex);
+      return new MedianaPair<T>(list.get(left), left);//list.get(pivotNewIndex);
     else if (k < pivotDist)
       return select(list, left, pivotNewIndex - 1, k);
     else
       return select(list, pivotNewIndex + 1, right, k - pivotDist);
   }
 
-  public MedianaPair selectIterativo(List<OrderedPair> list, int left, int right, int k) {
+  public <T extends Comparable<T>> MedianaPair<T> selectIterativo(List<T> list, int left, int right, int k) {
     // select pivotIndex between left and right
     while (left != right) {
       int median = medianOfMedians(list, left, right);
@@ -32,7 +42,7 @@ public class SelectionSort {
       // The pivot is in its final sorted position,
       // so pivotDist reflects its 1-based position if list were sorted
       if (pivotDist == k)
-        return new MedianaPair(list.get(pivotNewIndex), pivotNewIndex);
+        return new MedianaPair<T>(list.get(pivotNewIndex), pivotNewIndex);
       else if (k < pivotDist)
         right = pivotNewIndex - 1;
       else {
@@ -40,13 +50,13 @@ public class SelectionSort {
         left = pivotNewIndex + 1;
       }
     }
-    return new MedianaPair(list.get(left), left);
+    return new MedianaPair<T>(list.get(left), left);
   }
 
-  private int partition(List<OrderedPair> list, int left, int right, int pivotIndex) {
+  private <T extends Comparable<T>> int partition(List<T> list, int left, int right, int pivotIndex) {
     int i = left, j = right - 1;
-    OrderedPair tmp;
-    OrderedPair pivot = list.get(pivotIndex);
+    T tmp;
+    T pivot = list.get(pivotIndex);
     while (i < j) {
       while (list.get(i).compareTo(pivot) < 0 && i < j)
         i++;
@@ -67,7 +77,7 @@ public class SelectionSort {
   // returns the index of the median of medians.
   // requires a variant of select, "selectIdx" which returns the index of the
   // selected item rather than the value
-  private int medianOfMedians(List<OrderedPair> list, int left, int right) {
+  private <T extends Comparable<T>> int medianOfMedians(List<T> list, int left, int right) {
     int numMedians = (right - left) / 5;
     int swap;
     for (int i = 0; i < numMedians; i++) {
@@ -86,7 +96,7 @@ public class SelectionSort {
     return selectIdx(list, left, left + numMedians, numMedians / 2);
   }
 
-  private int selectIdx(List<OrderedPair> list, int left, int right, int pivot) {
+  private <T extends Comparable<T>> int selectIdx(List<T> list, int left, int right, int pivot) {
     if (right - left < 6)
       InsertionSort(list, left, right);
 
@@ -99,9 +109,9 @@ public class SelectionSort {
     return idx;
   }
 
-  public void InsertionSort(List<OrderedPair> list, int left, int right) {
+  public <T extends Comparable<T>> void InsertionSort(List<T> list, int left, int right) {
     for (int j = left + 1; j < list.size(); j++) {
-      OrderedPair orderedPairkey = list.get(j);
+      T orderedPairkey = list.get(j);
       int i = j - 1;
       while (i >= 0 && list.get(i).compareTo(orderedPairkey) > 0) {
         list.set(i + 1, list.get(i));
@@ -109,13 +119,5 @@ public class SelectionSort {
       }
       list.set(i + 1, orderedPairkey);
     }
-  }
-
-  /** Swaps the values at the specified array indexes */
-  private void swap(List<OrderedPair> array, int a, int b) {
-    OrderedPair temp = array.get(a);
-    array.set(a, array.get(b));
-    array.set(b, temp);
-
   }
 }

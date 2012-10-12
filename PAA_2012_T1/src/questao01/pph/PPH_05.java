@@ -104,6 +104,8 @@ public class PPH_05 {
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
       Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
 
+      // Fecha o scanner.
+      scanner.close();
     }
     catch (Exception e) {
       e.printStackTrace();
