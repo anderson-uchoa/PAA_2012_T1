@@ -10,6 +10,9 @@ package questao02.frascos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import utilidade.Log;
@@ -112,7 +115,11 @@ public class Frascos_03 {
           findTheStepItBreaks(inputValue, flasks);
 
           finishTime = System.currentTimeMillis() - startTime;
-          Log.printOntoScreenF("Tempo de execucao: %d\n\n", finishTime);
+
+          DateFormat formatter = new SimpleDateFormat("mm:ss.SSSS");
+          String dateFormatted = formatter.format(new Date(finishTime));
+
+          Log.printOntoScreenF("Tempo de execucao: %s\n\n", dateFormatted);
         }
 
         cont++;
