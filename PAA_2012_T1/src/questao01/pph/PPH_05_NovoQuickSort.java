@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import questao01.algoritmos.ordenacao.QuickSortNET;
 import utilidade.Log;
 import utilidade.Utils;
 
@@ -82,7 +83,7 @@ public class PPH_05_NovoQuickSort {
         somaB = 0;
 
         // Ordenando a lista
-        questao01.algoritmos.ordenacao.QuickSortNET sorter = new questao01.algoritmos.ordenacao.QuickSortNET();
+        QuickSortNET sorter = new QuickSortNET();
         List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
         sorter.sortAscending(listNOfOrderedPairs);
 
