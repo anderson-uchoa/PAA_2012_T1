@@ -121,7 +121,7 @@ public class Frascos_03 {
 
           Log.printOntoScreenF("Tempo de execucao: %s\n\n", dateFormatted);
         }
-
+        Log.printOntoScreen("");
         cont++;
       }
     }
