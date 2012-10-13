@@ -24,25 +24,20 @@ public class Frascos_05 {
 
   //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_016_01.txt";
 
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_01.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_02.txt";
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_192_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_192_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_192_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_256_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_256_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_256_03.txt";
 
   /**
    * A quantidade de iterações que foi necessária para que o resultado esperado fosse encontrado.
