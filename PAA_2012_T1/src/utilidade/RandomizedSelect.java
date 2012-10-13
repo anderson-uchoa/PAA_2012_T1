@@ -33,28 +33,7 @@ public class RandomizedSelect extends Sorter implements ISortable {
     }
   }
 
-  //  public MedianaPair sortIterativo(List<OrderedPair> list, int left, int right, int i) {
-  //    //System.out.println("Sort");
-  //    while (left != right) {
-  //      if (left == i)
-  //        return new MedianaPair(list.get(left), left);
-  //
-  //      int pivotNewIndex = RandomizedPartition(list, left, right);
-  //      int pivotDist = pivotNewIndex - left + 1;
-  //      if (i == pivotDist)
-  //        return new MedianaPair(list.get(pivotNewIndex), pivotNewIndex);
-  //      else if (i < pivotDist)
-  //        right = pivotNewIndex - 1;
-  //      else {
-  //        i = i - pivotDist;
-  //        left = pivotNewIndex + 1;
-  //      }
-  //    }
-  //    return new MedianaPair(list.get(left), left);
-  //  }
-
   private <T extends Comparable<T>> int RandomizedPartition(List<T> list, int left, int right) {
-    //System.out.println("RandomizedPartition");
     // Escolhendo aleatoreamente um pivot entre "left" e "right"
     int index = left + (right - left) / 2; //new Random().nextInt(right + 1 - left) + left;// Random(left, right);
 
@@ -87,36 +66,11 @@ public class RandomizedSelect extends Sorter implements ISortable {
     list.set(i + 1, temp);
 
     return i + 1;
-
-    // p - inicio
-    //r - fim
-    //System.out.println("partition");
-    //    int i = left, j = right; //- 1;
-    //    OrderedPair tmp;
-    //    OrderedPair pivot = list.get(j);
-    //    while (i < j) {
-    //      while (list.get(i).compareTo(pivot) < 0)
-    //        //&& i < j)
-    //        i++;
-    //      while (list.get(j).compareTo(pivot) > 1)
-    //        //&& i < j)
-    //        j--;
-    //
-    //      if (i < j) {
-    //        tmp = list.get(i);
-    //        list.set(i, list.get(j));
-    //        list.set(j, tmp);
-    //        i++;
-    //        j--;
-    //      }
-    //    }
-    //    return i - 1;
   }
 
   @Override
   public <T extends Comparable<T>> void sortAscending(T[] arValues) {
     // TODO Auto-generated method stub
-
   }
 
   @Override
