@@ -87,8 +87,8 @@ public class SelectionSort {
   }
 
   private int selectIdx(List<OrderedPair> list, int left, int right, int pivot) {
-    //if (right - left < 6)
-    InsertionSort(list, left, right);
+    if (right - left < 6)
+      InsertionSort(list, left, right);
 
     int idx;
     if ((left + right) % 2 == 0)
