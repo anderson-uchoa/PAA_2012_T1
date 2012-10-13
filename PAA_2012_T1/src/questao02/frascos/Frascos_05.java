@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 import utilidade.Log;
 
-public class Frascos_03 {
+public class Frascos_05 {
 
   /**
    * O nome do input padrão(usado para testes).
@@ -26,11 +26,11 @@ public class Frascos_03 {
 
   //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_02.txt";
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_03.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_02.txt";
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_03.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_03.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_02.txt";
@@ -64,7 +64,7 @@ public class Frascos_03 {
       Log.isDebugging = true;
     }
 
-    Frascos_03 f = new Frascos_03();
+    Frascos_05 f = new Frascos_05();
     f.run(inputFile);
   }
 
@@ -86,7 +86,7 @@ public class Frascos_03 {
 
       // A quantidade de frascos que vai ser usada em cada teste.
       // 256 simula a quantidade infinita de frascos.
-      int[] quantityOfFlasks = { 256, 32, 16, 8, 4, 2, 1 };
+      int[] quantityOfFlasks = { 256, 192, 128, 64, 32, 16, 4, 2, 1 };
 
       // Esta linha é apenas para forçar uma quebra de linha depois dos
       // números.
@@ -210,62 +210,40 @@ public class Frascos_03 {
    * @param input
    * @param startPos
    * @param endPos
-   * @return True se foi possível incrementar, False se houve um estouro 11 + 1 = 100.
    */
-  private boolean increment(boolean[] input, int startPos, int endPos) {
-    // Obtém o tamanho da entrada.
-    int length = (endPos - startPos) + 1;
-
-    // O incremento para resolver a nossa questão do trabalho sempre será 1, 
-    // mas para que o código ficasse genérico, fizemos o array de incremento 
-    // com o mesmo tamanho do de entrada mas com todos os seus valores inicializados com 0 -> false.
-    boolean[] increment = new boolean[length];
-    increment[length - 1] = true;
-
+  private void increment(boolean[] input, int startPos, int endPos) {
     // Informa se houve um buffer over flow.
     boolean overFlow = false;
+    int i = endPos;
 
-    // O índice J é para evitar indexOutOfBound porque nem sempre os array têm o mesmo tamanho.
-    int j = endPos;
-    for (int i = length - 1; i >= 0; i--) {
+    // Este método sempre incrementa o valor atual mais 1, se o valor no primeiro elemento for 0, 
+    // adicionamos mais 1 e acaba, NÃO TEM MAIS NADA PARA FAZER.
+    // Se for 1, ai temos um over flow e precisamos de mais testes.
+    if (!input[i]) { // input = 0
+      input[i] = true;
+    }
+    else if (input[i]) { // input = 1
+      input[i] = false;
+      overFlow = true;
+      i--;
+    }
 
-      if ((!input[j]) && (!increment[i])) { // input = 0, increment = 0.
-        if (!overFlow) {
-          input[j] = false;
-        }
-        else {
-          input[j] = true;
-          overFlow = false;
+    while (overFlow) {
+      if (!input[i]) { // input = 0
+        if (overFlow) {
+          input[i] = true;
         }
         // Se esta situação acontecer, acaba.
-        break;
+        overFlow = false;
       }
-      else if ((input[j] ^ increment[i])) { // input = 0, increment = 1 or input = 1, increment = 0.
-        if (!overFlow) {
-          input[j] = true;
-        }
-        else {
-          input[j] = false;
+      else if (input[i]) { // input = 1
+        if (overFlow) {
+          input[i] = false;
           overFlow = true;
         }
       }
-      else if ((input[j]) && (increment[i])) { // input = 1, increment = 1.
-        if (!overFlow) {
-          input[j] = false;
-        }
-        else {
-          input[j] = true;
-        }
-        overFlow = true;
-      }
-
-      j--;
+      i--;
     }
-
-    // Se no final teve um overflow significa que estourou o valor máximo, 
-    // então retorna false que significa que não da mais para incrementar;
-    // Se não teve overflow, retorna true dizendo que a operação foi concluída com sucesso.
-    return !overFlow;
   }
 
   /**
