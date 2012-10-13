@@ -1,25 +1,25 @@
 package questao01.pph;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import questao01.pph.ordenacao.QuickSortNET;
 import utilidade.Log;
-import utilidade.SelectionSort;
 import utilidade.Utils;
 
-public class PPH_SelectSort {
+public class PPH_05_NovoQuickSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_100.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
-
-  // Para evitar colocar numeros literais no código.
-  private int                 somaA                   = 0;
-  private int                 somaB                   = 0;
   OrderedPair                 parInicial;
+  // Para evitar colocar numeros literais no código.
+  int                         somaA                   = 0;
+  int                         somaB                   = 0;
 
   public static void main(String[] args) {
     String inputFile;
@@ -36,7 +36,8 @@ public class PPH_SelectSort {
       // Informa que a applicação esta em modo debug.
       Log.isDebugging = false;
     }
-    PPH_SelectSort pph = new PPH_SelectSort();
+
+    PPH_05_NovoQuickSort pph = new PPH_05_NovoQuickSort();
     pph.run(inputFile);
   }
 
@@ -47,7 +48,7 @@ public class PPH_SelectSort {
    */
   public void run(String inputFile) {
     try {
-      Log.printOntoScreen("Iniciado SelectionSort - O(n)...");
+      Log.printOntoScreen("Iniciado Novo QuickSort - O(n log(n))...");
       // Abre o arquivo para que o dados possam ser lidos.
       Scanner scanner = new Scanner(new File(inputFile));
 
@@ -65,12 +66,13 @@ public class PPH_SelectSort {
       scanner.nextLine();
 
       List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+
       long startTime = System.currentTimeMillis();
-      Log.printOntoScreen("Calculando...");
       // Atribuindo o par inicial
       parInicial = listOriginalPair.get(0);
       // Removendo da lista o par inicial
       listOriginalPair.remove(0);
+      Log.printOntoScreen("Calculando...");
 
       while (System.currentTimeMillis() - startTime < 5000) {
         // Obtém os valores que correspondem ao b = {1,.., n}
@@ -80,11 +82,12 @@ public class PPH_SelectSort {
         somaA = 0;
         somaB = 0;
 
-        // Ordanando a lista
-        SelectionSort selectSort = new SelectionSort();
-        int size = listOriginalPair.size();
-        MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
-        finalRatio = maximumRatio(listOriginalPair, size, mediana);
+        // Ordenando a lista
+        QuickSortNET sorter = new QuickSortNET();
+        List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
+        sorter.sortAscending(listNOfOrderedPairs);
+
+        finalRatio = maximumRatio(listNOfOrderedPairs);
 
         listS.add(0, parInicial);
 
@@ -93,14 +96,17 @@ public class PPH_SelectSort {
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
-      //Log.printList(listS);
+      // Log.printList(listS);
 
       Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
       Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
       Log.printOntoScreenF("Razão final: %f\n", finalRatio);
-      Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
+      Log.printOntoScreen("Iterações realizadas: " + iterations);
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
       Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
+
+      // Fecha o scanner.
+      scanner.close();
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -109,18 +115,15 @@ public class PPH_SelectSort {
 
   /**
    * @param listNOfOrderedPairs
-   * @param mediana
-   * @param count
    * @return A razão máxima.
    */
-  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int count, MedianaPair mediana) {
+  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs) {
+    // O R inicial é calculado pelo a0 / b0.
     float maximumRatio = parInicial.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
-    // Zerando as variáveis iniciais.
     OrderedPair auxlPar;
-    //for (int i = count - 1; i >= mediana.getIndex(); i--) {
-    for (int i = mediana.getIndex(); i < count; i++) {
+    for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
       auxlPar = listNOfOrderedPairs.get(i);
 
       Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
@@ -128,13 +131,16 @@ public class PPH_SelectSort {
       if (auxlPar.getRatio() > maximumRatio) {
         // Então coloca o par(ai e o bi) na lista S.
         listS.add(auxlPar);
-        //  Atualiza o R(razão).
+
+        // Atualiza o R(razão).
         SomaRazao(auxlPar);
         maximumRatio = calcularRazao();
         Log.debugF("Nova razão: %f\n", maximumRatio);
       }
+      else
+        break;
     }
-    Log.debug("Fim !!");
+    Log.debug("Fim !!!");
     return maximumRatio;
   }
 

@@ -7,15 +7,22 @@ import utilidade.Log;
 public class TestadorFrascos {
 
   public static void main(String[] args) {
+    TestadorFrascos tf = new TestadorFrascos();
+    tf.run();
+  }
+
+  private void run() {
+    // Todos os arquivos de entrada estão nestas pastas.
     String path = "test/frascos/";
 
     String files;
     String fileNameAndPath = null;
     File folder = new File(path);
+    // Obtém a lista de arquivos neste diretório.
     File[] listOfFiles = folder.listFiles();
 
     // Instância da classe que vai ser executada.
-    Frascos_03 f = new Frascos_03();
+    Frascos_05 f = new Frascos_05();
 
     for (int i = 0; i < listOfFiles.length; i++) {
 
@@ -24,7 +31,6 @@ public class TestadorFrascos {
         if (files.endsWith(".txt")) {
           try {
             fileNameAndPath = path + files;
-            //System.out.println(path + files);
             f.run(fileNameAndPath);
           }
           catch (Exception e) {

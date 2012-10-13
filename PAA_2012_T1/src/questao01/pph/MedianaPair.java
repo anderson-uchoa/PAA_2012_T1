@@ -1,19 +1,19 @@
 package questao01.pph;
 
-public class MedianaPair {
-  private OrderedPair orderedPair;
-  private int         index;
+public class MedianaPair<T extends Comparable<T>> {
+  private T   orderedPair;
+  private int index;
 
-  public MedianaPair(OrderedPair orderedPair, int index) {
+  public MedianaPair(T orderedPair, int index) {
     this.orderedPair = orderedPair;
     this.index = index;
   }
 
-  public OrderedPair getOrderedPair() {
+  public T getOrderedPair() {
     return orderedPair;
   }
 
-  public void setOrderedPair(OrderedPair orderedPair) {
+  public void setOrderedPair(T orderedPair) {
     this.orderedPair = orderedPair;
   }
 

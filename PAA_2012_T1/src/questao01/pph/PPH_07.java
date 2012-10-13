@@ -12,10 +12,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import questao01.pph.ordenacao.Sorter;
 import utilidade.Log;
 import utilidade.Utils;
 
-public class PPH_07 {
+public class PPH_07 extends Sorter {
 
   // O nome do arquivo de input padrão(usado para testes).
   private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_1000.txt";
@@ -28,8 +29,6 @@ public class PPH_07 {
 
   private long                somatoryA;
   private long                somatoryB;
-
-  private long                steps;
 
   public static void main(String[] args) {
     String inputFile;
@@ -66,7 +65,7 @@ public class PPH_07 {
       // b0 não entram) * 2(porque é a mesma quantidade para o A e para o
       // B).
       int quantityOfInputValues = scanner.nextInt() + 1;
-      //int quantityOfInputValues = 1000000;
+      //int quantityOfInputValues = 100000;
 
       // A razão que deve ser calculada e apresentada no final.
       float finalRatio = 0;
@@ -92,6 +91,7 @@ public class PPH_07 {
         // Inicia a matriz S com o tamanho de elementos de pares ordenados e 2 colunas.
         somatoryA = initialPair.getA();
         somatoryB = initialPair.getB();
+        setIterations(0);
 
         // Calcula a razão máxima.
         finalRatio = maximumRatio(listNOfOrderedPairs);
@@ -108,10 +108,13 @@ public class PPH_07 {
       Log.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
       Log.printOntoScreen("Tamanho do N: " + (quantityOfInputValues - 1));
       Log.printOntoScreenF("Razão final: %f\n", finalRatio);
-      Log.printOntoScreen("Iteraçoes realizadas: " + iterations);
+      Log.printOntoScreen("Operações: " + getIterations());
+      Log.printOntoScreen("Iteraçoes realizadas em 5 segundos: " + iterations);
       Log.printOntoScreenF("Tempo de execução Médio: %f\n", media);
       Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
 
+      // Fecha o scanner.
+      scanner.close();
     }
     catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -128,13 +131,13 @@ public class PPH_07 {
     //Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     OrderedPair auxPar;
-    steps = 0;
+
     //    for (int k = 0; k < listNOfOrderedPairs.size(); k++) {
     // Zerando as variáveis iniciais.
     listS = new LinkedList<OrderedPair>();
 
     for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
-      steps++;
+      incIterations();
       auxPar = listNOfOrderedPairs.get(i);
 
       //Log.debugF("[%d, %d] = %f - %f\n", auxPar.getA(), auxPar.getB(), auxPar.getRatio(), maximumRatio);
@@ -169,6 +172,7 @@ public class PPH_07 {
    * @return Atualiza a razão baseada em A0 + somatório Ai até BN dividido por B0 + somatório Bi até BN.
    */
   private float updateRatio(List<OrderedPair> listS) {
+    incIterations();
     //    long a = initialPair.getA();
     //    long b = initialPair.getB();
 
@@ -196,7 +200,7 @@ public class PPH_07 {
     OrderedPair auxPar;
     for (Iterator<OrderedPair> iterator = listS.iterator(); iterator.hasNext();) {
       auxPar = iterator.next();
-      steps++;
+      incIterations();
 
       // Se o ratio for menor, então o par ordenado deve ser removido.
       if (auxPar.getRatio() < maximumRatio) {
@@ -215,5 +219,13 @@ public class PPH_07 {
     listS.removeAll(listAux);
 
     return invalid;
+  }
+
+  @Override
+  public <T extends Comparable<T>> void sortAscending(T[] arValues) {
+  }
+
+  @Override
+  public <T extends Comparable<T>> void sortAscending(List<T> list) {
   }
 }

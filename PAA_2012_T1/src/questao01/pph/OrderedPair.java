@@ -2,12 +2,15 @@ package questao01.pph;
 
 public class OrderedPair implements Comparable<OrderedPair> {
 
-  private int a;
-  private int b;
+  private int     a;
+  private int     b;
+  private float   ratio;
+  private boolean isChanged;
 
   public OrderedPair(int a, int b) {
     this.a = a;
     this.b = b;
+    isChanged = true;
   }
 
   public int getA() {
@@ -19,7 +22,11 @@ public class OrderedPair implements Comparable<OrderedPair> {
   }
 
   public float getRatio() {
-    return (float) getA() / getB();
+    if (isChanged) {
+      isChanged = false;
+      ratio = (float) getA() / getB();
+    }
+    return ratio;
   }
 
   @Override
