@@ -22,7 +22,7 @@ public class TestadorFrascos {
     File[] listOfFiles = folder.listFiles();
 
     // Instância da classe que vai ser executada.
-    Frascos_03 f = new Frascos_03();
+    Frascos_05 f = new Frascos_05();
 
     for (int i = 0; i < listOfFiles.length; i++) {
 
