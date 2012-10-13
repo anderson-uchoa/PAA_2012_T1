@@ -12,7 +12,7 @@ import utilidade.Utils;
 
 public class PPH_05_NovoQuickSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_100000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -48,7 +48,7 @@ public class PPH_05_NovoQuickSort {
    */
   public void run(String inputFile) {
     try {
-      Log.printOntoScreen("Iniciado Novo QuickSort - O(n log(n))...");
+      Log.printOntoScreen("Iniciado Novo QuickSort - O(n)...");
       // Abre o arquivo para que o dados possam ser lidos.
       Scanner scanner = new Scanner(new File(inputFile));
 
@@ -65,7 +65,7 @@ public class PPH_05_NovoQuickSort {
       // números.
       scanner.nextLine();
 
-      List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(scanner, quantityOfInputValues);
+      List<OrderedPair> listOriginalPair = Utils.getValuesFromInputFile(quantityOfInputValues);
 
       long startTime = System.currentTimeMillis();
       // Atribuindo o par inicial

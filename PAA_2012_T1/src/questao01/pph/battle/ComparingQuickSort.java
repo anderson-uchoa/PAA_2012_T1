@@ -20,12 +20,13 @@ public class ComparingQuickSort {
    */
   private void run() {
     // Obtém a quantidade de números que serão testados.
-    int quantityOfInputValues = 1000000;
+    int quantityOfInputValues = 100;
 
     List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
     //    Log.printList(listNOfOrderedPairs);
     List<OrderedPair> listToSort1 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
     List<OrderedPair> listToSort2 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
+    List<OrderedPair> listToSort4 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
 
     Log.printOntoScreen("Calculando QuickSort meu...");
     questao01.pph.ordenacao.QuickSort qs1 = new questao01.pph.ordenacao.QuickSort();
@@ -35,6 +36,13 @@ public class ComparingQuickSort {
     questao01.pph.ordenacao.QuickSortNET qs2 = new questao01.pph.ordenacao.QuickSortNET();
     performSorting(qs2, listToSort2);
 
+    //    Log.printOntoScreen("Calculando QuickSort Linear...");
+    //    questao01.pph.ordenacao.QuickSortLinear qs3 = new questao01.pph.ordenacao.QuickSortLinear();
+    //    performSorting(qs3, listToSort3);
+
+    Log.printOntoScreen("Calculando Select...");
+    utilidade.RandomizedSelect qs4 = new utilidade.RandomizedSelect();
+    performSorting(qs4, listToSort4);
   }
 
   private void performSorting(Sorter sorter, List<OrderedPair> listToSort) {
