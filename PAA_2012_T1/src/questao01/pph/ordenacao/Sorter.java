@@ -28,4 +28,8 @@ public abstract class Sorter implements ISortable {
   public void incIterations() {
     this.iterations++;
   }
+
+  public void setIterations(long iterations) {
+    this.iterations = iterations;
+  }
 }
