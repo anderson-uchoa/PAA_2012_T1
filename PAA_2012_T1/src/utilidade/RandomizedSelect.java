@@ -9,10 +9,6 @@ import questao01.pph.ordenacao.Sorter;
 
 public class RandomizedSelect extends Sorter implements ISortable {
 
-  //  public MedianaPair sortAscending(List<OrderedPair> list, int left, int right, int i) {
-  //    return sort(list, left, list.size() - 1, i);
-  //  }
-
   public MedianaPair findMediana(List<OrderedPair> list) {
     return sort(list, 0, list.size() - 1, list.size() / 2);
   }
@@ -35,8 +31,7 @@ public class RandomizedSelect extends Sorter implements ISortable {
 
   private <T extends Comparable<T>> int RandomizedPartition(List<T> list, int left, int right) {
     // Escolhendo aleatoreamente um pivot entre "left" e "right"
-    int index = left + (right - left) / 2; //new Random().nextInt(right + 1 - left) + left;// Random(left, right);
-
+    int index = new java.util.Random().nextInt(right + 1 - left) + left;
     //swap
     T aux = list.get(index);
     list.set(index, list.get(right));
