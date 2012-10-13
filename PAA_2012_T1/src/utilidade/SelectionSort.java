@@ -84,7 +84,8 @@ public class SelectionSort extends Sorter {
       // get the median of the five-element subgroup
       int subLeft = left + i * 5;
       int subRight = subLeft + 5;
-      int medianIdx = selectIdx(list, subLeft, subRight, 2);
+      int medianIdx = selectTeste(list, subLeft, subRight, 2); // selectIdx(list, subLeft, subRight, 2);
+
       // alternatively, use a faster method that works on lists of size 5
       // move the median to a contiguous block at the beginning of the
       // list
@@ -93,20 +94,40 @@ public class SelectionSort extends Sorter {
       medianIdx = swap;
     }
     // select the median from the contiguous block
-    return selectIdx(list, left, left + numMedians, numMedians / 2);
+    return selectTeste(list, left, left + numMedians, numMedians / 2);//selectIdx(list, left, left + numMedians, numMedians / 2);
   }
 
   private <T extends Comparable<T>> int selectIdx(List<T> list, int left, int right, int pivot) {
     //if (right - left < 6)
-    InsertionSort(list, left, right);
+    //InsertionSort(list, left, right);
 
-    int idx;
-    if ((left + right) % 2 == 0)
-      idx = (left + right + 1) / 2;
-    else {
-      idx = (((left + right + 1) / 2) + ((left + right + 1) / 2) + 1) / 2;
+    //    int idx;
+    //    if ((left + right) % 2 == 0)
+    //      idx = (left + right + 1) / 2;
+    //    else {
+    //      idx = (((left + right + 1) / 2) + ((left + right + 1) / 2) + 1) / 2;
+    //    }
+    //    return idx;
+    return selectTeste(list, left, right, pivot);
+  }
+
+  public <T extends Comparable<T>> int selectTeste(List<T> list, int left, int right, int k) {
+    // select pivotIndex between left and right
+    while (left != right) {
+      int pivotNewIndex = partition(list, left, right, k);
+      int pivotDist = pivotNewIndex - left + 1;
+      // The pivot is in its final sorted position,
+      // so pivotDist reflects its 1-based position if list were sorted
+      if (pivotDist == k)
+        return pivotNewIndex;
+      else if (k < pivotDist)
+        right = pivotNewIndex - 1;
+      else {
+        k = k - pivotDist;
+        left = pivotNewIndex + 1;
+      }
     }
-    return idx;
+    return left;
   }
 
   public <T extends Comparable<T>> void InsertionSort(List<T> list, int left, int right) {

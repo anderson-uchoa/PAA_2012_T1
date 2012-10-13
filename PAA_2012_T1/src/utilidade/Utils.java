@@ -136,4 +136,64 @@ public class Utils {
   public static float calcRatio(long a, long b) {
     return (float) a / b;
   }
+
+  public static void decrement(boolean[] input, int startPos, int endPos) {
+    // Obtém o tamanho da entrada.
+    int length = (endPos - startPos);// + 1;
+
+    // O incremento para resolver a nossa questão do trabalho sempre será 1, 
+    // mas para que o código ficasse genérico, fizemos o array de incremento 
+    // com o mesmo tamanho do de entrada mas com todos os seus valores inicializados com 0 -> false.
+    boolean[] decrement = new boolean[length];
+    decrement[length - 1] = true;
+
+    // Informa se houve um buffer over flow.
+    boolean overFlow = false;
+    // O índice J é para evitar indexOutOfBound porque nem sempre os array têm o mesmo tamanho.
+    //int j = endPos;
+    for (int i = length - 1; i >= 0; i--) {
+      if (input[i] && decrement[i] && !overFlow) { // se for 1 e 1 e não over flow - fica 0
+        input[i] = false;
+      }
+      else if (!input[i] && decrement[i]) { // se for 0 e 1 e Over flow - fica 1 e toma emprestado da posicao anterior
+        if (!overFlow) {
+          input[i] = true;
+          if (input[i - 1] == false) {
+            overFlow = true;
+            //input[i - 1] = true;
+          }
+        }
+        else {// se over flow  e 0 - basta colocar 0
+          if (input[i] == false) {
+            input[i] = true;
+          }
+          else { // se tem 1, deixa com 0 e acaba o over flow
+            input[i] = false;
+            overFlow = false;
+          }
+
+          //          if (input[i - 1] == true) {
+          //            input[i - 1] = false;
+          //            overFlow = false;
+          //          }
+        }
+        //input[i - 1] = true;
+        //overFlow = true;
+      }
+      else if (!input[i] && !decrement[i] && overFlow) {
+        input[i] = true;
+      }
+      else if (input[i] && !decrement[i] && overFlow) {
+        input[i] = false;
+        overFlow = false;
+      }
+      //      else if (input[i] && !decrement[i]) {
+      //        input[i] = true; // n precisa apenas para testar
+      //      }
+      //      else if (!input[i] && !decrement[i] && overFlow) {
+      //        input[i] = true;
+      //        overFlow = false;
+      //      }
+    }
+  }
 }

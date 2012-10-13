@@ -112,6 +112,8 @@ public class Frascos_05 {
         Log.printOntoScreen("");
         cont++;
       }
+      // Fecha o scanner.
+      scanner.close();
     }
     catch (FileNotFoundException e) {
       e.printStackTrace();

@@ -11,7 +11,7 @@ import utilidade.Utils;
 
 public class PPH_SelectSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_100.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -72,24 +72,24 @@ public class PPH_SelectSort {
       // Removendo da lista o par inicial
       listOriginalPair.remove(0);
 
-      while (System.currentTimeMillis() - startTime < 5000) {
-        // Obtém os valores que correspondem ao b = {1,.., n}
-        listS = new LinkedList<OrderedPair>();
+      // while (System.currentTimeMillis() - startTime < 5000) {
+      // Obtém os valores que correspondem ao b = {1,.., n}
+      listS = new LinkedList<OrderedPair>();
 
-        // Inicia a matriz S com o tamanho de elementos de pares ordenados e 2 colunas.
-        somaA = 0;
-        somaB = 0;
+      // Inicia a matriz S com o tamanho de elementos de pares ordenados e 2 colunas.
+      somaA = 0;
+      somaB = 0;
 
-        // Ordanando a lista
-        SelectionSort selectSort = new SelectionSort();
-        int size = listOriginalPair.size();
-        MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
-        finalRatio = maximumRatio(listOriginalPair, size, mediana);
+      // Ordanando a lista
+      SelectionSort selectSort = new SelectionSort();
+      int size = listOriginalPair.size();
+      MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
+      finalRatio = maximumRatio(listOriginalPair, size, mediana);
 
-        listS.add(0, parInicial);
+      listS.add(0, parInicial);
 
-        iterations++;
-      }
+      iterations++;
+      //}
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
