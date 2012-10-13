@@ -20,7 +20,7 @@ public class ComparingQuickSort {
    */
   private void run() {
     // Obtém a quantidade de números que serão testados.
-    int quantityOfInputValues = 1000000;
+    int quantityOfInputValues = 100;
 
     List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
     //    Log.printList(listNOfOrderedPairs);

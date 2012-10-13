@@ -67,7 +67,7 @@ public class QuickSort extends Sorter implements ISortable {
     swap(arValues, indexPivot, right);
     for (int i = indexPivot = left; i < right; i++) {
       this.incIterations();
-      if (arValues[i].compareTo(pivot) >= 0) {
+      if (arValues[i].compareTo(pivot) > 0) {
         swap(arValues, indexPivot++, i);
       }
     }
