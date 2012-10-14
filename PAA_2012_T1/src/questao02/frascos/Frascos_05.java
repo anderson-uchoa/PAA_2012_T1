@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import utilidade.Log;
+import utilidade.ThreadControl;
 
 public class Frascos_05 {
 
@@ -24,11 +25,11 @@ public class Frascos_05 {
 
   //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_016_01.txt";
 
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_01.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_032_02.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_02.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_064_02.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/frascos/bignum_128_02.txt";
@@ -42,7 +43,11 @@ public class Frascos_05 {
   /**
    * A quantidade de iterações que foi necessária para que o resultado esperado fosse encontrado.
    */
-  private long                iterations;
+  private static long         iterations;
+
+  public static long getIterations() {
+    return iterations;
+  }
 
   public static void main(String[] args) {
     String inputFile;
@@ -91,12 +96,15 @@ public class Frascos_05 {
       long startTime;
       long finishTime;
       int cont = 0;
+
       // Este loop vai iterar por todos os números encontrados dentro do arquivo de entrada.
       while (cont < quantityOfInputValues) {
         // Obtém o número (como uma string).
         // Exemplo: X = 00111110 = 62.
         inputValue = scanner.nextLine();
 
+        ThreadControl control = new ThreadControl(10, 60);
+        control.start();
         //String stepItBroke = null;
         // Este loop vai iterar o mesmo número que foi lido do arquivo vezes a quantidade de frascos que vai ser testado. ex: 16, 8, 4, 2, 1
         for (int flasks : quantityOfFlasks) {
@@ -109,6 +117,7 @@ public class Frascos_05 {
           finishTime = System.currentTimeMillis() - startTime;
           Log.printOntoScreenF("Tempo de execucao: %s\n\n", finishTime);
         }
+        control.cancel();
         Log.printOntoScreen("");
         cont++;
       }

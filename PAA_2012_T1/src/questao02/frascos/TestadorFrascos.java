@@ -23,9 +23,7 @@ public class TestadorFrascos {
 
     // Instância da classe que vai ser executada.
     Frascos_05 f = new Frascos_05();
-
     for (int i = 0; i < listOfFiles.length; i++) {
-
       if (listOfFiles[i].isFile()) {
         files = listOfFiles[i].getName();
         if (files.endsWith(".txt")) {
