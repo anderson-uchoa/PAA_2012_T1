@@ -33,7 +33,7 @@ public class Utils {
     // O valor encontrado é o mesmo para os elementos de A e de B, ou seja, se o valor for 10
     // temos 10 elementos para o conjunto A e 10 para o conjunto B.
     // O + 1 é porque temos que ler mais dois(1 em para cada conjunto) números que são um para A0 e um para o B0.
-    int quantityOfInputValues = iterator.next() + 1;
+    int quantityOfInputValues = (iterator.hasNext()) ? iterator.next() + 1 : 0;
 
     List<Integer> listA = getValueFromIteratorByQuantityOfInputValues(iterator, quantityOfInputValues);
     List<Integer> listB = getValueFromIteratorByQuantityOfInputValues(iterator, quantityOfInputValues);

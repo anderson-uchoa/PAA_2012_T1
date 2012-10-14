@@ -1,7 +1,10 @@
 package pph;
 
 import java.io.File;
+import java.util.List;
 
+import pph.utils.OrderedPair;
+import pph.utils.Utils;
 import util.Logger;
 
 public class TestPPH {
@@ -29,9 +32,12 @@ public class TestPPH {
         if (fileName.endsWith(".txt") || fileName.endsWith(".dat")) {
           try {
             fileNameAndPath = path + fileName;
-
             Logger.printOntoScreen(fileNameAndPath);
-            pph_O_de_N.run(fileNameAndPath);
+
+            // Lê cada arquivo apenas uma vez.
+            List<OrderedPair> listNOfOrderedPairs = Utils.getListFromInputFile(fileNameAndPath);
+
+            pph_O_de_N.run(listNOfOrderedPairs);
           }
           catch (Exception e) {
             Logger.printOntoScreenF("Erro ao processar o arquivo %s com a mensagem: %s", fileNameAndPath, e.getMessage());

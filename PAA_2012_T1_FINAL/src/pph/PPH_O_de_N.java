@@ -76,37 +76,45 @@ public class PPH_O_de_N extends PPHBase {
   public void run(List<OrderedPair> listNOfOrderedPairs) {
     try {
       Logger.printOntoScreen("Iniciado em O(N)...");
+
+      // Momento em que o algoritmo iniciou sua execução.
+      long startTime = System.currentTimeMillis();
+
       // A razão que deve ser calculada e apresentada no final.
       float finalRatio = 0;
-
-      long startTime = System.currentTimeMillis();
 
       // Este é o par(a0, b0).
       initialPair = listNOfOrderedPairs.get(0);
       // Remove o par(a0, b0) da lista N de pares ordenados
       listNOfOrderedPairs.remove(0);
-      long iterations = 0;
-      Logger.printOntoScreen("Calculando...");
-      while (System.currentTimeMillis() - startTime < 5000) {
 
-        // Inicia a matriz S com o tamanho de elementos de pares ordenados e 2 colunas.
+      // Quantidade de iterações feitas dentro de 5 segundos.
+      long iterations = 0;
+
+      while (System.currentTimeMillis() - startTime < 5000) {
+        // Em cada iteração, é um novo processamento, então a quantidade de operações é setada para 0.
+        setOperations(0);
+
+        // A0 e B0 sempre fazem parte do somatório.
         somatoryA = initialPair.getA();
         somatoryB = initialPair.getB();
-        setOperations(0);
 
         // Calcula a razão máxima.
         finalRatio = maximumRatio(listNOfOrderedPairs);
 
+        // Incrementa a quantidade de iterações feitas dentro de 5 segundos.
         iterations++;
       }
       // Como informa na questão o par ordenado (a0, b0) sempre estará em S*.
       listS.add(0, initialPair);
+
+      // Momento em que o algoritmo terminou sua execução.
       long finishTime = System.currentTimeMillis() - startTime;
 
       float media = (float) finishTime / iterations;
       //Log.printList(listS);
 
-      Logger.printOntoScreen("Tamanho do N: " + (listNOfOrderedPairs.size() + 1));
+      Logger.printOntoScreen("Tamanho do N: " + (listNOfOrderedPairs.size()));
       Logger.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
       Logger.printOntoScreenF("Razão final: %f\n", finalRatio);
       Logger.printOntoScreen("Operações: " + getOperations());
