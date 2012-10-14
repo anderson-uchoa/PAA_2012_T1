@@ -1,4 +1,4 @@
-package utilidade;
+package flasks.utils;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -9,12 +9,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
-import questao02.frascos.Frascos_05;
+import util.Logger;
+import flasks.Flasks;
 
 public class ThreadControl implements Runnable {
   private final static ScheduledExecutorService scheduler    = Executors.newScheduledThreadPool(1);
 
-  private ScheduledFuture                       beeperHandle = null;
+  private ScheduledFuture<?>                    beeperHandle = null;
   private long                                  initialDelay, period;
   DateFormat                                    dateFormat;
 
@@ -36,13 +37,13 @@ public class ThreadControl implements Runnable {
 
   public void cancel() {
     beeperHandle.cancel(true);
-    //System.out.println("Thread Finalizada em: " + dateFormat.format(new Date()));
+    //Logger.printOntoScreen("Thread Finalizada em: " + dateFormat.format(new Date()));
   }
 
   @Override
   public void run() {
     try {
-      Log.printOntoScreen("\nData:" + dateFormat.format(new Date()) + " - Realizando operações... Total de iterações: " + Frascos_05.getIterations() + "\n");
+      Logger.printOntoScreen("Data:" + dateFormat.format(new Date()) + " - Realizando operações... Total de iterações: " + Flasks.getOperations() + "\n");
     }
     catch (Exception e) {
       e.printStackTrace();
