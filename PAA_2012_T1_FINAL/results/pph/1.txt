@@ -1,0 +1,295 @@
+test/pph/pph_1000000_01.dat
+Iniciado em O(N^2)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 1244 elementos: 
+Tamanho do N: 1000000
+Razão final: 912.977905
+Operações: 1950858
+Iteraçoes realizadas em 5 segundos: 376
+Tempo de execução Médio: 13.321809
+Tempo de execução Total: 5009
+
+Iniciado Novo QuickSort - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 1244 elementos: 
+Tamanho do N: 1000000
+Razão final: 912.977905
+Iterações realizadas: 20
+Tempo de execução Médio: 250.850006
+Tempo de execução Total: 5017
+
+Iniciado Randomized Select - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 1244 elementos: 
+Tamanho do N: 1000000
+Razão final: 912.977905
+Iteraçoes realizadas: 58
+Tempo de execução Médio: 86.965515
+Tempo de execução Total: 5044
+
+Iniciado Novo MergeSort - O(n log(n))...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 1244 elementos: 
+Tamanho do N: 1000000
+Razão final: 912.977905
+Iterações realizadas: 8
+Tempo de execução Médio: 654.125000
+Tempo de execução Total: 5233
+
+test/pph/pph_10000.txt
+Iniciado em O(N^2)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 37 elementos: 
+Tamanho do N: 10000
+Razão final: 101.223213
+Operações: 11209
+Iteraçoes realizadas em 5 segundos: 128405
+Tempo de execução Médio: 0.038939
+Tempo de execução Total: 5000
+
+Iniciado Novo QuickSort - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 37 elementos: 
+Tamanho do N: 10000
+Razão final: 101.223213
+Iterações realizadas: 3697
+Tempo de execução Médio: 1.352448
+Tempo de execução Total: 5000
+
+Iniciado Randomized Select - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 37 elementos: 
+Tamanho do N: 10000
+Razão final: 101.223213
+Iteraçoes realizadas: 15982
+Tempo de execução Médio: 0.312852
+Tempo de execução Total: 5000
+
+Iniciado Novo MergeSort - O(n log(n))...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 37 elementos: 
+Tamanho do N: 10000
+Razão final: 101.223213
+Iterações realizadas: 1413
+Tempo de execução Médio: 3.539986
+Tempo de execução Total: 5002
+
+test/pph/pph_1000000.txt
+Iniciado em O(N^2)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 1244 elementos: 
+Tamanho do N: 1000000
+Razão final: 912.977905
+Operações: 1950858
+Iteraçoes realizadas em 5 segundos: 347
+Tempo de execução Médio: 14.423631
+Tempo de execução Total: 5005
+
+Iniciado Novo QuickSort - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 1244 elementos: 
+Tamanho do N: 1000000
+Razão final: 912.977905
+Iterações realizadas: 21
+Tempo de execução Médio: 247.476196
+Tempo de execução Total: 5197
+
+Iniciado Randomized Select - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 1244 elementos: 
+Tamanho do N: 1000000
+Razão final: 912.977905
+Iteraçoes realizadas: 70
+Tempo de execução Médio: 71.685715
+Tempo de execução Total: 5018
+
+Iniciado Novo MergeSort - O(n log(n))...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 1244 elementos: 
+Tamanho do N: 1000000
+Razão final: 912.977905
+Iterações realizadas: 8
+Tempo de execução Médio: 629.250000
+Tempo de execução Total: 5034
+
+test/pph/pph_100.txt
+Iniciado em O(N^2)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 7 elementos: 
+Tamanho do N: 100
+Razão final: 4.626394
+Operações: 135
+Iteraçoes realizadas em 5 segundos: 6163204
+Tempo de execução Médio: 0.000811
+Tempo de execução Total: 5000
+
+Iniciado Novo QuickSort - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 7 elementos: 
+Tamanho do N: 100
+Razão final: 4.626394
+Iterações realizadas: 1140743
+Tempo de execução Médio: 0.004383
+Tempo de execução Total: 5000
+
+Iniciado Randomized Select - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 7 elementos: 
+Tamanho do N: 100
+Razão final: 4.626394
+Iteraçoes realizadas: 1170868
+Tempo de execução Médio: 0.004270
+Tempo de execução Total: 5000
+
+Iniciado Novo MergeSort - O(n log(n))...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 7 elementos: 
+Tamanho do N: 100
+Razão final: 4.626394
+Iterações realizadas: 290150
+Tempo de execução Médio: 0.017232
+Tempo de execução Total: 5000
+
+test/pph/pph_100000.txt
+Iniciado em O(N^2)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 185 elementos: 
+Tamanho do N: 100000
+Razão final: 215.584000
+Operações: 133674
+Iteraçoes realizadas em 5 segundos: 8881
+Tempo de execução Médio: 0.563000
+Tempo de execução Total: 5000
+
+Iniciado Novo QuickSort - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 185 elementos: 
+Tamanho do N: 100000
+Razão final: 215.584000
+Iterações realizadas: 296
+Tempo de execução Médio: 16.932432
+Tempo de execução Total: 5012
+
+Iniciado Randomized Select - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 185 elementos: 
+Tamanho do N: 100000
+Razão final: 215.584000
+Iteraçoes realizadas: 867
+Tempo de execução Médio: 5.772779
+Tempo de execução Total: 5005
+
+Iniciado Novo MergeSort - O(n log(n))...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 185 elementos: 
+Tamanho do N: 100000
+Razão final: 215.584000
+Iterações realizadas: 112
+Tempo de execução Médio: 44.857143
+Tempo de execução Total: 5024
+
+test/pph/pph_10.txt
+Iniciado em O(N^2)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 3 elementos: 
+Tamanho do N: 10
+Razão final: 2.455285
+Operações: 15
+Iteraçoes realizadas em 5 segundos: 29736384
+Tempo de execução Médio: 0.000168
+Tempo de execução Total: 5000
+
+Iniciado Novo QuickSort - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 3 elementos: 
+Tamanho do N: 10
+Razão final: 2.455285
+Iterações realizadas: 12739027
+Tempo de execução Médio: 0.000392
+Tempo de execução Total: 5000
+
+Iniciado Randomized Select - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 3 elementos: 
+Tamanho do N: 10
+Razão final: 2.455285
+Iteraçoes realizadas: 7376102
+Tempo de execução Médio: 0.000678
+Tempo de execução Total: 5000
+
+Iniciado Novo MergeSort - O(n log(n))...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 3 elementos: 
+Tamanho do N: 10
+Razão final: 2.455285
+Iterações realizadas: 4518083
+Tempo de execução Médio: 0.001107
+Tempo de execução Total: 5000
+
+test/pph/pph_1000.txt
+Iniciado em O(N^2)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 35 elementos: 
+Tamanho do N: 1000
+Razão final: 8.490580
+Operações: 2042
+Iteraçoes realizadas em 5 segundos: 430268
+Tempo de execução Médio: 0.011621
+Tempo de execução Total: 5000
+
+Iniciado Novo QuickSort - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 35 elementos: 
+Tamanho do N: 1000
+Razão final: 8.490580
+Iterações realizadas: 54898
+Tempo de execução Médio: 0.091078
+Tempo de execução Total: 5000
+
+Iniciado Randomized Select - O(n)...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 35 elementos: 
+Tamanho do N: 1000
+Razão final: 8.490580
+Iteraçoes realizadas: 41582
+Tempo de execução Médio: 0.120244
+Tempo de execução Total: 5000
+
+Iniciado Novo MergeSort - O(n log(n))...
+Obtendo valores do arquivo de entrada...
+Calculando...
+Conjunto S* com 35 elementos: 
+Tamanho do N: 1000
+Razão final: 8.490580
+Iterações realizadas: 18862
+Tempo de execução Médio: 0.265083
+Tempo de execução Total: 5000
+
+Todos os arquivos foram processados.
