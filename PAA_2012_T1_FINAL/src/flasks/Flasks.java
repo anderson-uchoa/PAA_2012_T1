@@ -180,7 +180,8 @@ public class Flasks extends FlasksBase {
 
     // Converte o array com o resultado final(andar em que o frasco quebra) em uma string.
     String stepItBroke = convertFromArray(output);
-    Logger.printOntoScreenF("Entrada: %s, saida: %s \n", inputValue, stepItBroke);
+    Logger.printOntoScreenF("Entrada: %s\n", inputValue);
+    Logger.printOntoScreenF("Saida  : %s\n", stepItBroke);
     Logger.printOntoScreenF("Frascos: %3d, quebraram %3d em %2d passos, ", flasks, usedFlasks, getOperations());
 
     return stepItBroke;
