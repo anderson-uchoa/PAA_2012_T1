@@ -7,17 +7,12 @@ import util.Logger;
 public class TestFlasks {
 
   public static void main(String[] args) {
-    TestFlasks testFlasks = new TestFlasks();
-    testFlasks.run();
-  }
-
-  private void run() {
     // Todos os arquivos de entrada estão nestas pastas.
     String path = "test/flasks/";
-    // O caminho do arquivo e o seu nome.
-    String fileNameAndPath = null;
     // O nome do arquivo que vai ser processado.
     String fileName;
+    // O caminho do arquivo e o seu nome.
+    String fileNameAndPath = null;
     File folder = new File(path);
     // Obtém a lista de arquivos neste diretório, como o próprio método "listFiles()" diz,
     // não existe uma garantia em que ordem os arquivos serão retornados.
@@ -34,10 +29,12 @@ public class TestFlasks {
         if (fileName.endsWith(".txt")) {
           try {
             fileNameAndPath = path + fileName;
+
+            Logger.printOntoScreen(fileNameAndPath);
             flasks.run(fileNameAndPath);
           }
           catch (Exception e) {
-            System.out.printf("Erro ao processar o arquivo %s com a mensagem: %s", fileNameAndPath, e.getMessage());
+            Logger.printOntoScreenF("Erro ao processar o arquivo %s com a mensagem: %s", fileNameAndPath, e.getMessage());
           }
         }
       }
