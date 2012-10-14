@@ -1,31 +1,6 @@
 package flasks.utils;
 
-public class FlasksBase {
-  /**
-   * A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
-   */
-  private static long _operations;
+import util.Base;
 
-  /**
-   * @return A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
-   */
-  public static long getOperations() {
-    return _operations;
-  }
-
-  /**
-   * Atribui uma valor à quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
-   * 
-   * @param operations
-   */
-  public void setOperations(long operations) {
-    _operations = operations;
-  }
-
-  /**
-   * Incrementa em 1 a quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
-   */
-  public void incOperations() {
-    setOperations(getOperations() + 1);
-  }
+public class FlasksBase extends Base {
 }
