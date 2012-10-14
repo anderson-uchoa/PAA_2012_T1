@@ -38,6 +38,9 @@ public class Utils {
     List<Integer> listA = getValueFromIteratorByQuantityOfInputValues(iterator, quantityOfInputValues);
     List<Integer> listB = getValueFromIteratorByQuantityOfInputValues(iterator, quantityOfInputValues);
 
+    // Libera o arquivo.
+    rbf.Close();
+
     Iterator<Integer> iteratorA = listA.iterator();
     Iterator<Integer> iteratorB = listB.iterator();
 
