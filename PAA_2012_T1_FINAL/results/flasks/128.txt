@@ -19,8 +19,7 @@ Frascos:  16, quebraram  16 em 345 passos, Tempo de execucao: 0
 Entrada: 00000000000000000000000000000000000000000000000000000110010011110000000000000000000000000000000000000000000000000000000111110111, saida: 00000000000000000000000000000000000000000000000000000110010011110000000000000000000000000000000000000000000000000000000111110111 
 Frascos:   8, quebraram   8 em 2124 passos, Tempo de execucao: 2
 
-Entrada: 00000000000000000000000000000000000000000000000000000110010011110000000000000000000000000000000000000000000000000000000111110111, 
-Saida  : 00000000000000000000000000000000000000000000000000000110010011110000000000000000000000000000000000000000000000000000000111110111 
+Entrada: 00000000000000000000000000000000000000000000000000000110010011110000000000000000000000000000000000000000000000000000000111110111, saida: 00000000000000000000000000000000000000000000000000000110010011110000000000000000000000000000000000000000000000000000000111110111 
 Frascos:   4, quebraram   4 em 2120 passos, Tempo de execucao: 3
 
 Entrada: 00000000000000000000000000000000000000000000000000000110010011110000000000000000000000000000000000000000000000000000000111110111, saida: 00000000000000000000000000000000000000000000000000000110010011110000000000000000000000000000000000000000000000000000000111110111 
@@ -104,3 +103,90 @@ Data:14/10/2012 14:50:28 - Realizando operações... Total de iterações: 16472
 Data:14/10/2012 14:51:28 - Realizando operações... Total de iterações: 166944990359
 Data:14/10/2012 14:52:28 - Realizando operações... Total de iterações: 169168469052
 Data:14/10/2012 14:53:28 - Realizando operações... Total de iterações: 171391314647
+Data:14/10/2012 14:54:28 - Realizando operações... Total de iterações: 173614621352
+Data:14/10/2012 14:55:28 - Realizando operações... Total de iterações: 175837962617
+Data:14/10/2012 14:56:28 - Realizando operações... Total de iterações: 178061352632
+Data:14/10/2012 14:57:28 - Realizando operações... Total de iterações: 180285427830
+Data:14/10/2012 14:58:28 - Realizando operações... Total de iterações: 182509002225
+Data:14/10/2012 14:59:28 - Realizando operações... Total de iterações: 184732312976
+Data:14/10/2012 15:00:28 - Realizando operações... Total de iterações: 186956407116
+Data:14/10/2012 15:01:28 - Realizando operações... Total de iterações: 189178471937
+Data:14/10/2012 15:02:28 - Realizando operações... Total de iterações: 191402367092
+Data:14/10/2012 15:03:28 - Realizando operações... Total de iterações: 193625922501
+Data:14/10/2012 15:04:28 - Realizando operações... Total de iterações: 195849273490
+Data:14/10/2012 15:05:28 - Realizando operações... Total de iterações: 198072829341
+Data:14/10/2012 15:06:28 - Realizando operações... Total de iterações: 200295475671
+Data:14/10/2012 15:07:28 - Realizando operações... Total de iterações: 202518855463
+Data:14/10/2012 15:08:28 - Realizando operações... Total de iterações: 204742645983
+Data:14/10/2012 15:09:28 - Realizando operações... Total de iterações: 206966300514
+Data:14/10/2012 15:10:28 - Realizando operações... Total de iterações: 209189024304
+Data:14/10/2012 15:11:28 - Realizando operações... Total de iterações: 211412329440
+Data:14/10/2012 15:12:28 - Realizando operações... Total de iterações: 213636119171
+Data:14/10/2012 15:13:28 - Realizando operações... Total de iterações: 215859670911
+Data:14/10/2012 15:14:28 - Realizando operações... Total de iterações: 218082732449
+Data:14/10/2012 15:15:28 - Realizando operações... Total de iterações: 220306262261
+Data:14/10/2012 15:16:28 - Realizando operações... Total de iterações: 222529969115
+Data:14/10/2012 15:17:28 - Realizando operações... Total de iterações: 224753537506
+Data:14/10/2012 15:18:28 - Realizando operações... Total de iterações: 226977203006
+Data:14/10/2012 15:19:28 - Realizando operações... Total de iterações: 229200764373
+Data:14/10/2012 15:20:28 - Realizando operações... Total de iterações: 231424382618
+Data:14/10/2012 15:21:28 - Realizando operações... Total de iterações: 233648660832
+Data:14/10/2012 15:22:28 - Realizando operações... Total de iterações: 235871822537
+Data:14/10/2012 15:23:28 - Realizando operações... Total de iterações: 238095526138
+Data:14/10/2012 15:24:28 - Realizando operações... Total de iterações: 240319330361
+Data:14/10/2012 15:25:28 - Realizando operações... Total de iterações: 242542949935
+Data:14/10/2012 15:26:28 - Realizando operações... Total de iterações: 244764589160
+Data:14/10/2012 15:27:28 - Realizando operações... Total de iterações: 246988192313
+Data:14/10/2012 15:28:28 - Realizando operações... Total de iterações: 249212080979
+Data:14/10/2012 15:29:28 - Realizando operações... Total de iterações: 251434912921
+Data:14/10/2012 15:30:28 - Realizando operações... Total de iterações: 253658535400
+Data:14/10/2012 15:31:28 - Realizando operações... Total de iterações: 255882101434
+Data:14/10/2012 15:32:28 - Realizando operações... Total de iterações: 258106044072
+Data:14/10/2012 15:33:28 - Realizando operações... Total de iterações: 260329631665
+Data:14/10/2012 15:34:28 - Realizando operações... Total de iterações: 262553050405
+Data:14/10/2012 15:35:28 - Realizando operações... Total de iterações: 264775991294
+Data:14/10/2012 15:36:28 - Realizando operações... Total de iterações: 266999631966
+Data:14/10/2012 15:37:28 - Realizando operações... Total de iterações: 269223714979
+Data:14/10/2012 15:38:28 - Realizando operações... Total de iterações: 271447620902
+Data:14/10/2012 15:39:28 - Realizando operações... Total de iterações: 273671273693
+Data:14/10/2012 15:40:28 - Realizando operações... Total de iterações: 275893923192
+Data:14/10/2012 15:41:28 - Realizando operações... Total de iterações: 278117373699
+Data:14/10/2012 15:42:28 - Realizando operações... Total de iterações: 280341046780
+Data:14/10/2012 15:43:28 - Realizando operações... Total de iterações: 282564838880
+Data:14/10/2012 15:44:28 - Realizando operações... Total de iterações: 284788191708
+Data:14/10/2012 15:45:28 - Realizando operações... Total de iterações: 287011803802
+Data:14/10/2012 15:46:28 - Realizando operações... Total de iterações: 289235154405
+Data:14/10/2012 15:47:28 - Realizando operações... Total de iterações: 291459262628
+Data:14/10/2012 15:48:28 - Realizando operações... Total de iterações: 293683135278
+Data:14/10/2012 15:49:28 - Realizando operações... Total de iterações: 295907639352
+Data:14/10/2012 15:50:28 - Realizando operações... Total de iterações: 298130725912
+Data:14/10/2012 15:51:28 - Realizando operações... Total de iterações: 300353770211
+Data:14/10/2012 15:52:28 - Realizando operações... Total de iterações: 302576896379
+Data:14/10/2012 15:53:28 - Realizando operações... Total de iterações: 304799915127
+Data:14/10/2012 15:54:28 - Realizando operações... Total de iterações: 307023110208
+Data:14/10/2012 15:55:28 - Realizando operações... Total de iterações: 309245119387
+Data:14/10/2012 15:56:28 - Realizando operações... Total de iterações: 311468663200
+Data:14/10/2012 15:57:28 - Realizando operações... Total de iterações: 313692053476
+Data:14/10/2012 15:58:28 - Realizando operações... Total de iterações: 315915272766
+Data:14/10/2012 15:59:28 - Realizando operações... Total de iterações: 318138481583
+Data:14/10/2012 16:00:28 - Realizando operações... Total de iterações: 320360762634
+Data:14/10/2012 16:01:28 - Realizando operações... Total de iterações: 322581739139
+Data:14/10/2012 16:02:28 - Realizando operações... Total de iterações: 324805654236
+Data:14/10/2012 16:03:28 - Realizando operações... Total de iterações: 327029535982
+Data:14/10/2012 16:04:28 - Realizando operações... Total de iterações: 329252937607
+Data:14/10/2012 16:05:28 - Realizando operações... Total de iterações: 331476396295
+Data:14/10/2012 16:06:28 - Realizando operações... Total de iterações: 333700435576
+Data:14/10/2012 16:07:28 - Realizando operações... Total de iterações: 335924163359
+Data:14/10/2012 16:08:28 - Realizando operações... Total de iterações: 338147568556
+Data:14/10/2012 16:09:28 - Realizando operações... Total de iterações: 340370961036
+Data:14/10/2012 16:10:28 - Realizando operações... Total de iterações: 342594348118
+Data:14/10/2012 16:11:28 - Realizando operações... Total de iterações: 344817905832
+Data:14/10/2012 16:12:28 - Realizando operações... Total de iterações: 347041723904
+Data:14/10/2012 16:13:28 - Realizando operações... Total de iterações: 349265493952
+Data:14/10/2012 16:14:28 - Realizando operações... Total de iterações: 351489600177
+Data:14/10/2012 16:15:28 - Realizando operações... Total de iterações: 353713262063
+Data:14/10/2012 16:16:28 - Realizando operações... Total de iterações: 355937109742
+Data:14/10/2012 16:17:28 - Realizando operações... Total de iterações: 358160298985
+Data:14/10/2012 16:18:28 - Realizando operações... Total de iterações: 360382897431
+Data:14/10/2012 16:19:28 - Realizando operações... Total de iterações: 362606210386
+Data:14/10/2012 16:20:28 - Realizando operações... Total de iterações: 364829662213
