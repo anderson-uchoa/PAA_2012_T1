@@ -1,6 +1,7 @@
 package pph;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import pph.utils.OrderedPair;
@@ -23,6 +24,7 @@ public class TestPPH {
 
     // Instância das classes que vão ser executadas.
     PPH_O_de_N pph_O_de_N = new PPH_O_de_N();
+    PPH_O_N_LOG_N pph_O_N_LOG_N = new PPH_O_N_LOG_N();
 
     for (int i = 0; i < listOfFiles.length; i++) {
 
@@ -35,9 +37,10 @@ public class TestPPH {
             Logger.printOntoScreen(fileNameAndPath);
 
             // Lê cada arquivo apenas uma vez.
-            List<OrderedPair> listNOfOrderedPairs = Utils.getListFromInputFile(fileNameAndPath);
+            List<OrderedPair> listOriginalPair = Utils.getListFromInputFile(fileNameAndPath);
 
-            pph_O_de_N.run(listNOfOrderedPairs);
+            pph_O_de_N.run(new ArrayList<OrderedPair>(listOriginalPair));
+            pph_O_N_LOG_N.run(new ArrayList<OrderedPair>(listOriginalPair));
           }
           catch (Exception e) {
             Logger.printOntoScreenF("Erro ao processar o arquivo %s com a mensagem: %s", fileNameAndPath, e.getMessage());

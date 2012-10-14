@@ -83,16 +83,11 @@ public class PPH_O_de_N extends PPHBase {
       // Momento em que o algoritmo terminou sua execução.
       long finishTime = System.currentTimeMillis() - startTime;
 
+      // Calcula a média de tempo de cada iteração.
       float media = (float) finishTime / iterations;
 
-      //Log.printList(listS);
-      Logger.printOntoScreen("Tamanho do N: " + (listNOfOrderedPairs.size()));
-      Logger.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
-      Logger.printOntoScreenF("Razão final: %f\n", finalRatio);
-      Logger.printOntoScreen("Operações: " + getOperations());
-      Logger.printOntoScreen("Iterações realizadas em 5 segundos: " + iterations);
-      Logger.printOntoScreenF("Tempo de execução Médio: %f\n", media);
-      Logger.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
+      // Imprime os resultados obtidos.
+      printResults(listNOfOrderedPairs, finalRatio, iterations, media, finishTime);
     }
     catch (Exception e) {
       e.printStackTrace();

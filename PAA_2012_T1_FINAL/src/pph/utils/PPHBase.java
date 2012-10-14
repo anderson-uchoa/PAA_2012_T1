@@ -3,6 +3,7 @@ package pph.utils;
 import java.util.List;
 
 import util.Base;
+import util.Logger;
 
 public abstract class PPHBase extends Base {
 
@@ -39,7 +40,7 @@ public abstract class PPHBase extends Base {
 
   public abstract void run(List<OrderedPair> listNOfOrderedPairs);
 
-  public void resetSomatory() {
+  protected void resetSomatory() {
     somatoryA = initialPair.getA();
     somatoryB = initialPair.getB();
     isChanged = true;
@@ -48,7 +49,7 @@ public abstract class PPHBase extends Base {
   /**
    * @param auxPair
    */
-  public void addSomatory(OrderedPair auxPair) {
+  protected void addSomatory(OrderedPair auxPair) {
     somatoryA += auxPair.getA();
     somatoryB += auxPair.getB();
     isChanged = true;
@@ -57,7 +58,7 @@ public abstract class PPHBase extends Base {
   /**
    * @param auxPair
    */
-  public void subtractSomatory(OrderedPair auxPair) {
+  protected void subtractSomatory(OrderedPair auxPair) {
     somatoryA -= auxPair.getA();
     somatoryB -= auxPair.getB();
     isChanged = true;
@@ -68,7 +69,7 @@ public abstract class PPHBase extends Base {
    * 
    * @return O resultado da divisão do somatoryA por somatoryB.
    */
-  public float getRatio() {
+  protected float getRatio() {
     // Se a razão já foi calculada e nenhum dos valores a e b foi alterado, 
     // então para ganhar alguns milisegundos nós não recalculamos a razão mas retornamos 
     // a que já tinha sido calculada anteriormente.
@@ -78,5 +79,16 @@ public abstract class PPHBase extends Base {
     }
 
     return ratio;
+  }
+
+  protected void printResults(List<OrderedPair> listNOfOrderedPairs, float finalRatio, long iterations, float media, long finishTime) {
+    //Log.printList(listS);
+    Logger.printOntoScreen("Tamanho do N: " + (listNOfOrderedPairs.size()));
+    Logger.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
+    Logger.printOntoScreenF("Razão final: %f\n", finalRatio);
+    Logger.printOntoScreen("Operações: " + getOperations());
+    Logger.printOntoScreen("Iterações realizadas em 5 segundos: " + iterations);
+    Logger.printOntoScreenF("Tempo de execução Médio: %f\n", media);
+    Logger.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
   }
 }
