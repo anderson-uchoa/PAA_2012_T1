@@ -5,7 +5,6 @@
 package pph;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import pph.sorting.QuickSort;
@@ -46,57 +45,7 @@ public class PPH_O_N_LOG_N extends PPHBase {
   @Override
   public void run(List<OrderedPair> listOriginalPair) {
     try {
-      Logger.printOntoScreen("Iniciado QuickSort - O(n log n)...");
-
-      // Momento em que o algoritmo iniciou sua execução.
-      long startTime = System.currentTimeMillis();
-
-      // A razão que deve ser calculada e apresentada no final.
-      float finalRatio = 0;
-
-      // Este é o par(a0, b0).
-      initialPair = listOriginalPair.get(0);
-      // Remove o par(a0, b0) da lista N de pares ordenados
-      listOriginalPair.remove(0);
-
-      // Quantidade de iterações feitas dentro de 5 segundos.
-      long iterations = 0;
-
-      while (System.currentTimeMillis() - startTime < 5000) {
-        // Em cada iteração, é um novo processamento, então a quantidade de operações é setada para 0.
-        setOperations(0);
-
-        // Zerando as variáveis iniciais.
-        listS = new LinkedList<OrderedPair>();
-
-        // Seta o somatório de A e B para 0.
-        resetSomatory();
-
-        // Ordenando a lista
-        QuickSort sorter = new QuickSort();
-        List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
-        sorter.sortAscending(listNOfOrderedPairs);
-
-        // Soma a quantidade de operações feitas pela ordenação + a quantidade atual do programa principal.
-        setOperations(getOperations() + sorter.getOperations());
-
-        // Calcula a razão máxima.
-        finalRatio = maximumRatio(listNOfOrderedPairs);
-
-        // Incrementa a quantidade de iterações feitas dentro de 5 segundos.
-        iterations++;
-      }
-      // Como informa na questão o par ordenado (a0, b0) sempre estará em S*.
-      listS.add(0, initialPair);
-
-      // Momento em que o algoritmo terminou sua execução.
-      long finishTime = System.currentTimeMillis() - startTime;
-
-      // Calcula a média de tempo de cada iteração.
-      float media = (float) finishTime / iterations;
-
-      // Imprime os resultados obtidos.
-      printResults(listOriginalPair, finalRatio, iterations, media, finishTime);
+      genericProcess(listOriginalPair, "Iniciado QuickSort - O(n log n)...");
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -131,5 +80,19 @@ public class PPH_O_N_LOG_N extends PPHBase {
       }
     }
     return maximumRatio;
+  }
+
+  @Override
+  protected void specificProcess(List<OrderedPair> listOriginalPair) {
+    // Ordenando a lista.
+    QuickSort sorter = new QuickSort();
+    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
+    sorter.sortAscending(listNOfOrderedPairs);
+
+    // Soma a quantidade de operações feitas pela ordenação + a quantidade atual do programa principal.
+    setOperations(getOperations() + sorter.getOperations());
+
+    // Calcula a razão máxima.
+    finalRatio = maximumRatio(listNOfOrderedPairs);
   }
 }

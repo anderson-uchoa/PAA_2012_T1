@@ -1,5 +1,6 @@
 package pph.utils;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import util.Base;
@@ -12,6 +13,9 @@ public abstract class PPHBase extends Base {
 
   // A lista S* que vai conter os valores que validam o lemma.
   protected List<OrderedPair> listS;
+
+  // A razão que deve ser calculada e apresentada no final.
+  protected float             finalRatio;
 
   // Este é o par(a0, b0).
   protected OrderedPair       initialPair;
@@ -91,4 +95,62 @@ public abstract class PPHBase extends Base {
     Logger.printOntoScreenF("Tempo de execução Médio: %f\n", media);
     Logger.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
   }
+
+  /**
+   * Este é o método que realmente faz todo o processamento. O método run foi criado apenas para que não fosse necessário ficar usando variáveis e métodos
+   * estáticos.
+   * 
+   * @param listNOfOrderedPairs
+   * @param title
+   */
+  protected void genericProcess(List<OrderedPair> listNOfOrderedPairs, String title) {
+    try {
+      Logger.printOntoScreen(title);
+
+      // Momento em que o algoritmo iniciou sua execução.
+      long startTime = System.currentTimeMillis();
+
+      // Este é o par(a0, b0).
+      initialPair = listNOfOrderedPairs.get(0);
+      // Remove o par(a0, b0) da lista N de pares ordenados
+      listNOfOrderedPairs.remove(0);
+
+      // Quantidade de iterações feitas dentro de 5 segundos.
+      long iterations = 0;
+
+      while (System.currentTimeMillis() - startTime < 5000) {
+        // Em cada iteração, é um novo processamento, então a quantidade de operações é setada para 0.
+        setOperations(0);
+
+        // Zerando as variáveis iniciais.
+        listS = new LinkedList<OrderedPair>();
+
+        // Seta o somatório de A e B para 0.
+        resetSomatory();
+
+        // Calcula a razão máxima, cada classe(complexidade) faz de uma maneira.
+        specificProcess(listNOfOrderedPairs);
+
+        // Incrementa a quantidade de iterações feitas dentro de 5 segundos.
+        iterations++;
+      }
+      // Como informa na questão o par ordenado (a0, b0) sempre estará em S*.
+      listS.add(0, initialPair);
+
+      // Momento em que o algoritmo terminou sua execução.
+      long finishTime = System.currentTimeMillis() - startTime;
+
+      // Calcula a média de tempo de cada iteração.
+      float media = (float) finishTime / iterations;
+
+      // Imprime os resultados obtidos.
+      printResults(listNOfOrderedPairs, finalRatio, iterations, media, finishTime);
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  protected abstract void specificProcess(List<OrderedPair> listNOfOrderedPairs);
+
 }

@@ -45,53 +45,17 @@ public class PPH_O_de_N extends PPHBase {
   @Override
   public void run(List<OrderedPair> listNOfOrderedPairs) {
     try {
-      Logger.printOntoScreen("Iniciado em O(N)...");
-
-      // Momento em que o algoritmo iniciou sua execução.
-      long startTime = System.currentTimeMillis();
-
-      // A razão que deve ser calculada e apresentada no final.
-      float finalRatio = 0;
-
-      // Este é o par(a0, b0).
-      initialPair = listNOfOrderedPairs.get(0);
-      // Remove o par(a0, b0) da lista N de pares ordenados
-      listNOfOrderedPairs.remove(0);
-
-      // Quantidade de iterações feitas dentro de 5 segundos.
-      long iterations = 0;
-
-      while (System.currentTimeMillis() - startTime < 5000) {
-        // Em cada iteração, é um novo processamento, então a quantidade de operações é setada para 0.
-        setOperations(0);
-
-        // Zerando as variáveis iniciais.
-        listS = new LinkedList<OrderedPair>();
-
-        // Seta o somatório de A e B para 0.
-        resetSomatory();
-
-        // Calcula a razão máxima.
-        finalRatio = maximumRatio(listNOfOrderedPairs);
-
-        // Incrementa a quantidade de iterações feitas dentro de 5 segundos.
-        iterations++;
-      }
-      // Como informa na questão o par ordenado (a0, b0) sempre estará em S*.
-      listS.add(0, initialPair);
-
-      // Momento em que o algoritmo terminou sua execução.
-      long finishTime = System.currentTimeMillis() - startTime;
-
-      // Calcula a média de tempo de cada iteração.
-      float media = (float) finishTime / iterations;
-
-      // Imprime os resultados obtidos.
-      printResults(listNOfOrderedPairs, finalRatio, iterations, media, finishTime);
+      genericProcess(listNOfOrderedPairs, "Iniciado em O(N)...");
     }
     catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  protected void specificProcess(List<OrderedPair> listNOfOrderedPairs) {
+    // Calcula a razão máxima.
+    finalRatio = maximumRatio(listNOfOrderedPairs);
   }
 
   /**
