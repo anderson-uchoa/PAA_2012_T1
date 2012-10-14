@@ -88,6 +88,7 @@ public class PPH_RandomizedSelect {
         MedianaPair mediana = randomizedSelect.findMediana(listOriginalPair);
 
         finalRatio = maximumRatio(listOriginalPair, size, mediana);
+
         listS.add(0, parInicial);
 
         iterations++;

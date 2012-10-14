@@ -20,7 +20,7 @@ public class ComparingQuickSort {
    */
   private void run() {
     // Obtém a quantidade de números que serão testados.
-    int quantityOfInputValues = 10;
+    int quantityOfInputValues = 10000;
 
     List<OrderedPair> listNOfOrderedPairs = Utils.getValuesFromInputFile(quantityOfInputValues);
     //    Log.printList(listNOfOrderedPairs);
@@ -52,7 +52,7 @@ public class ComparingQuickSort {
 
     long finishTime = System.currentTimeMillis() - startTime;
 
-    Log.printList(listToSort);
+    //Log.printList(listToSort);
     Log.printOntoScreen("Tamanho do N: " + listToSort.size());
     Log.printOntoScreen("Iterações: " + sorter.getIterations());
     Log.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
