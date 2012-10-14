@@ -13,24 +13,22 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import util.Logger;
+import flasks.utils.FlasksBase;
+import flasks.utils.ThreadControl;
 
-public class Flasks {
+public class Flasks extends FlasksBase {
 
   /**
    * O nome do input padrão(usado para testes).
    */
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_008_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_016_01.txt";
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_032_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_064_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_128_01.txt";
+  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_032_01.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_064_01.txt";
+
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_128_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_192_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_256_01.txt";
-
-  /**
-   * A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
-   */
-  private long                operations;
 
   public static void main(String[] args) {
     String inputFile;
@@ -88,6 +86,10 @@ public class Flasks {
 
       // Este loop vai iterar por todos as instâncias encontrados dentro do arquivo de entrada.
       while (cont < quantityOfInputValues) {
+        // De 60 em 60 segundos, ele dar um aviso de ainda esta vivo.
+        ThreadControl control = new ThreadControl(10, 60);
+        control.start();
+
         // Obtém o número (como uma string).
         // Exemplo: 00111110.
         inputValue = scanner.nextLine();
@@ -104,6 +106,9 @@ public class Flasks {
           finishTime = System.currentTimeMillis() - startTime;
           Logger.printOntoScreenF("Tempo de execucao: %s\n\n", finishTime);
         }
+
+        // Cancela a thread que avisa que o programa ainda esta vivo.
+        control.cancel();
         Logger.printOntoScreen("");
         cont++;
       }
@@ -142,12 +147,12 @@ public class Flasks {
     // A quantidade de frascos que já usamos.
     int usedFlasks = 0;
     // A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
-    operations = 0;
+    setOperations(0);
 
     while (endPos < sizeInBitsOfInputValues) {
       // Este while(true) é o mesmo que: "Enquanto não quebrar um frasco, aumente 1 andar e tente de novo".
       while (true) {
-        operations++;
+        incOperations();
 
         // Incrementa em 1 o valor do próximo degrau. Tenho que incrementar logo no inicio, 
         // porque não existe degrau 00000000, o primeiro é 00000001.
@@ -176,8 +181,9 @@ public class Flasks {
 
     // Converte o array com o resultado final(andar em que o frasco quebra) em uma string.
     String stepItBroke = convertFromArray(output);
-    Logger.printOntoScreenF("Entrada: %s, saida: %s \n", inputValue, stepItBroke);
-    Logger.printOntoScreenF("Frascos: %3d, quebraram %3d em %2d passos, ", flasks, usedFlasks, operations);
+    Logger.printOntoScreenF("Entrada: %s\n", inputValue);
+    Logger.printOntoScreenF("Saida  : %s\n", stepItBroke);
+    Logger.printOntoScreenF("Frascos: %3d, quebraram %3d em %2d passos, ", flasks, usedFlasks, getOperations());
 
     return stepItBroke;
   }

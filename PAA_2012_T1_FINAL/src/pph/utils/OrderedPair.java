@@ -1,4 +1,4 @@
-package pph;
+package pph.utils;
 
 /**
  * Esta classe contém os elementos Ai, Bi e o calculo da sua razão R = (Ai/Bi).<br/>
@@ -10,6 +10,10 @@ public class OrderedPair implements Comparable<OrderedPair> {
   private int     b;
   private float   ratio;
   private boolean isChanged;
+
+  public OrderedPair(int a) {
+    this(a, 0);
+  }
 
   public OrderedPair(int a, int b) {
     this.a = a;
@@ -23,6 +27,11 @@ public class OrderedPair implements Comparable<OrderedPair> {
 
   public int getB() {
     return b;
+  }
+
+  public void setB(int b) {
+    this.b = b;
+    isChanged = true;
   }
 
   public float getRatio() {
