@@ -72,7 +72,7 @@ public class Flasks {
       // A quantidade de frascos que vai ser usada em cada teste.
       // Como 256 é a maior instância que será testada, então para instâncias com menos bits, 256 irá simular
       // a quantidade infinita como é pedido em um item da questão dos frascos.
-      int[] quantityOfFlasks = { 256, 192, 128, 64, 32, 16, 4, 2, 1 };
+      int[] quantityOfFlasks = { 256, 192, 128, 64, 32, 16, 8, 4, 2, 1 };
 
       // Esta linha é apenas para forçar uma quebra de linha depois dos números.
       scanner.nextLine();
