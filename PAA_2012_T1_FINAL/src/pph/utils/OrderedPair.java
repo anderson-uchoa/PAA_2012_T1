@@ -11,6 +11,10 @@ public class OrderedPair implements Comparable<OrderedPair> {
   private float   ratio;
   private boolean isChanged;
 
+  public OrderedPair(int a) {
+    this(a, 0);
+  }
+
   public OrderedPair(int a, int b) {
     this.a = a;
     this.b = b;
@@ -23,6 +27,11 @@ public class OrderedPair implements Comparable<OrderedPair> {
 
   public int getB() {
     return b;
+  }
+
+  public void setB(int b) {
+    this.b = b;
+    isChanged = true;
   }
 
   public float getRatio() {

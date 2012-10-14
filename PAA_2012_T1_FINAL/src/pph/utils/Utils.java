@@ -35,43 +35,31 @@ public class Utils {
     // O + 1 é porque temos que ler mais dois(1 em para cada conjunto) números que são um para A0 e um para o B0.
     int quantityOfInputValues = (iterator.hasNext()) ? iterator.next() + 1 : 0;
 
-    List<Integer> listA = getValueFromIteratorByQuantityOfInputValues(iterator, quantityOfInputValues);
-    List<Integer> listB = getValueFromIteratorByQuantityOfInputValues(iterator, quantityOfInputValues);
-
-    // Libera o arquivo.
-    rbf.Close();
-
-    Iterator<Integer> iteratorA = listA.iterator();
-    Iterator<Integer> iteratorB = listB.iterator();
-
-    // Cria a lista de pares ordenados com a quantidade de elementos que ele vai conter.
-    List<OrderedPair> listTemp = new ArrayList<OrderedPair>(quantityOfInputValues);
-    // As listas de A e B têm a mesma quantidade de elementos.
-    while (iteratorA.hasNext()) {
-      listTemp.add(new OrderedPair(iteratorA.next(), iteratorB.next()));
-    }
-
-    return listTemp;
-  }
-
-  /**
-   * Obtém os valores que correspondem ao A ou ao B(de uma forma generica) = {1,.., n}
-   * 
-   * @param quantityOfInputValues A quantidade de números contidos neste arquivo.
-   * @param iterator Objeto que vai iterar por todas as linhas do arquivo.
-   * @return Obtém os valores que correspondem ao A ou ao B.
-   */
-  private static List<Integer> getValueFromIteratorByQuantityOfInputValues(Iterator<Integer> iterator, int quantityOfInputValues) {
     // Cria uma lista temporária que vai conter os elementos lidos do arquivo.
-    List<Integer> listTemp = new ArrayList<Integer>(quantityOfInputValues);
+    List<OrderedPair> listTemp = new ArrayList<OrderedPair>(quantityOfInputValues);
 
+    // Este loop, adiciona todos os elementos de A.
     int count = 0;
     while ((iterator.hasNext()) && (count < quantityOfInputValues)) {
       int currentValue = iterator.next();
       count++;
 
-      listTemp.add(currentValue);
+      listTemp.add(new OrderedPair(currentValue));
     }
+
+    // Este loop, adiciona todos os elementos de B.
+    count = 0;
+    while ((iterator.hasNext()) && (count < quantityOfInputValues)) {
+      int currentValue = iterator.next();
+
+      listTemp.get(count).setB(currentValue);
+
+      count++;
+    }
+
+    // Libera o arquivo.
+    rbf.Close();
+
     return listTemp;
   }
 

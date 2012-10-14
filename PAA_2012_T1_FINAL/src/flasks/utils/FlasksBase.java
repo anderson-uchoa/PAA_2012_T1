@@ -1,4 +1,4 @@
-package flasks;
+package flasks.utils;
 
 public class FlasksBase {
   /**

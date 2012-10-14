@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import util.Logger;
+import flasks.utils.FlasksBase;
 import flasks.utils.ThreadControl;
 
 public class Flasks extends FlasksBase {
