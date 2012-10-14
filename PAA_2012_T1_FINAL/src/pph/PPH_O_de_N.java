@@ -17,7 +17,7 @@ import util.Logger;
 public class PPH_O_de_N extends PPHBase {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_100.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000.txt";
 
   // A lista S* que vai conter os valores que validam o lemma.
   private List<OrderedPair>   listS;
@@ -134,11 +134,10 @@ public class PPH_O_de_N extends PPHBase {
   private float maximumRatio(List<OrderedPair> listNOfOrderedPairs) {
     // O R inicial é calculado pelo a0 / b0.
     float maximumRatio = initialPair.getRatio();
-    //Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
+    // Um par ordenado usado para auxiliar.
     OrderedPair auxPar;
 
-    //    for (int k = 0; k < listNOfOrderedPairs.size(); k++) {
     // Zerando as variáveis iniciais.
     listS = new LinkedList<OrderedPair>();
 
@@ -146,27 +145,21 @@ public class PPH_O_de_N extends PPHBase {
       incOperations();
       auxPar = listNOfOrderedPairs.get(i);
 
-      //Log.debugF("[%d, %d] = %f - %f\n", auxPar.getA(), auxPar.getB(), auxPar.getRatio(), maximumRatio);
-
       if (auxPar.getRatio() > maximumRatio) {
         // Então coloca o par(ai e o bi) na lista S.
         listS.add(auxPar);
 
         // Atualiza o R(razão).
         maximumRatio = updateRatio(listS);
-        //Log.debugF("Nova razão: %f\n", maximumRatio);
 
-        if (isLemmaNotValid(listS, maximumRatio)) {
+        if (!isLemmaValid(listS, maximumRatio)) {
           // Se existir algum par(ai / bi) que não seja maior do que a
           // razão atual, este par deve ser removido do listS e uma
           // nova razão deve ser calculada.
-          //          maximumRatio = updateRatio(listS);
           maximumRatio = Utils.calcRatio(somatoryA, somatoryB);
         }
       }
     }
-    //    }
-    //Log.debugF("Número de passos: %d\n", steps);
 
     return maximumRatio;
   }
@@ -179,17 +172,12 @@ public class PPH_O_de_N extends PPHBase {
    */
   private float updateRatio(List<OrderedPair> listS) {
     incOperations();
-    //    long a = initialPair.getA();
-    //    long b = initialPair.getB();
 
     OrderedPair auxPar = listS.get(listS.size() - 1);
-    //for (int i = 0; i < listS.size(); i++) {
-    //  auxPar = listS.get(i);
-    // Util.debugF("Somátorio de: [%d, %d]\n", auxPar.getA(),
-    // auxPar.getB());
+
     somatoryA += auxPar.getA();
     somatoryB += auxPar.getB();
-    //}
+
     return Utils.calcRatio(somatoryA, somatoryB);
   }
 
@@ -198,8 +186,8 @@ public class PPH_O_de_N extends PPHBase {
    * @param maximumRatio
    * @return Retorna true se existiu algum par ordenado na lista S que não era verdade em relação ao Lemma.
    */
-  private boolean isLemmaNotValid(List<OrderedPair> listS, float maximumRatio) {
-    boolean invalid = false;
+  private boolean isLemmaValid(List<OrderedPair> listS, float maximumRatio) {
+    boolean valid = true;
 
     List<OrderedPair> listAux = new LinkedList<OrderedPair>();
 
@@ -210,13 +198,14 @@ public class PPH_O_de_N extends PPHBase {
 
       // Se o ratio for menor, então o par ordenado deve ser removido.
       if (auxPar.getRatio() < maximumRatio) {
-        //Log.debugF("Lemma não é verdade em :[%d, %d] = %f - %f\n", auxPar.getA(), auxPar.getB(), auxPar.getRatio(), maximumRatio);
-        invalid = true;
+        valid = false;
 
         // Tenho que remover o par ordenado na posição i.
         somatoryA -= auxPar.getA();
         somatoryB -= auxPar.getB();
-        // Adiciona o item para ser removido.
+
+        // Adiciona o item para ser removido depois que o loop terminar. 
+        // Remover de uma só vez é mais rápido.
         listAux.add(auxPar);
       }
     }
@@ -224,6 +213,6 @@ public class PPH_O_de_N extends PPHBase {
     // Remove os itens do conjunto S*.
     listS.removeAll(listAux);
 
-    return invalid;
+    return valid;
   }
 }

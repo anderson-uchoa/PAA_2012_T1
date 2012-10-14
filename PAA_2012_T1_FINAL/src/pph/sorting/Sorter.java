@@ -38,7 +38,7 @@ public abstract class Sorter implements ISortable {
    * 
    * @param iterations
    */
-  public void setIterations(long iterations) {
+  public void setOperations(long iterations) {
     this.operations = iterations;
   }
 
@@ -46,7 +46,7 @@ public abstract class Sorter implements ISortable {
    * Incrementa em 1 a quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
    */
   public void incOperations() {
-    this.setIterations(getOperations() + 1);
+    this.setOperations(getOperations() + 1);
   }
 
 }
