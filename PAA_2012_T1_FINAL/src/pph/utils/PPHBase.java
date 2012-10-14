@@ -1,5 +1,6 @@
 package pph.utils;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,6 +86,15 @@ public abstract class PPHBase extends Base {
     return ratio;
   }
 
+  /**
+   * Método que garante que todos os algoritmos vão imprimir da mesma forma.
+   * 
+   * @param listNOfOrderedPairs
+   * @param finalRatio
+   * @param iterations
+   * @param media
+   * @param finishTime
+   */
   protected void printResults(List<OrderedPair> listNOfOrderedPairs, float finalRatio, long iterations, float media, long finishTime) {
     //Log.printList(listS);
     Logger.printOntoScreen("Tamanho do N: " + (listNOfOrderedPairs.size()));
@@ -149,6 +159,40 @@ public abstract class PPHBase extends Base {
     catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * @param listS
+   * @param maximumRatio
+   * @return Retorna true se existiu algum par ordenado na lista S que não era verdade em relação ao Lemma.
+   */
+  protected boolean isLemmaValid(List<OrderedPair> listS, float maximumRatio) {
+    boolean valid = true;
+
+    List<OrderedPair> listAux = new LinkedList<OrderedPair>();
+
+    OrderedPair auxPair;
+    for (Iterator<OrderedPair> iterator = listS.iterator(); iterator.hasNext();) {
+      auxPair = iterator.next();
+      incOperations();
+
+      // Se o ratio for menor, então o par ordenado deve ser removido.
+      if (auxPair.getRatio() < maximumRatio) {
+        valid = false;
+
+        // Tenho que remover o par ordenado na posição i.
+        subtractSomatory(auxPair);
+
+        // Adiciona o item para ser removido depois que o loop terminar. 
+        // Remover de uma só vez é mais rápido.
+        listAux.add(auxPair);
+      }
+    }
+
+    // Remove os itens do conjunto S*.
+    listS.removeAll(listAux);
+
+    return valid;
   }
 
   protected abstract void specificProcess(List<OrderedPair> listNOfOrderedPairs);

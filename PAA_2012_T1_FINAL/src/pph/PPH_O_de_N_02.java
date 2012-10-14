@@ -10,7 +10,7 @@ import pph.utils.OrderedPair;
 import pph.utils.PPHBase;
 import util.Logger;
 
-public class PPH_O_de_N extends PPHBase {
+public class PPH_O_de_N_02 extends PPHBase {
 
   // O nome do arquivo de input padrão(usado para testes).
   private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000.txt";
@@ -30,7 +30,7 @@ public class PPH_O_de_N extends PPHBase {
       Logger.isDebugging = false;
     }
 
-    PPH_O_de_N pph = new PPH_O_de_N();
+    PPH_O_de_N_02 pph = new PPH_O_de_N_02();
     pph.run(inputFile);
   }
 
@@ -43,7 +43,7 @@ public class PPH_O_de_N extends PPHBase {
   @Override
   public void run(List<OrderedPair> listNOfOrderedPairs) {
     try {
-      genericProcess(listNOfOrderedPairs, "Iniciado em O(N)...");
+      genericProcess(listNOfOrderedPairs, "Iniciado Randomized Select - O(n)...");
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -51,16 +51,20 @@ public class PPH_O_de_N extends PPHBase {
   }
 
   @Override
-  protected void specificProcess(List<OrderedPair> listNOfOrderedPairs) {
+  protected void specificProcess(List<OrderedPair> listOriginalPair) {
+    // Ordenando a lista.
+    //    RandomizedSelect randomizedSelect = new RandomizedSelect();
+    //    MedianaPair mediana = randomizedSelect.findMediana(listOriginalPair);
+
     // Calcula a razão máxima.
-    finalRatio = maximumRatio(listNOfOrderedPairs);
+    //    finalRatio = maximumRatio(listOriginalPair, mediana);
   }
 
   /**
    * @param listNOfOrderedPairs
    * @return A razão máxima.
    */
-  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs) {
+  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int mediana) {
     // O R inicial é calculado pelo a0 / b0.
     float maximumRatio = initialPair.getRatio();
 

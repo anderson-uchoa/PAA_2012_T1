@@ -52,6 +52,20 @@ public class PPH_O_N_LOG_N extends PPHBase {
     }
   }
 
+  @Override
+  protected void specificProcess(List<OrderedPair> listOriginalPair) {
+    // Ordenando a lista.
+    QuickSort sorter = new QuickSort();
+    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
+    sorter.sortAscending(listNOfOrderedPairs);
+
+    // Soma a quantidade de operações feitas pela ordenação + a quantidade atual do programa principal.
+    setOperations(getOperations() + sorter.getOperations());
+
+    // Calcula a razão máxima.
+    finalRatio = maximumRatio(listNOfOrderedPairs);
+  }
+
   /**
    * @param listNOfOrderedPairs
    * @return A razão máxima.
@@ -80,19 +94,5 @@ public class PPH_O_N_LOG_N extends PPHBase {
       }
     }
     return maximumRatio;
-  }
-
-  @Override
-  protected void specificProcess(List<OrderedPair> listOriginalPair) {
-    // Ordenando a lista.
-    QuickSort sorter = new QuickSort();
-    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
-    sorter.sortAscending(listNOfOrderedPairs);
-
-    // Soma a quantidade de operações feitas pela ordenação + a quantidade atual do programa principal.
-    setOperations(getOperations() + sorter.getOperations());
-
-    // Calcula a razão máxima.
-    finalRatio = maximumRatio(listNOfOrderedPairs);
   }
 }
