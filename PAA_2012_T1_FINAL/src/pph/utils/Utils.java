@@ -86,15 +86,4 @@ public class Utils {
 
     return listTemp;
   }
-
-  /**
-   * Calcula a razão.
-   * 
-   * @param a
-   * @param b
-   * @return O resultado da divisão de a por b.
-   */
-  public static float calcRatio(long a, long b) {
-    return (float) a / b;
-  }
 }
