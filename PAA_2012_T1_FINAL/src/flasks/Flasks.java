@@ -105,7 +105,7 @@ public class Flasks extends FlasksBase {
           findTheStepItBreaks(inputValue, flasks);
 
           finishTime = System.currentTimeMillis() - startTime;
-          Logger.printOntoScreenF("Tempo de execucao: %s\n\n", finishTime);
+          Logger.printOntoScreenF("Tempo de execução: %s\n\n", finishTime);
         }
 
         // Cancela a thread que avisa que o programa ainda esta vivo.
