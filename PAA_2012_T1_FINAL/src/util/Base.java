@@ -19,8 +19,7 @@ public abstract class Base {
    * @return A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
    */
   public static String getStrOperations() {
-    DecimalFormat myFormatter = new DecimalFormat("###,###");
-    return myFormatter.format(getOperations());
+    return formatString(getOperations());
   }
 
   /**
@@ -38,4 +37,14 @@ public abstract class Base {
   public void incOperations() {
     setOperations(getOperations() + 1);
   }
+
+  /**
+   * @param obj
+   * @return Formata um objeto no formato ###,###.
+   */
+  public static String formatString(Object obj) {
+    DecimalFormat myFormatter = new DecimalFormat("###,###");
+    return myFormatter.format(obj);
+  }
+
 }

@@ -98,11 +98,11 @@ public abstract class PPHBase extends Base {
    */
   protected void printResults(List<OrderedPair> listNOfOrderedPairs, float finalRatio, long iterations, float media, long finishTime) {
     //Log.printList(listS);
-    Logger.printOntoScreen("Tamanho do N: " + (listNOfOrderedPairs.size()));
-    Logger.printOntoScreenF("Conjunto S* com %d elementos: \n", listS.size());
+    Logger.printOntoScreen("Tamanho do N: " + formatString(listNOfOrderedPairs.size()));
+    Logger.printOntoScreenF("Conjunto S* com %s elementos: \n", formatString(listS.size()));
     Logger.printOntoScreenF("Razão final: %f\n", finalRatio);
-    Logger.printOntoScreen("Operações: " + getOperations());
-    Logger.printOntoScreen("Iterações realizadas em 5 segundos: " + iterations);
+    Logger.printOntoScreen("Operações: " + getStrOperations());
+    Logger.printOntoScreen("Iterações realizadas em 5 segundos: " + formatString(iterations));
     Logger.printOntoScreenF("Tempo de execução Médio: %f\n", media);
     Logger.printOntoScreenF("Tempo de execução Total: %d\n\n", finishTime);
   }
