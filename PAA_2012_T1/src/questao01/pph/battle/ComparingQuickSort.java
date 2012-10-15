@@ -26,6 +26,7 @@ public class ComparingQuickSort {
     //    Log.printList(listNOfOrderedPairs);
     List<OrderedPair> listToSort1 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
     List<OrderedPair> listToSort2 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
+    List<OrderedPair> listToSort3 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
     List<OrderedPair> listToSort4 = new ArrayList<OrderedPair>(listNOfOrderedPairs);
 
     Log.printOntoScreen("Calculando QuickSort meu...");
@@ -36,9 +37,9 @@ public class ComparingQuickSort {
     questao01.pph.ordenacao.QuickSortNET qs2 = new questao01.pph.ordenacao.QuickSortNET();
     performSorting(qs2, listToSort2);
 
-    //    Log.printOntoScreen("Calculando QuickSort Linear...");
-    //    questao01.pph.ordenacao.QuickSortLinear qs3 = new questao01.pph.ordenacao.QuickSortLinear();
-    //    performSorting(qs3, listToSort3);
+    Log.printOntoScreen("Calculando QuickSort Linear...");
+    questao01.pph.ordenacao.QuickSortRandomized qs3 = new questao01.pph.ordenacao.QuickSortRandomized();
+    performSorting(qs3, listToSort3);
 
     Log.printOntoScreen("Calculando Select...");
     utilidade.RandomizedSelect qs4 = new utilidade.RandomizedSelect();
