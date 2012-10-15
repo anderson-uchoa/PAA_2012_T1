@@ -3,10 +3,10 @@ package pph.sorting;
 import java.util.Arrays;
 import java.util.List;
 
-public class QuickSort extends Sorter {
+public class QuickSort<T extends Comparable<T>> extends Sorter<T> {
 
   @Override
-  public <T extends Comparable<T>> void sortAscending(List<T> list) {
+  public void sortAscending(List<T> list) {
     // Desta forma ficou genérico.
     @SuppressWarnings("unchecked")
     T[] arValues = (T[]) java.lang.reflect.Array.newInstance(list.get(0).getClass(), list.size());
@@ -24,17 +24,16 @@ public class QuickSort extends Sorter {
    * @param arValues The array that will be sorted.
    */
   @Override
-  public <T extends Comparable<T>> void sortAscending(T[] arValues) {
+  public void sortAscending(T[] arValues) {
     quickSort(arValues, 0, arValues.length - 1);
   }
 
   /**
-   * @param <T>
    * @param arValues
    * @param low
    * @param high
    */
-  private <T extends Comparable<T>> void quickSort(T[] arValues, int low, int high) {
+  private void quickSort(T[] arValues, int low, int high) {
     int i = low, j = high;
     // Get the pivot element from the middle of the list
     T pivot = arValues[low + (high - low) / 2];
@@ -74,11 +73,11 @@ public class QuickSort extends Sorter {
   }
 
   @Override
-  public <T extends Comparable<T>> void sortDescending(T[] arValues) {
+  public void sortDescending(T[] arValues) {
   }
 
   @Override
-  public <T extends Comparable<T>> void sortDescending(List<T> list) {
+  public void sortDescending(List<T> list) {
   }
 
 }

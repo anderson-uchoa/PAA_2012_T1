@@ -4,7 +4,6 @@
  */
 package pph;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import pph.sorting.QuickSort;
@@ -40,12 +39,12 @@ public class PPH_O_N_LOG_N extends PPHBase {
    * Este é o método que realmente faz todo o processamento. O método run foi criado apenas para que não fosse necessário ficar usando variáveis e métodos
    * estáticos.
    * 
-   * @param listOriginalPair
+   * @param listNOfOrderedPairs
    */
   @Override
-  public void run(List<OrderedPair> listOriginalPair) {
+  public void run(List<OrderedPair> listNOfOrderedPairs) {
     try {
-      genericProcess(listOriginalPair, "Iniciado QuickSort - O(n log n)...");
+      genericProcess(listNOfOrderedPairs, "Iniciado QuickSort - O(n log n)...");
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -53,10 +52,9 @@ public class PPH_O_N_LOG_N extends PPHBase {
   }
 
   @Override
-  protected void specificProcess(List<OrderedPair> listOriginalPair) {
+  protected void specificProcess(List<OrderedPair> listNOfOrderedPairs) {
     // Ordenando a lista.
-    QuickSort sorter = new QuickSort();
-    List<OrderedPair> listNOfOrderedPairs = new ArrayList<OrderedPair>(listOriginalPair);
+    QuickSort<OrderedPair> sorter = new QuickSort<OrderedPair>();
     sorter.sortAscending(listNOfOrderedPairs);
 
     // Soma a quantidade de operações feitas pela ordenação + a quantidade atual do programa principal.

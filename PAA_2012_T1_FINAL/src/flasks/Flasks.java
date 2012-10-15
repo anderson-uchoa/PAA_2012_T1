@@ -88,7 +88,7 @@ public class Flasks extends FlasksBase {
       // Este loop vai iterar por todos as instâncias encontrados dentro do arquivo de entrada.
       while (cont < quantityOfInputValues) {
         // De 60 em 60 segundos, ele dar um aviso de ainda esta vivo.
-        ThreadControl control = new ThreadControl(10, 60);
+        ThreadControl control = new ThreadControl(600, 600);
         control.start();
 
         // Obtém o número (como uma string).

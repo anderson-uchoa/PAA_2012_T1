@@ -1,5 +1,6 @@
 package pph.utils;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -132,14 +133,16 @@ public abstract class PPHBase extends Base {
         // Em cada iteração, é um novo processamento, então a quantidade de operações é setada para 0.
         setOperations(0);
 
-        // Zerando as variáveis iniciais.
-        listS = new LinkedList<OrderedPair>();
-
         // Seta o somatório de A e B para 0.
         resetSomatory();
 
+        // Zerando as variáveis iniciais.
+        listS = new LinkedList<OrderedPair>();
+
         // Calcula a razão máxima, cada classe(complexidade) faz de uma maneira.
-        specificProcess(listNOfOrderedPairs);
+        // A cada iteração precisamos criar uma nova lista, porque se não depois de ordenar a primeira vez, 
+        // todas as próximas vezes já vai pegar uma lista ordenada.
+        specificProcess(new ArrayList<OrderedPair>(listNOfOrderedPairs));
 
         // Incrementa a quantidade de iterações feitas dentro de 5 segundos.
         iterations++;

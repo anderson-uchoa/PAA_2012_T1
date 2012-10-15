@@ -4,27 +4,28 @@ import java.util.List;
 
 /**
  * @author Luciano Sampaio
+ * @param <T> Uma classe que extende comparable.
  * 
  */
-public interface ISortable {
+public interface ISortable<T extends Comparable<T>> {
 
   /**
    * @param arValues The array that will be ascending sorted.
    */
-  <T extends Comparable<T>> void sortAscending(T[] arValues);
+  void sortAscending(T[] arValues);
 
   /**
    * @param list The list that will be ascending sorted.
    */
-  <T extends Comparable<T>> void sortAscending(List<T> list);
+  void sortAscending(List<T> list);
 
   /**
    * @param arValues The array that will be descending sorted.
    */
-  <T extends Comparable<T>> void sortDescending(T[] arValues);
+  void sortDescending(T[] arValues);
 
   /**
    * @param list The list that will be descending sorted.
    */
-  <T extends Comparable<T>> void sortDescending(List<T> list);
+  void sortDescending(List<T> list);
 }

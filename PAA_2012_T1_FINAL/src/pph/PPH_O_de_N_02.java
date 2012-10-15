@@ -6,6 +6,8 @@ package pph;
 
 import java.util.List;
 
+import pph.sorting.RandomizedSelect;
+import pph.utils.MedianaPair;
 import pph.utils.OrderedPair;
 import pph.utils.PPHBase;
 import util.Logger;
@@ -51,27 +53,31 @@ public class PPH_O_de_N_02 extends PPHBase {
   }
 
   @Override
-  protected void specificProcess(List<OrderedPair> listOriginalPair) {
+  protected void specificProcess(List<OrderedPair> listNOfOrderedPairs) {
     // Ordenando a lista.
-    //    RandomizedSelect randomizedSelect = new RandomizedSelect();
-    //    MedianaPair mediana = randomizedSelect.findMediana(listOriginalPair);
+    RandomizedSelect<OrderedPair> sorter = new RandomizedSelect<OrderedPair>();
+    MedianaPair<OrderedPair> mediana = sorter.findMediana(listNOfOrderedPairs);
+
+    // Soma a quantidade de operações feitas pela ordenação + a quantidade atual do programa principal.
+    setOperations(getOperations() + sorter.getOperations());
 
     // Calcula a razão máxima.
-    //    finalRatio = maximumRatio(listOriginalPair, mediana);
+    finalRatio = maximumRatio(listNOfOrderedPairs, mediana);
   }
 
   /**
    * @param listNOfOrderedPairs
+   * @param mediana
    * @return A razão máxima.
    */
-  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int mediana) {
+  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, MedianaPair<OrderedPair> mediana) {
     // O R inicial é calculado pelo a0 / b0.
     float maximumRatio = initialPair.getRatio();
 
     // Um par ordenado usado para auxiliar.
     OrderedPair auxPair;
 
-    for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
+    for (int i = mediana.getIndex(); i < listNOfOrderedPairs.size(); i++) {
       incOperations();
       auxPair = listNOfOrderedPairs.get(i);
 

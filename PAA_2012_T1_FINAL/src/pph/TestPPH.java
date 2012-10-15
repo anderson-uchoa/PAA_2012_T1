@@ -24,6 +24,7 @@ public class TestPPH {
 
     // Instância das classes que vão ser executadas.
     PPH_O_de_N pph_O_de_N = new PPH_O_de_N();
+    PPH_O_de_N_02 pph_O_de_N_02 = new PPH_O_de_N_02();
     PPH_O_N_LOG_N pph_O_N_LOG_N = new PPH_O_N_LOG_N();
 
     for (int i = 0; i < listOfFiles.length; i++) {
@@ -40,6 +41,7 @@ public class TestPPH {
             List<OrderedPair> listOriginalPair = Utils.getListFromInputFile(fileNameAndPath);
 
             pph_O_de_N.run(new ArrayList<OrderedPair>(listOriginalPair));
+            pph_O_de_N_02.run(new ArrayList<OrderedPair>(listOriginalPair));
             pph_O_N_LOG_N.run(new ArrayList<OrderedPair>(listOriginalPair));
           }
           catch (Exception e) {
