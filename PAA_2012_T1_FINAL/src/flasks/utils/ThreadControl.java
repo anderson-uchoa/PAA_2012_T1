@@ -5,19 +5,17 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import util.Logger;
 import flasks.Flasks;
 
 public class ThreadControl implements Runnable {
-  private final static ScheduledExecutorService scheduler    = Executors.newScheduledThreadPool(1);
-
-  private ScheduledFuture<?>                    beeperHandle = null;
-  private long                                  initialDelay, period;
-  DateFormat                                    dateFormat;
+  private ScheduledThreadPoolExecutor scheduler    = null;
+  private ScheduledFuture<?>          beeperHandle = null;
+  private long                        initialDelay, period;
+  DateFormat                          dateFormat;
 
   /**
    * Método que configura o comportamento do Scheduled da thread
@@ -32,11 +30,17 @@ public class ThreadControl implements Runnable {
   }
 
   public void start() {
+    scheduler = new ScheduledThreadPoolExecutor(1);
+    scheduler.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
+
     beeperHandle = scheduler.scheduleAtFixedRate(this, this.initialDelay, this.period, SECONDS);
   }
 
   public void cancel() {
     beeperHandle.cancel(true);
+
+    scheduler.shutdownNow();
+    scheduler = null;
     //Logger.printOntoScreen("Thread Finalizada em: " + dateFormat.format(new Date()));
   }
 

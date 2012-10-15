@@ -85,10 +85,12 @@ public class Flasks extends FlasksBase {
       // Um contador para saber quando todas as instâncias já foram processados.
       int cont = 0;
 
+      // De 60 em 60 segundos, ele dar um aviso de ainda esta vivo.
+      ThreadControl control = new ThreadControl(600, 600);
+
       // Este loop vai iterar por todos as instâncias encontrados dentro do arquivo de entrada.
       while (cont < quantityOfInputValues) {
-        // De 60 em 60 segundos, ele dar um aviso de ainda esta vivo.
-        ThreadControl control = new ThreadControl(600, 600);
+        // Inicia a thread que vai ficar rodando de 10 em 10 minutos.
         control.start();
 
         // Obtém o número (como uma string).
@@ -110,10 +112,11 @@ public class Flasks extends FlasksBase {
 
         // Cancela a thread que avisa que o programa ainda esta vivo.
         control.cancel();
-        control = null;
         Logger.printOntoScreen("");
         cont++;
       }
+
+      control = null;
       // Fecha o scanner e libera o acesso ao arquivo de entrada.
       scanner.close();
     }
