@@ -40,7 +40,7 @@ public class TestFlasks {
 
             // Este loop vai iterar o mesmo número que foi lido do arquivo, 
             // vezes a quantidade de frascos que vai ser testado. 
-            // ex: 256, 192, 128, 64, 32, 16, 4, 2, 1
+            // ex: 256, 192, 128, 64, 32, 16, 8, 4, 2, 1
             for (int qtyflasks : Flasks.quantityOfFlasks) {
               startTime = System.currentTimeMillis();
 
