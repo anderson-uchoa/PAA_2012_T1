@@ -121,10 +121,8 @@ public abstract class PPHBase extends Base {
       // Momento em que o algoritmo iniciou sua execução.
       long startTime = System.currentTimeMillis();
 
-      // Este é o par(a0, b0).
-      initialPair = listNOfOrderedPairs.get(0);
-      // Remove o par(a0, b0) da lista N de pares ordenados
-      listNOfOrderedPairs.remove(0);
+      // Cria um metodo recebe par inicial.
+      setInitialPair(listNOfOrderedPairs);
 
       // Quantidade de iterações feitas dentro de 5 segundos.
       long iterations = 0;
@@ -162,6 +160,18 @@ public abstract class PPHBase extends Base {
     catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Recebe o par ordenado inicial(A0 e B0).
+   * 
+   * @param listNOfOrderedPairs
+   */
+  protected void setInitialPair(List<OrderedPair> listNOfOrderedPairs) {
+    // Este é o par(a0, b0).
+    initialPair = listNOfOrderedPairs.get(0);
+    // Remove o par(a0, b0) da lista N de pares ordenados
+    listNOfOrderedPairs.remove(0);
   }
 
   /**
