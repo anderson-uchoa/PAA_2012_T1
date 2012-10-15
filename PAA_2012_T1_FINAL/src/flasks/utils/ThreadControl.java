@@ -49,6 +49,6 @@ public class ThreadControl implements Runnable {
   @Override
   public void run() {
     flasks.setKeepGoing(false);
-    Logger.printOntoScreenF("Data: %s - Total de iterações: %s \n\n", dateFormat.format(new Date()), Flasks.getStrOperations());
+    Logger.printOntoScreenF("Data: %s - Total de iterações: %s \n", dateFormat.format(new Date()), Flasks.getStrOperations());
   }
 }
