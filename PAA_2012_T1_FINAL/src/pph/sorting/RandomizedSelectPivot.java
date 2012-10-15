@@ -14,15 +14,14 @@ public class RandomizedSelectPivot<T extends Comparable<T>> extends Sorter<T> {
   private OrderedPair parInicial;
 
   /**
-   * Método que retorna a Mediana, ou seja, retorna o par ordenando e sua posição na lista
+   * Método que retorna a Mediana, ou seja, retorna o par ordenando e sua posição na lista.
    * 
    * @param list
-   * @param parInicial
-   * @return
+   * @return Método que retorna a Mediana, ou seja, retorna o par ordenando e sua posição na lista.
    */
-  public MedianaPair<OrderedPair> findMediana(List<OrderedPair> list) {
+  public MedianaPair<T> findMediana(List<T> list) {
     // Armazena o par inicial e o remove da lista
-    this.parInicial = list.get(0);
+    this.parInicial = (OrderedPair) list.get(0);
     //list.remove(0);
     return sort(list, 1, list.size() - 1, list.size() / 2);
   }
@@ -39,7 +38,7 @@ public class RandomizedSelectPivot<T extends Comparable<T>> extends Sorter<T> {
    * @return
    */
   @SuppressWarnings({ "javadoc", "hiding" })
-  public <T extends Comparable<T>> MedianaPair<OrderedPair> sort(List<T> list, int left, int right, int pivot) {
+  public <T extends Comparable<T>> MedianaPair<T> sort(List<T> list, int left, int right, int pivot) {
     // Incrementado as iterações para facilitar a mensuração da complexidade final
     while (left != right) {
       this.incOperations();
@@ -48,7 +47,7 @@ public class RandomizedSelectPivot<T extends Comparable<T>> extends Sorter<T> {
       int pivotNewIndex = PivotPartition(list, left, right);
       int pivotDist = pivotNewIndex - left + 1;
       if (pivot == pivotDist)
-        return new MedianaPair(list.get(pivotNewIndex), pivotNewIndex);
+        return new MedianaPair<T>(list.get(pivotNewIndex), pivotNewIndex);
       else if (pivot < pivotDist)// Procurando apenas no lado esquerdo da lista
         //return sort(list, left, pivotNewIndex - 1, pivot);
         right = pivotNewIndex - 1;
@@ -58,16 +57,16 @@ public class RandomizedSelectPivot<T extends Comparable<T>> extends Sorter<T> {
         left = pivotNewIndex + 1;
       }
     }
-    return new MedianaPair(list.get(left), left);
+    return new MedianaPair<T>(list.get(left), left);
   }
 
   /**
-   * Método retorna uma posição aleatória entre o limite inferior e superior
+   * Método retorna uma posição aleatória entre o limite inferior e superior.
    * 
    * @param list
    * @param left
    * @param right
-   * @return
+   * @return Método retorna uma posição aleatória entre o limite inferior e superior
    */
   @SuppressWarnings("hiding")
   private <T extends Comparable<T>> int PivotPartition(List<T> list, int left, int right) {
