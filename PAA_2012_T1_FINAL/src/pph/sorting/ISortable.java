@@ -4,10 +4,10 @@ import java.util.List;
 
 /**
  * @author Luciano Sampaio
- * @param <T> Uma classe que extende comparable.
+ * @param <T> Uma classe qualquer.
  * 
  */
-public interface ISortable<T extends Comparable<T>> {
+public interface ISortable<T> {
 
   /**
    * @param arValues The array that will be ascending sorted.
