@@ -21,13 +21,14 @@ public class Flasks extends FlasksBase {
   /**
    * O nome do input padrão(usado para testes).
    */
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_008_01.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_008_01.txt";
 
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_016_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_032_01.txt";
   //private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_064_01.txt";
 
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_128_01.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_128_01.txt";
+
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_192_01.txt";
   //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_256_01.txt";
 
