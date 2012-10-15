@@ -21,17 +21,11 @@ public class Flasks extends FlasksBase {
   /**
    * O nome do input padrão(usado para testes).
    */
-  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_008_01.txt";
-
-  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_016_01.txt";
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_32_01.txt";
-
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_064_01.txt";
-
-  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_128_01.txt";
-
-  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_192_01.txt";
-  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_256_01.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_32_01.dat";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_64_01.dat";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_128_01.dat";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_192_01.dat";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_256_01.dat";
 
   // A quantidade de frascos que vai ser usada em cada teste.
   // Como 256 é a maior instância que será testada, então para instâncias com menos bits, 256 irá simular
@@ -92,7 +86,7 @@ public class Flasks extends FlasksBase {
       int cont = 0;
 
       // De 10 em 10 minutos, ele dar um aviso de ainda esta vivo.
-      ThreadControl control = new ThreadControl(600, 600, this);
+      ThreadControl control = new ThreadControl(1200, 1200, this);
 
       // Este loop vai iterar por todos as instâncias encontrados dentro do arquivo de entrada.
       while ((cont < quantityOfInputValues) && (isKeepGoing())) {
