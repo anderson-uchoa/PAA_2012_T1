@@ -21,16 +21,17 @@ public class Flasks extends FlasksBase {
   /**
    * O nome do input padrão(usado para testes).
    */
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_008_01.txt";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_008_01.txt";
 
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_016_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_032_01.txt";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_016_01.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_032_01.txt";
+
   //private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_064_01.txt";
 
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_128_01.txt";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_128_01.txt";
 
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_192_01.txt";
-  //  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_256_01.txt";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_192_01.txt";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_256_01.txt";
 
   public static void main(String[] args) {
     String inputFile;
@@ -108,7 +109,7 @@ public class Flasks extends FlasksBase {
           findTheStepItBreaks(inputValue, flasks);
 
           finishTime = System.currentTimeMillis() - startTime;
-          Logger.printOntoScreenF("Tempo de execução: %s\n\n", finishTime);
+          Logger.printOntoScreenF("Tempo de execução(ms): %s\n\n", formatString(finishTime));
         }
 
         // Cancela a thread que avisa que o programa ainda esta vivo.
@@ -189,7 +190,7 @@ public class Flasks extends FlasksBase {
     String stepItBroke = convertFromArray(output);
     Logger.printOntoScreenF("Entrada: %s\n", inputValue);
     Logger.printOntoScreenF("Saida  : %s\n", stepItBroke);
-    Logger.printOntoScreenF("Frascos: %3d, quebraram %3d em %2d passos, ", flasks, usedFlasks, getOperations());
+    Logger.printOntoScreenF("Frascos: %3d, quebraram %3d em %2s passos, ", flasks, usedFlasks, getStrOperations());
 
     return stepItBroke;
   }
