@@ -11,7 +11,7 @@ import util.Logger;
 public class PPH_O_N_Pivot extends PPHBase {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_100000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10.txt";
 
   public static void main(String[] args) {
     String inputFile;
@@ -65,6 +65,12 @@ public class PPH_O_N_Pivot extends PPHBase {
   protected void setInitialPair(List<OrderedPair> listNOfOrderedPairs) {
     // Este é o par(a0, b0).
     initialPair = listNOfOrderedPairs.get(0);
+  }
+
+  @Override
+  protected void printResults(List<OrderedPair> listNOfOrderedPairs, float finalRatio, long iterations, float media, long finishTime) {
+    listNOfOrderedPairs.remove(0);
+    super.printResults(listNOfOrderedPairs, finalRatio, iterations, media, finishTime);
   }
 
   /**
