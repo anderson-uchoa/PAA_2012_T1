@@ -1,5 +1,7 @@
 package util;
 
+import java.text.DecimalFormat;
+
 public abstract class Base {
   /**
    * A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
@@ -11,6 +13,14 @@ public abstract class Base {
    */
   public static long getOperations() {
     return _operations;
+  }
+
+  /**
+   * @return A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
+   */
+  public static String getStrOperations() {
+    DecimalFormat myFormatter = new DecimalFormat("###,###");
+    return myFormatter.format(getOperations());
   }
 
   /**
