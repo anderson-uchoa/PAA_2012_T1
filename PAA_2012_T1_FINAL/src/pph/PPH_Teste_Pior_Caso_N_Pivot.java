@@ -12,25 +12,25 @@ import util.Logger;
 public class PPH_Teste_Pior_Caso_N_Pivot extends PPHBase {
 
   //O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_1000.txt";
+  //private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_1000.txt";
 
   public static void main(String[] args) {
-    String inputFile;
+    //String inputFile;
     // Verifica se o arquivo de input foi passado como parâmetro.
     if (args.length == 1) {
-      inputFile = args[0];
+      //inputFile = args[0];
 
     }
     else {
       // Caso nenhum arquivo tenha sido informado, testa com o arquivo criado para testes.
-      inputFile = DEFAULT_INPUT_FILE_NAME;
+      //inputFile = DEFAULT_INPUT_FILE_NAME;
 
       // Informa que a applicação esta em modo debug.
       Logger.isDebugging = false;
     }
 
     PPH_Teste_Pior_Caso_N_Pivot pph = new PPH_Teste_Pior_Caso_N_Pivot();
-    pph.run(Utils.getRandomValues(10000));
+    pph.run(Utils.getRandomValues(100000));
   }
 
   /**
@@ -42,7 +42,7 @@ public class PPH_Teste_Pior_Caso_N_Pivot extends PPHBase {
   @Override
   public void run(List<OrderedPair> listNOfOrderedPairs) {
     try {
-      listNOfOrderedPairs.set(0, new OrderedPair(10000, 1));
+      listNOfOrderedPairs.set(0, new OrderedPair(10000000, 1));
       genericProcess(listNOfOrderedPairs, "Iniciado Randomized Select Pivot - Pior Caso O(n2)...");
     }
     catch (Exception e) {
