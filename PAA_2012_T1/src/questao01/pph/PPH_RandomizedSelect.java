@@ -84,10 +84,9 @@ public class PPH_RandomizedSelect {
 
         // Ordanando a lista
         RandomizedSelect randomizedSelect = new RandomizedSelect();
-        int size = quantityOfInputValues - 1;
-        MedianaPair mediana = randomizedSelect.findMediana(listOriginalPair);
+        MedianaPair<OrderedPair> mediana = randomizedSelect.findMediana(listOriginalPair);
 
-        finalRatio = maximumRatio(listOriginalPair, size, mediana);
+        finalRatio = maximumRatio(listOriginalPair, mediana);
 
         listS.add(0, parInicial);
 
@@ -113,10 +112,9 @@ public class PPH_RandomizedSelect {
   /**
    * @param listNOfOrderedPairs
    * @param mediana
-   * @param count
    * @return A razão máxima.
    */
-  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int count, MedianaPair mediana) {
+  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, MedianaPair<OrderedPair> mediana) {
     float maximumRatio = parInicial.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
