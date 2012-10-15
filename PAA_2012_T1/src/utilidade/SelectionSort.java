@@ -35,16 +35,14 @@ public class SelectionSort extends Sorter {
       return select(list, pivotNewIndex + 1, right, k - pivotDist);
   }
 
-  public <T extends Comparable<T>> MedianaPair<T> findMediana(List<T> list, int left, int right, int k) {
-    //return selectIterativo(list, left, right - 1, k);
-    int idx = medianOfMedians(list, 0, list.size() - 1);
-    return selectIterativo(list, 0, list.size() - 1, idx);
+  public <T extends Comparable<T>> MedianaPair<T> findMediana(List<T> list, int left, int right) {
+    int medianIdx = medianOfMedians(list, 0, list.size() - 1);
+    return selectIterativo(list, 0, list.size() - 1, medianIdx);
   }
 
   public <T extends Comparable<T>> MedianaPair<T> selectIterativo(List<T> list, int left, int right, int k) {
     // select pivotIndex between left and right
     while (left != right) {
-      //int median = medianOfMedians(list, left, right);
       int pivotNewIndex = partition(list, left, right, k);
       int pivotDist = pivotNewIndex - left + 1;
       // The pivot is in its final sorted position,
@@ -62,25 +60,6 @@ public class SelectionSort extends Sorter {
   }
 
   public <T extends Comparable<T>> int partition(List<T> list, int left, int right, int pivotIndex) {
-    //    int i = left, j = right; // right - 1;
-    //    T tmp;
-    //    T pivot = list.get(pivotIndex);
-    //    while (i < j) {
-    //      while (list.get(i).compareTo(pivot) < 0 && i < j)
-    //        i++;
-    //      while (list.get(j).compareTo(pivot) > 1 && i < j)
-    //        j--;
-    //
-    //      //if (i <= j) {
-    //      tmp = list.get(i);
-    //      list.set(i, list.get(j));
-    //      list.set(j, tmp);
-    //      i++;
-    //      j--;
-    //    }
-    //    ;
-    //    return i;
-
     T temp;
     // escolhendo o pivot
     T pivot = list.get(pivotIndex);
@@ -118,7 +97,7 @@ public class SelectionSort extends Sorter {
       subLeft = subRight + 1;
       subRight = subLeft + 4;
       // Ordenando a porção trabalhada
-      InsertionSort(list, subLeft, subRight);
+      //InsertionSort(list, subLeft, subRight);
       int medianIdx = selectIdx(list, subLeft, subRight, 2);
 
       // alternatively, use a faster method that works on lists of size 5
@@ -134,21 +113,6 @@ public class SelectionSort extends Sorter {
 
   private <T extends Comparable<T>> int selectIdx(List<T> list, int left, int right, int pivot) {
     while (left != right) {
-      //      if (left == right) // If the list contains only one element
-      //        return left;// Return that element
-      //
-      //      // select pivotIndex between left and right
-      //      int pivotNewIndex = partition(list, left, right, pivot);
-      //      int pivotDist = pivotNewIndex - left + 1;
-      //      // The pivot is in its final sorted position,
-      //      // so pivotDist reflects its 1-based position if list were sorted
-      //      if (pivotDist == pivot)
-      //        return pivotNewIndex;
-      //      else if (pivot < pivotDist)
-      //        return selectIdx(list, left, pivotNewIndex - 1, pivot);
-      //      else
-      //        return selectIdx(list, pivotNewIndex + 1, right, pivot - pivotDist);
-      //    }
       int pivotNewIndex = partition(list, left, right, pivot);
       int pivotDist = pivotNewIndex - left + 1;
       // The pivot is in its final sorted position,
