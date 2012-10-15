@@ -15,17 +15,21 @@ public class ThreadControl implements Runnable {
   private ScheduledThreadPoolExecutor scheduler    = null;
   private ScheduledFuture<?>          beeperHandle = null;
   private long                        initialDelay, period;
-  DateFormat                          dateFormat;
+  private DateFormat                  dateFormat;
+  private Flasks                      flasks;
 
   /**
    * Método que configura o comportamento do Scheduled da thread
    * 
    * @param initialDelay - Tempo em segundos que a thread demorará para começar a testar
    * @param period - período entre as sucessivas execuções em segundos
+   * @param flasks
    */
-  public ThreadControl(long initialDelay, long period) {
+  public ThreadControl(long initialDelay, long period, Flasks flasks) {
     this.initialDelay = initialDelay;
     this.period = period;
+    this.flasks = flasks;
+
     dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
   }
 
@@ -39,18 +43,12 @@ public class ThreadControl implements Runnable {
   public void cancel() {
     beeperHandle.cancel(true);
 
-    scheduler.shutdownNow();
-    scheduler = null;
-    //Logger.printOntoScreen("Thread Finalizada em: " + dateFormat.format(new Date()));
+    scheduler.shutdown();
   }
 
   @Override
   public void run() {
-    try {
-      Logger.printOntoScreen("Data:" + dateFormat.format(new Date()) + " - Total de iterações: " + Flasks.getStrOperations());
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-    }
+    flasks.setKeepGoing(false);
+    Logger.printOntoScreenF("Data: %s - Total de iterações: %s \n\n", dateFormat.format(new Date()), Flasks.getStrOperations());
   }
 }

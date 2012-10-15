@@ -24,7 +24,7 @@ public class Flasks extends FlasksBase {
   // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_008_01.txt";
 
   // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_016_01.txt";
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_032_01.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_32_01.txt";
 
   //private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_064_01.txt";
 
@@ -32,6 +32,14 @@ public class Flasks extends FlasksBase {
 
   // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_192_01.txt";
   // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_256_01.txt";
+
+  // A quantidade de frascos que vai ser usada em cada teste.
+  // Como 256 é a maior instância que será testada, então para instâncias com menos bits, 256 irá simular
+  // a quantidade infinita como é pedido em um item da questão dos frascos.
+  public static int[]         quantityOfFlasks        = { 256, 192, 128, 64, 32, 16, 8, 4, 2, 1 };
+
+  // Informa se o algoritmo deve continuar processando o arquivo com a quantidade atual de frascos.
+  private boolean             keepGoing;
 
   public static void main(String[] args) {
     String inputFile;
@@ -45,20 +53,25 @@ public class Flasks extends FlasksBase {
       inputFile = DEFAULT_INPUT_FILE_NAME;
 
       // Informa que a applicação esta em modo debug.
-      Logger.isDebugging = true;
+      Logger.isDebugging = false;
     }
 
     Flasks flasks = new Flasks();
-    flasks.run(inputFile);
+    for (int qtyflasks : quantityOfFlasks) {
+      flasks.run(inputFile, qtyflasks);
+    }
   }
 
   /**
    * O método run foi criado apenas para que não fosse necessário ficar usando variáveis e métodos estáticos.
    * 
    * @param inputFile O arquivo que contém as instâncias de dados que serão usadas pelo programa.
+   * @param qtyflasks A quantidade de frascos que será usada para processar o arquivo.
    */
-  public void run(String inputFile) {
+  public void run(String inputFile, int qtyflasks) {
     try {
+      // Informa se o algoritmo deve continuar processando o arquivo com a quantidade atual de frascos.
+      setKeepGoing(true);
       // Abre o arquivo para que os dados possam ser lidos.
       Scanner scanner = new Scanner(new File(inputFile));
 
@@ -70,28 +83,19 @@ public class Flasks extends FlasksBase {
       // Obtém a quantidade de números contidos neste arquivo.
       int quantityOfInputValues = scanner.nextInt();
 
-      // A quantidade de frascos que vai ser usada em cada teste.
-      // Como 256 é a maior instância que será testada, então para instâncias com menos bits, 256 irá simular
-      // a quantidade infinita como é pedido em um item da questão dos frascos.
-      int[] quantityOfFlasks = { 256, 192, 128, 64, 32, 16, 8, 4, 2, 1 };
-
       // Esta linha é apenas para forçar uma quebra de linha depois dos números.
       scanner.nextLine();
 
       // O conteúdo lido da instância(linha) atual.
       String inputValue;
-      // Momento em que o algoritmo iniciou sua execução.
-      long startTime;
-      // Momento em que o algoritmo terminou sua execução.
-      long finishTime;
       // Um contador para saber quando todas as instâncias já foram processados.
       int cont = 0;
 
-      // De 60 em 60 segundos, ele dar um aviso de ainda esta vivo.
-      ThreadControl control = new ThreadControl(600, 600);
+      // De 10 em 10 minutos, ele dar um aviso de ainda esta vivo.
+      ThreadControl control = new ThreadControl(600, 600, this);
 
       // Este loop vai iterar por todos as instâncias encontrados dentro do arquivo de entrada.
-      while (cont < quantityOfInputValues) {
+      while ((cont < quantityOfInputValues) && (isKeepGoing())) {
         // Inicia a thread que vai ficar rodando de 10 em 10 minutos.
         control.start();
 
@@ -99,26 +103,14 @@ public class Flasks extends FlasksBase {
         // Exemplo: 00111110.
         inputValue = scanner.nextLine();
 
-        // Este loop vai iterar o mesmo número que foi lido do arquivo, 
-        // vezes a quantidade de frascos que vai ser testado. 
-        // ex: 256, 192, 128, 64, 32, 16, 4, 2, 1
-        for (int flasks : quantityOfFlasks) {
-          startTime = System.currentTimeMillis();
-
-          // Encontra em que degrau da escada o frasco quebrou.
-          findTheStepItBreaks(inputValue, flasks);
-
-          finishTime = System.currentTimeMillis() - startTime;
-          Logger.printOntoScreenF("Tempo de execução(ms): %s\n\n", formatString(finishTime));
-        }
+        // Encontra em que degrau da escada o frasco quebrou.
+        findTheStepItBreaks(inputValue, qtyflasks);
 
         // Cancela a thread que avisa que o programa ainda esta vivo.
         control.cancel();
-        Logger.printOntoScreen("");
         cont++;
       }
 
-      control = null;
       // Fecha o scanner e libera o acesso ao arquivo de entrada.
       scanner.close();
     }
@@ -151,14 +143,14 @@ public class Flasks extends FlasksBase {
     // O -1 é para evitar indexOutOfBound, porque um elemento com 8 bits, vai de 0 à 7.
     int endPos = (eachStep - 1);
 
-    // A quantidade de frascos que já usamos.
-    int usedFlasks = 0;
     // A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
     setOperations(0);
 
-    while (endPos < sizeInBitsOfInputValues) {
+    while ((endPos < sizeInBitsOfInputValues) && (isKeepGoing())) {
       // Este while(true) é o mesmo que: "Enquanto não quebrar um frasco, aumente 1 andar e tente de novo".
-      while (true) {
+      while (isKeepGoing()) {
+        // Só vai exibir esta informação quando estiver em modo debug.
+        Logger.debug("isKeepGoing: " + isKeepGoing());
         incOperations();
 
         // Incrementa em 1 o valor do próximo degrau. Tenho que incrementar logo no inicio, 
@@ -178,21 +170,13 @@ public class Flasks extends FlasksBase {
         }
       }
 
-      // Aumenta em 1 a quantidade de frascos usados.
-      usedFlasks++;
-
       // Atualiza a posição inicial e final do array que esta sendo processada.
       startPos = endPos + 1;
       endPos += eachStep;
     }
 
     // Converte o array com o resultado final(andar em que o frasco quebra) em uma string.
-    String stepItBroke = convertFromArray(output);
-    Logger.printOntoScreenF("Entrada: %s\n", inputValue);
-    Logger.printOntoScreenF("Saida  : %s\n", stepItBroke);
-    Logger.printOntoScreenF("Frascos: %3d, quebraram %3d em %2s passos, ", flasks, usedFlasks, getStrOperations());
-
-    return stepItBroke;
+    return convertFromArray(output);
   }
 
   /**
@@ -313,6 +297,14 @@ public class Flasks extends FlasksBase {
     }
 
     return output.toString();
+  }
+
+  public synchronized boolean isKeepGoing() {
+    return keepGoing;
+  }
+
+  public void setKeepGoing(boolean _keepGoing) {
+    keepGoing = _keepGoing;
   }
 
 }

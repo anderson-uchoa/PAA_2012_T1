@@ -21,17 +21,40 @@ public class TestFlasks {
     // Instância da classe que vai ser executada.
     Flasks flasks = new Flasks();
 
+    // Momento em que o algoritmo iniciou sua execução.
+    long startTime;
+    // Momento em que o algoritmo terminou sua execução.
+    long finishTime;
+
     for (int i = 0; i < listOfFiles.length; i++) {
 
       if (listOfFiles[i].isFile()) {
         fileName = listOfFiles[i].getName();
-        // Somente arquivos .txt serão processados.
-        if (fileName.endsWith(".txt")) {
+        // Somente arquivos .txt e .dat serão processados.
+        if (fileName.endsWith(".txt") || fileName.endsWith(".dat")) {
           try {
             fileNameAndPath = path + fileName;
 
+            // Imprime o nome do arquivo.
             Logger.printOntoScreen(fileNameAndPath);
-            flasks.run(fileNameAndPath);
+
+            // Este loop vai iterar o mesmo número que foi lido do arquivo, 
+            // vezes a quantidade de frascos que vai ser testado. 
+            // ex: 256, 192, 128, 64, 32, 16, 4, 2, 1
+            for (int qtyflasks : Flasks.quantityOfFlasks) {
+              startTime = System.currentTimeMillis();
+
+              Logger.printOntoScreenF("Frascos: %d\n", qtyflasks);
+              flasks.run(fileNameAndPath, qtyflasks);
+
+              if (!flasks.isKeepGoing()) {
+                break;
+              }
+
+              finishTime = System.currentTimeMillis() - startTime;
+
+              Logger.printOntoScreenF("Tempo de execução(ms): %s\n\n", Flasks.formatString(finishTime));
+            }
           }
           catch (Exception e) {
             Logger.printOntoScreenF("Erro ao processar o arquivo %s com a mensagem: %s", fileNameAndPath, e.getMessage());
