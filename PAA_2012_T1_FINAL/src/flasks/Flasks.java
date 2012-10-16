@@ -85,8 +85,8 @@ public class Flasks extends FlasksBase {
       // Um contador para saber quando todas as instâncias já foram processados.
       int cont = 0;
 
-      // De 10 em 10 minutos, ele dar um aviso de ainda esta vivo.
-      ThreadControl control = new ThreadControl(1200, 1200, this);
+      // De 2 em 2 minutos, ele dar um aviso de ainda esta vivo.
+      ThreadControl control = new ThreadControl(120, 120, this);
 
       // Este loop vai iterar por todos as instâncias encontrados dentro do arquivo de entrada.
       while ((cont < quantityOfInputValues) && (isKeepGoing())) {

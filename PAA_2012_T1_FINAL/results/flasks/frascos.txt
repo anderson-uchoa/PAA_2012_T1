@@ -1,0 +1,251 @@
+test/flasks/bignum_032_01.dat
+Frascos: 256
+Tempo de execução(ms): 35
+
+Frascos: 192
+Tempo de execução(ms): 12
+
+Frascos: 128
+Tempo de execução(ms): 16
+
+Frascos: 64
+Tempo de execução(ms): 11
+
+Frascos: 32
+Tempo de execução(ms): 11
+
+Frascos: 16
+Tempo de execução(ms): 9
+
+Frascos: 8
+Tempo de execução(ms): 15
+
+Frascos: 4
+Tempo de execução(ms): 9
+
+Frascos: 2
+Tempo de execução(ms): 268
+
+Frascos: 1
+test/flasks/bignum_128_01.dat
+Frascos: 256
+Data: 15/10/2012 19:23:52 - Total de iterações: 3,714,274,167 
+Tempo de execução(ms): 9
+
+Frascos: 192
+Tempo de execução(ms): 10
+
+Frascos: 128
+Tempo de execução(ms): 9
+
+Frascos: 64
+Tempo de execução(ms): 9
+
+Frascos: 32
+Tempo de execução(ms): 9
+
+Frascos: 16
+Tempo de execução(ms): 14
+
+Frascos: 8
+Tempo de execução(ms): 1,011
+
+Frascos: 4
+Data: 15/10/2012 19:33:48 - Total de iterações: 3,705,738,049 
+test/flasks/bignum_064_02.dat
+Frascos: 256
+Tempo de execução(ms): 6
+
+Frascos: 192
+Tempo de execução(ms): 5
+
+Frascos: 128
+Tempo de execução(ms): 6
+
+Frascos: 64
+Tempo de execução(ms): 5
+
+Frascos: 32
+Tempo de execução(ms): 6
+
+Frascos: 16
+Tempo de execução(ms): 5
+
+Frascos: 8
+Tempo de execução(ms): 10
+
+Frascos: 4
+Tempo de execução(ms): 520
+
+Frascos: 2
+Data: 15/10/2012 19:38:48 - Total de iterações: 3,728,907,763 
+test/flasks/bignum_064_01.dat
+Frascos: 256
+Tempo de execução(ms): 6
+
+Frascos: 192
+Tempo de execução(ms): 6
+
+Frascos: 128
+Tempo de execução(ms): 5
+
+Frascos: 64
+Tempo de execução(ms): 6
+
+Frascos: 32
+Tempo de execução(ms): 5
+
+Frascos: 16
+Tempo de execução(ms): 5
+
+Frascos: 8
+Tempo de execução(ms): 9
+
+Frascos: 4
+Tempo de execução(ms): 509
+
+Frascos: 2
+Data: 15/10/2012 19:48:43 - Total de iterações: 3,704,899,684 
+test/flasks/bignum_192_01.dat
+Frascos: 256
+Tempo de execução(ms): 7
+
+Frascos: 192
+Tempo de execução(ms): 7
+
+Frascos: 128
+Tempo de execução(ms): 8
+
+Frascos: 64
+Tempo de execução(ms): 7
+
+Frascos: 32
+Tempo de execução(ms): 10
+
+Frascos: 16
+Tempo de execução(ms): 146
+
+Frascos: 8
+Tempo de execução(ms): 272,954
+
+Frascos: 4
+Data: 15/10/2012 19:58:16 - Total de iterações: 3,659,544,291 
+test/flasks/bignum_256_01.dat
+Frascos: 256
+Tempo de execução(ms): 8
+
+Frascos: 192
+Tempo de execução(ms): 8
+
+Frascos: 128
+Tempo de execução(ms): 9
+
+Frascos: 64
+Tempo de execução(ms): 8
+
+Frascos: 32
+Tempo de execução(ms): 23
+
+Frascos: 16
+Tempo de execução(ms): 2,052
+
+Frascos: 8
+Data: 15/10/2012 20:03:19 - Total de iterações: 3,633,961,082 
+test/flasks/bignum_256_02.dat
+Frascos: 256
+Tempo de execução(ms): 7
+
+Frascos: 192
+Tempo de execução(ms): 8
+
+Frascos: 128
+Tempo de execução(ms): 7
+
+Frascos: 64
+Tempo de execução(ms): 8
+
+Frascos: 32
+Tempo de execução(ms): 23
+
+Frascos: 16
+Tempo de execução(ms): 2,028
+
+Frascos: 8
+Data: 15/10/2012 20:08:21 - Total de iterações: 3,702,404,694 
+test/flasks/bignum_192_02.dat
+Frascos: 256
+Tempo de execução(ms): 6
+
+Frascos: 192
+Tempo de execução(ms): 8
+
+Frascos: 128
+Tempo de execução(ms): 8
+
+Frascos: 64
+Tempo de execução(ms): 6
+
+Frascos: 32
+Tempo de execução(ms): 9
+
+Frascos: 16
+Tempo de execução(ms): 146
+
+Frascos: 8
+Tempo de execução(ms): 278,621
+
+Frascos: 4
+Data: 15/10/2012 20:17:59 - Total de iterações: 3,743,752,607 
+test/flasks/bignum_128_02.dat
+Frascos: 256
+Tempo de execução(ms): 6
+
+Frascos: 192
+Tempo de execução(ms): 6
+
+Frascos: 128
+Tempo de execução(ms): 6
+
+Frascos: 64
+Tempo de execução(ms): 6
+
+Frascos: 32
+Tempo de execução(ms): 7
+
+Frascos: 16
+Tempo de execução(ms): 13
+
+Frascos: 8
+Tempo de execução(ms): 1,048
+
+Frascos: 4
+Data: 15/10/2012 20:23:01 - Total de iterações: 3,746,149,705 
+test/flasks/bignum_032_02.dat
+Frascos: 256
+Tempo de execução(ms): 6
+
+Frascos: 192
+Tempo de execução(ms): 5
+
+Frascos: 128
+Tempo de execução(ms): 5
+
+Frascos: 64
+Tempo de execução(ms): 5
+
+Frascos: 32
+Tempo de execução(ms): 5
+
+Frascos: 16
+Tempo de execução(ms): 10
+
+Frascos: 8
+Tempo de execução(ms): 8
+
+Frascos: 4
+Tempo de execução(ms): 7
+
+Frascos: 2
+Tempo de execução(ms): 269
+
+Frascos: 1
