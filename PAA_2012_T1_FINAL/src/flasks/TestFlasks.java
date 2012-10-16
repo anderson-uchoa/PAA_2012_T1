@@ -31,7 +31,7 @@ public class TestFlasks {
       if (listOfFiles[i].isFile()) {
         fileName = listOfFiles[i].getName();
         // Somente arquivos .txt e .dat serão processados.
-        if (fileName.endsWith(".txt") || fileName.endsWith(".dat")) {
+        if (fileName.endsWith(".dat") || fileName.endsWith(".txt")) {
           try {
             fileNameAndPath = path + fileName;
 

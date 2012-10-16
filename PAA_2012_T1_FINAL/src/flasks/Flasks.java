@@ -8,19 +8,25 @@
  */
 package flasks;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import util.Logger;
 import flasks.utils.FlasksBase;
-import flasks.utils.ThreadControl;
 
-public class Flasks extends FlasksBase {
+public class Flasks extends FlasksBase implements Runnable {
 
-  /**
-   * O nome do input padrão(usado para testes).
-   */
+  // Tempo em que a thread vai esperar para verificar se o tempo de processamento já foi excedido.
+  private static final int    TIME_OUT_PROCESS        = 180;
+
+  // O nome do input padrão(usado para testes).
   private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_32_01.dat";
   // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_64_01.dat";
   // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_128_01.dat";
@@ -34,6 +40,9 @@ public class Flasks extends FlasksBase {
 
   // Informa se o algoritmo deve continuar processando o arquivo com a quantidade atual de frascos.
   private boolean             keepGoing;
+
+  // Momento em que o algoritmo iniciou sua execução.
+  private long                startTime;
 
   public static void main(String[] args) {
     String inputFile;
@@ -86,12 +95,15 @@ public class Flasks extends FlasksBase {
       int cont = 0;
 
       // De 2 em 2 minutos, ele dar um aviso de ainda esta vivo.
-      ThreadControl control = new ThreadControl(600, this);
+      //ThreadControl control = new ThreadControl(10, this);
+      ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1);
+      scheduler.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
+      // Inicia a thread que vai ficar rodando de 10 em 10 minutos.
+      scheduler.scheduleAtFixedRate(this, TIME_OUT_PROCESS, TIME_OUT_PROCESS, SECONDS);
 
       // Este loop vai iterar por todos as instâncias encontrados dentro do arquivo de entrada.
       while ((cont < quantityOfInputValues) && (isKeepGoing())) {
-        // Inicia a thread que vai ficar rodando de 10 em 10 minutos.
-        control.start();
+        startTime = System.currentTimeMillis();
 
         // Obtém o número (como uma string).
         // Exemplo: 00111110.
@@ -100,13 +112,14 @@ public class Flasks extends FlasksBase {
         // Encontra em que degrau da escada o frasco quebrou.
         findTheStepItBreaks(inputValue, qtyflasks);
 
-        // Cancela a thread que avisa que o programa ainda esta vivo.
-        control.cancel();
         cont++;
       }
 
       // Fecha o scanner e libera o acesso ao arquivo de entrada.
       scanner.close();
+
+      // Cancela a thread que avisa que o programa ainda esta vivo.
+      scheduler.shutdownNow();
     }
     catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -299,6 +312,18 @@ public class Flasks extends FlasksBase {
 
   public void setKeepGoing(boolean _keepGoing) {
     keepGoing = _keepGoing;
+  }
+
+  @Override
+  public void run() {
+    // Momento em que o algoritmo terminou sua execução.
+    long finishTime = System.currentTimeMillis() - startTime;
+
+    if (finishTime >= TIME_OUT_PROCESS) {
+      setKeepGoing(false);
+      DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+      Logger.printOntoScreenF("Data: %s - Total de iterações: %s \n", dateFormat.format(new Date()), getStrOperations());
+    }
   }
 
 }
