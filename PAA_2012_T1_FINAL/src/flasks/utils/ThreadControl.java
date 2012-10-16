@@ -5,16 +5,14 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import util.Logger;
 import flasks.Flasks;
 
 public class ThreadControl implements Runnable {
-  private ScheduledThreadPoolExecutor scheduler    = null;
-  private ScheduledFuture<?>          beeperHandle = null;
-  private long                        initialDelay, period;
+  private ScheduledThreadPoolExecutor scheduler = null;
+  private long                        initialDelay;
   private DateFormat                  dateFormat;
   private Flasks                      flasks;
 
@@ -22,12 +20,10 @@ public class ThreadControl implements Runnable {
    * Método que configura o comportamento do Scheduled da thread
    * 
    * @param initialDelay - Tempo em segundos que a thread demorará para começar a testar
-   * @param period - período entre as sucessivas execuções em segundos
    * @param flasks
    */
-  public ThreadControl(long initialDelay, long period, Flasks flasks) {
+  public ThreadControl(long initialDelay, Flasks flasks) {
     this.initialDelay = initialDelay;
-    this.period = period;
     this.flasks = flasks;
 
     dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -37,13 +33,13 @@ public class ThreadControl implements Runnable {
     scheduler = new ScheduledThreadPoolExecutor(1);
     scheduler.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
 
-    beeperHandle = scheduler.scheduleAtFixedRate(this, this.initialDelay, this.period, SECONDS);
+    // This will execute the WorkerThread only once after 10 Seconds
+    scheduler.schedule(this, this.initialDelay, SECONDS);
   }
 
   public void cancel() {
-    beeperHandle.cancel(true);
-
-    scheduler.shutdown();
+    //Interrupt the threads and shutdown the scheduler.
+    scheduler.shutdownNow();
   }
 
   @Override
