@@ -118,6 +118,8 @@ public class Flasks extends FlasksBase implements Runnable {
         cont++;
       }
 
+      Logger.printOntoScreenF("Operações processadas %s.\n", getStrOperations());
+
       // Fecha o scanner e libera o acesso ao arquivo de entrada.
       scanner.close();
 
