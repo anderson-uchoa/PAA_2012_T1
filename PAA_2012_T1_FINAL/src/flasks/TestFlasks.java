@@ -7,6 +7,14 @@ import util.Logger;
 public class TestFlasks {
 
   public static void main(String[] args) {
+    // Tempo em que a thread vai esperar para verificar se o tempo de processamento já foi excedido.
+    int TIME_OUT_PROCESS = 120;
+
+    // Verifica se o tempo de timeout foi passado como parâmetro.
+    if (args.length == 1) {
+      TIME_OUT_PROCESS = Integer.parseInt(args[0]);
+    }
+
     // Todos os arquivos de entrada estão nestas pastas.
     String path = "test/flasks/";
     // O nome do arquivo que vai ser processado.
@@ -20,6 +28,7 @@ public class TestFlasks {
 
     // Instância da classe que vai ser executada.
     Flasks flasks = new Flasks();
+    flasks.setTimeOut(TIME_OUT_PROCESS);
 
     // Momento em que o algoritmo iniciou sua execução.
     long startTime;

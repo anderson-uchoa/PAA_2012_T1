@@ -24,7 +24,7 @@ import flasks.utils.FlasksBase;
 public class Flasks extends FlasksBase implements Runnable {
 
   // Tempo em que a thread vai esperar para verificar se o tempo de processamento já foi excedido.
-  private static final int    TIME_OUT_PROCESS        = 180;
+  private int                 TIME_OUT_PROCESS        = 120;
 
   // O nome do input padrão(usado para testes).
   private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_32_01.dat";
@@ -101,6 +101,9 @@ public class Flasks extends FlasksBase implements Runnable {
       // Inicia a thread que vai ficar rodando de 10 em 10 minutos.
       scheduler.scheduleAtFixedRate(this, TIME_OUT_PROCESS, TIME_OUT_PROCESS, SECONDS);
 
+      // A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
+      setOperations(0);
+
       // Este loop vai iterar por todos as instâncias encontrados dentro do arquivo de entrada.
       while ((cont < quantityOfInputValues) && (isKeepGoing())) {
         startTime = System.currentTimeMillis();
@@ -151,7 +154,7 @@ public class Flasks extends FlasksBase implements Runnable {
     int endPos = (eachStep - 1);
 
     // A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
-    setOperations(0);
+    // setOperations(0);
 
     while ((endPos < sizeInBitsOfInputValues) && (isKeepGoing())) {
       // Este while(true) é o mesmo que: "Enquanto não quebrar um frasco, aumente 1 andar e tente de novo".
@@ -306,6 +309,10 @@ public class Flasks extends FlasksBase implements Runnable {
     return output.toString();
   }
 
+  public void setTimeOut(int timeOutProcess) {
+    this.TIME_OUT_PROCESS = timeOutProcess;
+  }
+
   public synchronized boolean isKeepGoing() {
     return keepGoing;
   }
@@ -320,10 +327,12 @@ public class Flasks extends FlasksBase implements Runnable {
     long finishTime = System.currentTimeMillis() - startTime;
 
     if (finishTime >= TIME_OUT_PROCESS) {
-      setKeepGoing(false);
+      // Imprime a quantidade de operação já processadas.
       DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
       Logger.printOntoScreenF("Data: %s - Total de iterações: %s \n", dateFormat.format(new Date()), getStrOperations());
+
+      // Informa que o programa deve parar de processar a quantidade de frascos que esta processando neste momento.
+      setKeepGoing(false);
     }
   }
-
 }
