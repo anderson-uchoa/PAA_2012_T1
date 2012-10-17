@@ -74,10 +74,12 @@ public class QuickSort<T extends Comparable<T>> extends Sorter<T> {
 
   @Override
   public void sortDescending(T[] arValues) {
+    sortAscending(arValues);
   }
 
   @Override
   public void sortDescending(List<T> list) {
+    sortAscending(list);
   }
 
 }

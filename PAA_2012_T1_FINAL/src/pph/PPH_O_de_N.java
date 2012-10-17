@@ -13,7 +13,7 @@ import util.Logger;
 public class PPH_O_de_N extends PPHBase {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000_01.dat";
 
   public static void main(String[] args) {
     String inputFile;
@@ -43,7 +43,7 @@ public class PPH_O_de_N extends PPHBase {
   @Override
   public void run(List<OrderedPair> listNOfOrderedPairs) {
     try {
-      genericProcess(listNOfOrderedPairs, "Iniciado em O(N)...");
+      genericProcess(listNOfOrderedPairs, "Iniciado em O(n2)...");
     }
     catch (Exception e) {
       e.printStackTrace();

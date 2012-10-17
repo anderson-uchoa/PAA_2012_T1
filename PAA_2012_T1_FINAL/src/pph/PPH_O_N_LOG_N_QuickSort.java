@@ -11,10 +11,10 @@ import pph.utils.OrderedPair;
 import pph.utils.PPHBase;
 import util.Logger;
 
-public class PPH_O_N_LOG_N extends PPHBase {
+public class PPH_O_N_LOG_N_QuickSort extends PPHBase {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000_01.dat";
 
   public static void main(String[] args) {
     String inputFile;
@@ -31,7 +31,7 @@ public class PPH_O_N_LOG_N extends PPHBase {
       Logger.isDebugging = false;
     }
 
-    PPH_O_N_LOG_N pph = new PPH_O_N_LOG_N();
+    PPH_O_N_LOG_N_QuickSort pph = new PPH_O_N_LOG_N_QuickSort();
     pph.run(inputFile);
   }
 
@@ -55,7 +55,7 @@ public class PPH_O_N_LOG_N extends PPHBase {
   protected void specificProcess(List<OrderedPair> listNOfOrderedPairs) {
     // Ordenando a lista.
     QuickSort<OrderedPair> sorter = new QuickSort<OrderedPair>();
-    sorter.sortAscending(listNOfOrderedPairs);
+    sorter.sortDescending(listNOfOrderedPairs);
 
     // Soma a quantidade de operações feitas pela ordenação + a quantidade atual do programa principal.
     setOperations(getOperations() + sorter.getOperations());

@@ -8,30 +8,30 @@
  */
 package flasks;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import util.Logger;
 import flasks.utils.FlasksBase;
-import flasks.utils.ThreadControl;
 
-public class Flasks extends FlasksBase {
+public class Flasks extends FlasksBase implements Runnable {
 
-  /**
-   * O nome do input padrão(usado para testes).
-   */
-  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_008_01.txt";
+  // Tempo em que a thread vai esperar para verificar se o tempo de processamento já foi excedido.
+  private int                 TIME_OUT_PROCESS        = 120;
 
-  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_016_01.txt";
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_32_01.txt";
-
-  //private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_064_01.txt";
-
-  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_128_01.txt";
-
-  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_192_01.txt";
-  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_256_01.txt";
+  // O nome do input padrão(usado para testes).
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_32_01.dat";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_64_01.dat";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_128_01.dat";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_192_01.dat";
+  // private static final String DEFAULT_INPUT_FILE_NAME = "test/flasks/bignum_256_01.dat";
 
   // A quantidade de frascos que vai ser usada em cada teste.
   // Como 256 é a maior instância que será testada, então para instâncias com menos bits, 256 irá simular
@@ -40,6 +40,9 @@ public class Flasks extends FlasksBase {
 
   // Informa se o algoritmo deve continuar processando o arquivo com a quantidade atual de frascos.
   private boolean             keepGoing;
+
+  // Momento em que o algoritmo iniciou sua execução.
+  private long                startTime;
 
   public static void main(String[] args) {
     String inputFile;
@@ -91,13 +94,19 @@ public class Flasks extends FlasksBase {
       // Um contador para saber quando todas as instâncias já foram processados.
       int cont = 0;
 
-      // De 10 em 10 minutos, ele dar um aviso de ainda esta vivo.
-      ThreadControl control = new ThreadControl(600, 600, this);
+      // De 2 em 2 minutos, ele dar um aviso de ainda esta vivo.
+      //ThreadControl control = new ThreadControl(10, this);
+      ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1);
+      scheduler.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
+      // Inicia a thread que vai ficar rodando de 10 em 10 minutos.
+      scheduler.scheduleAtFixedRate(this, TIME_OUT_PROCESS, TIME_OUT_PROCESS, SECONDS);
+
+      // A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
+      setOperations(0);
 
       // Este loop vai iterar por todos as instâncias encontrados dentro do arquivo de entrada.
       while ((cont < quantityOfInputValues) && (isKeepGoing())) {
-        // Inicia a thread que vai ficar rodando de 10 em 10 minutos.
-        control.start();
+        startTime = System.currentTimeMillis();
 
         // Obtém o número (como uma string).
         // Exemplo: 00111110.
@@ -106,13 +115,16 @@ public class Flasks extends FlasksBase {
         // Encontra em que degrau da escada o frasco quebrou.
         findTheStepItBreaks(inputValue, qtyflasks);
 
-        // Cancela a thread que avisa que o programa ainda esta vivo.
-        control.cancel();
         cont++;
       }
 
+      Logger.printOntoScreenF("Operações processadas %s.\n", getStrOperations());
+
       // Fecha o scanner e libera o acesso ao arquivo de entrada.
       scanner.close();
+
+      // Cancela a thread que avisa que o programa ainda esta vivo.
+      scheduler.shutdownNow();
     }
     catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -144,7 +156,7 @@ public class Flasks extends FlasksBase {
     int endPos = (eachStep - 1);
 
     // A quantidade de operações que foi necessária para que o resultado esperado fosse encontrado.
-    setOperations(0);
+    // setOperations(0);
 
     while ((endPos < sizeInBitsOfInputValues) && (isKeepGoing())) {
       // Este while(true) é o mesmo que: "Enquanto não quebrar um frasco, aumente 1 andar e tente de novo".
@@ -299,6 +311,10 @@ public class Flasks extends FlasksBase {
     return output.toString();
   }
 
+  public void setTimeOut(int timeOutProcess) {
+    this.TIME_OUT_PROCESS = timeOutProcess;
+  }
+
   public synchronized boolean isKeepGoing() {
     return keepGoing;
   }
@@ -307,4 +323,18 @@ public class Flasks extends FlasksBase {
     keepGoing = _keepGoing;
   }
 
+  @Override
+  public void run() {
+    // Momento em que o algoritmo terminou sua execução.
+    long finishTime = System.currentTimeMillis() - startTime;
+
+    if (finishTime >= TIME_OUT_PROCESS) {
+      // Imprime a quantidade de operação já processadas.
+      DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+      Logger.printOntoScreenF("Data: %s - Total de iterações: %s \n", dateFormat.format(new Date()), getStrOperations());
+
+      // Informa que o programa deve parar de processar a quantidade de frascos que esta processando neste momento.
+      setKeepGoing(false);
+    }
+  }
 }

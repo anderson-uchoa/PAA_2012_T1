@@ -15,7 +15,7 @@ import util.Logger;
 public class PPH_O_de_N_02 extends PPHBase {
 
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000_01.dat";
 
   public static void main(String[] args) {
     String inputFile;

@@ -25,9 +25,10 @@ public class TestPPH {
     // Instância das classes que vão ser executadas.
     PPH_O_de_N pph_O_de_N = new PPH_O_de_N();
     PPH_O_de_N_02 pph_O_de_N_02 = new PPH_O_de_N_02();
-    PPH_O_N_LOG_N pph_O_N_LOG_N = new PPH_O_N_LOG_N();
+    PPH_O_N_LOG_N_QuickSort pph_O_N_LOG_N_QuickSort = new PPH_O_N_LOG_N_QuickSort();
+    // PPH_O_N_LOG_N_MergeSort pph_O_N_LOG_N_MergeSort = new PPH_O_N_LOG_N_MergeSort();
     PPH_O_N_Pivot pph_O_N_Pivot = new PPH_O_N_Pivot();
-    //PPH_O_N2 pph_O_N2 = new PPH_O_N2();
+    PPH_O_N2 pph_O_N2 = new PPH_O_N2();
 
     for (int i = 0; i < listOfFiles.length; i++) {
 
@@ -44,9 +45,10 @@ public class TestPPH {
 
             pph_O_de_N.run(new ArrayList<OrderedPair>(listOriginalPair));
             pph_O_de_N_02.run(new ArrayList<OrderedPair>(listOriginalPair));
-            pph_O_N_LOG_N.run(new ArrayList<OrderedPair>(listOriginalPair));
+            pph_O_N_LOG_N_QuickSort.run(new ArrayList<OrderedPair>(listOriginalPair));
+            // pph_O_N_LOG_N_MergeSort.run(new ArrayList<OrderedPair>(listOriginalPair));
             pph_O_N_Pivot.run(new ArrayList<OrderedPair>(listOriginalPair));
-            //pph_O_N2.run(new ArrayList<OrderedPair>(listOriginalPair));
+            pph_O_N2.run(new ArrayList<OrderedPair>(listOriginalPair));
           }
           catch (Exception e) {
             Logger.printOntoScreenF("Erro ao processar o arquivo %s com a mensagem: %s", fileNameAndPath, e.getMessage());
