@@ -5,7 +5,7 @@ import java.util.List;
 import questao01.pph.MedianaPair;
 import questao01.pph.ordenacao.Sorter;
 
-public class SelectionSort extends Sorter {
+public class MediamOfMediams extends Sorter {
 
   @Override
   public <T extends Comparable<T>> void sortAscending(T[] arValues) {

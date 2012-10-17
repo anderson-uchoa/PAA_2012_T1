@@ -6,7 +6,7 @@ import java.util.List;
 import questao01.pph.OrderedPair;
 import questao01.pph.ordenacao.Sorter;
 import utilidade.Log;
-import utilidade.SelectionSort;
+import utilidade.MediamOfMediams;
 import utilidade.Utils;
 
 public class ComparingSelectSort {
@@ -30,7 +30,7 @@ public class ComparingSelectSort {
     OrderedPair[] listToSort3 = new OrderedPair[listNOfOrderedPairs.size()];
 
     Log.printOntoScreen("Calculando SelectSort atual...");
-    SelectionSort ss1 = new SelectionSort();
+    MediamOfMediams ss1 = new MediamOfMediams();
     performSorting(ss1, listToSort1);
 
     Log.printOntoScreen("Calculando SelectSort concorrente...");

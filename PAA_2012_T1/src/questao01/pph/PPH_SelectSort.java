@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import utilidade.Log;
-import utilidade.SelectionSort;
+import utilidade.MediamOfMediams;
 import utilidade.Utils;
 
 public class PPH_SelectSort {
@@ -81,7 +81,7 @@ public class PPH_SelectSort {
       somaB = 0;
 
       // Ordanando a lista
-      SelectionSort selectSort = new SelectionSort();
+      MediamOfMediams selectSort = new MediamOfMediams();
       int size = listOriginalPair.size();
       MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
       finalRatio = maximumRatio(listOriginalPair, size, mediana);
