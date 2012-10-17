@@ -1,6 +1,7 @@
 package questao01.pph;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ import utilidade.Utils;
 
 public class PPH_SelectSort {
   // O nome do arquivo de input padrão(usado para testes).
-  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10.txt";
+  private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_1000000.txt";
 
   // A matriz que vai conter os valores que validam o lemma.
   List<OrderedPair>           listS;
@@ -47,7 +48,7 @@ public class PPH_SelectSort {
    */
   public void run(String inputFile) {
     try {
-      Log.printOntoScreen("Iniciado SelectionSort - O(n)...");
+      Log.printOntoScreen("Iniciado Mediana das medianas - O(n)...");
       // Abre o arquivo para que o dados possam ser lidos.
       Scanner scanner = new Scanner(new File(inputFile));
 
@@ -72,19 +73,19 @@ public class PPH_SelectSort {
       // Removendo da lista o par inicial
       listOriginalPair.remove(0);
 
-      // while (System.currentTimeMillis() - startTime < 5000) {
+      //while (System.currentTimeMillis() - startTime < 5000) {
       // Obtém os valores que correspondem ao b = {1,.., n}
       listS = new LinkedList<OrderedPair>();
 
       // Inicia a matriz S com o tamanho de elementos de pares ordenados e 2 colunas.
-      somaA = 0;
-      somaB = 0;
+      somaA = parInicial.getA();
+      somaB = parInicial.getB();
 
-      // Ordanando a lista
+      // Ordanando a lista - 
       SelectionSort selectSort = new SelectionSort();
       int size = listOriginalPair.size();
-      MedianaPair mediana = selectSort.selectIterativo(listOriginalPair, 0, size, size / 2);
-      finalRatio = maximumRatio(listOriginalPair, size, mediana);
+      MedianaPair mediana = selectSort.findMediana(listOriginalPair, 0, size);
+      finalRatio = maximumRatio(listOriginalPair, mediana);
 
       listS.add(0, parInicial);
 
@@ -110,17 +111,16 @@ public class PPH_SelectSort {
   /**
    * @param listNOfOrderedPairs
    * @param mediana
-   * @param count
    * @return A razão máxima.
    */
-  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, int count, MedianaPair mediana) {
+  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, MedianaPair<OrderedPair> mediana) {
     float maximumRatio = parInicial.getRatio();
     Log.debugF("Razão (a0, b0): %f\n", maximumRatio);
 
     // Zerando as variáveis iniciais.
     OrderedPair auxlPar;
     //for (int i = count - 1; i >= mediana.getIndex(); i--) {
-    for (int i = mediana.getIndex(); i < count; i++) {
+    for (int i = mediana.getIndex(); i < listNOfOrderedPairs.size(); i++) {
       auxlPar = listNOfOrderedPairs.get(i);
 
       Log.debugF("[%d, %d] = %f - %f\n", auxlPar.getA(), auxlPar.getB(), auxlPar.getRatio(), maximumRatio);
@@ -128,22 +128,71 @@ public class PPH_SelectSort {
       if (auxlPar.getRatio() > maximumRatio) {
         // Então coloca o par(ai e o bi) na lista S.
         listS.add(auxlPar);
-        //  Atualiza o R(razão).
-        SomaRazao(auxlPar);
-        maximumRatio = calcularRazao();
-        Log.debugF("Nova razão: %f\n", maximumRatio);
+
+        // Atualiza o R(razão).
+        maximumRatio = updateRatio(listS);
+        //Log.debugF("Nova razão: %f\n", maximumRatio);
+
+        if (isLemmaNotValid(listS, maximumRatio)) {
+          // Se existir algum par(ai / bi) que não seja maior do que a
+          // razão atual, este par deve ser removido do listS e uma
+          // nova razão deve ser calculada.
+          //          maximumRatio = updateRatio(listS);
+          maximumRatio = Utils.calcRatio(somaA, somaB);
+        }
       }
     }
-    Log.debug("Fim !!");
+    Log.debug("Fim !!!");
     return maximumRatio;
   }
 
-  private void SomaRazao(OrderedPair auxlPar) {
-    this.somaA += auxlPar.getA();
-    this.somaB += auxlPar.getB();
+  /**
+   * Calcula a razão baseado nos valores que existem no conjunto S*;
+   * 
+   * @param listS
+   * @return Atualiza a razão baseada em A0 + somatório Ai até BN dividido por B0 + somatório Bi até BN.
+   */
+  private float updateRatio(List<OrderedPair> listS) {
+    //incIterations();
+
+    OrderedPair auxPar = listS.get(listS.size() - 1);
+    somaA += auxPar.getA();
+    somaB += auxPar.getB();
+    //}
+    return Utils.calcRatio(somaA, somaB);
   }
 
-  private float calcularRazao() {
-    return (float) (this.somaA + this.parInicial.getA()) / (this.somaB + this.parInicial.getB());
+  /**
+   * @param listS
+   * @param maximumRatio
+   * @return Retorna true se existiu algum par ordenado na lista S que não era verdade em relação ao Lemma.
+   */
+  private boolean isLemmaNotValid(List<OrderedPair> listS, float maximumRatio) {
+    boolean invalid = false;
+
+    List<OrderedPair> listAux = new LinkedList<OrderedPair>();
+
+    OrderedPair auxPar;
+    for (Iterator<OrderedPair> iterator = listS.iterator(); iterator.hasNext();) {
+      auxPar = iterator.next();
+      //incIterations();
+
+      // Se o ratio for menor, então o par ordenado deve ser removido.
+      if (auxPar.getRatio() < maximumRatio) {
+        //Log.debugF("Lemma não é verdade em :[%d, %d] = %f - %f\n", auxPar.getA(), auxPar.getB(), auxPar.getRatio(), maximumRatio);
+        invalid = true;
+
+        // Tenho que remover o par ordenado na posição i.
+        somaA -= auxPar.getA();
+        somaB -= auxPar.getB();
+        // Adiciona o item para ser removido.
+        listAux.add(auxPar);
+      }
+    }
+
+    // Remove os itens do conjunto S*.
+    listS.removeAll(listAux);
+
+    return invalid;
   }
 }
