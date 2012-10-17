@@ -1,14 +1,17 @@
+/**
+ * Esta o algoritmo que resolve a 1ª questão do T1 de PAA - PUC-Rio 2012.2. <br/>
+ * Alunos: Luciano Sampaio, Igor Oliveira e Marcio Rosemberg. <br/>
+ */
 package pph;
 
 import java.util.List;
 
-import pph.sorting.RandomizedSelectPivot;
-import pph.utils.MedianaPair;
+import pph.sorting.MergeSort;
 import pph.utils.OrderedPair;
 import pph.utils.PPHBase;
 import util.Logger;
 
-public class PPH_O_N_Pivot extends PPHBase {
+public class PPH_O_N_LOG_N_MergeSort extends PPHBase {
 
   // O nome do arquivo de input padrão(usado para testes).
   private static final String DEFAULT_INPUT_FILE_NAME = "test/pph/pph_10000_01.dat";
@@ -28,7 +31,7 @@ public class PPH_O_N_Pivot extends PPHBase {
       Logger.isDebugging = false;
     }
 
-    PPH_O_N_Pivot pph = new PPH_O_N_Pivot();
+    PPH_O_N_LOG_N_MergeSort pph = new PPH_O_N_LOG_N_MergeSort();
     pph.run(inputFile);
   }
 
@@ -41,7 +44,7 @@ public class PPH_O_N_Pivot extends PPHBase {
   @Override
   public void run(List<OrderedPair> listNOfOrderedPairs) {
     try {
-      genericProcess(listNOfOrderedPairs, "Iniciado Randomized Select Pivot - Pior Caso O(n2)...");
+      genericProcess(listNOfOrderedPairs, "Iniciado MergeSort - O(n log n)...");
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -51,41 +54,26 @@ public class PPH_O_N_Pivot extends PPHBase {
   @Override
   protected void specificProcess(List<OrderedPair> listNOfOrderedPairs) {
     // Ordenando a lista.
-    RandomizedSelectPivot<OrderedPair> sorter = new RandomizedSelectPivot<OrderedPair>();
-    MedianaPair<OrderedPair> mediana = sorter.findMediana(listNOfOrderedPairs);
+    MergeSort<OrderedPair> sorter = new MergeSort<OrderedPair>();
+    sorter.sortDescending(listNOfOrderedPairs);
 
     // Soma a quantidade de operações feitas pela ordenação + a quantidade atual do programa principal.
     setOperations(getOperations() + sorter.getOperations());
 
     // Calcula a razão máxima.
-    finalRatio = maximumRatio(listNOfOrderedPairs, mediana);
-  }
-
-  @Override
-  protected void setInitialPair(List<OrderedPair> listNOfOrderedPairs) {
-    // Este é o par(a0, b0).
-    initialPair = listNOfOrderedPairs.get(0);
-  }
-
-  @Override
-  protected void printResults(List<OrderedPair> listNOfOrderedPairs, float finalRatio, long iterations, float media, long finishTime) {
-    listNOfOrderedPairs.remove(0);
-    super.printResults(listNOfOrderedPairs, finalRatio, iterations, media, finishTime);
+    finalRatio = maximumRatio(listNOfOrderedPairs);
   }
 
   /**
    * @param listNOfOrderedPairs
-   * @param mediana
    * @return A razão máxima.
    */
-  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs, MedianaPair<OrderedPair> mediana) {
+  private float maximumRatio(List<OrderedPair> listNOfOrderedPairs) {
     // O R inicial é calculado pelo a0 / b0.
     float maximumRatio = initialPair.getRatio();
 
-    // Um par ordenado usado para auxiliar.
     OrderedPair auxPair;
-
-    for (int i = mediana.getIndex(); i < listNOfOrderedPairs.size(); i++) {
+    for (int i = 0; i < listNOfOrderedPairs.size(); i++) {
       incOperations();
       auxPair = listNOfOrderedPairs.get(i);
 
@@ -93,18 +81,14 @@ public class PPH_O_N_Pivot extends PPHBase {
         // Então coloca o par(ai e o bi) na lista S.
         listS.add(auxPair);
 
-        // Atualiza o somatório.
+        // Atualiza o R(razão).
         addSomatory(auxPair);
 
         // Obtém a nova razão.
         maximumRatio = getRatio();
-
-        if (!isLemmaValid(listS, maximumRatio)) {
-          // Se existir algum par(ai / bi) que não seja maior do que a
-          // razão atual, este par deve ser removido do listS e uma
-          // nova razão deve ser calculada.
-          maximumRatio = getRatio();
-        }
+      }
+      else {
+        break;
       }
     }
     return maximumRatio;
