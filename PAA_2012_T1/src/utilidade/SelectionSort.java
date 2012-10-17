@@ -36,7 +36,10 @@ public class SelectionSort extends Sorter {
   }
 
   public <T extends Comparable<T>> MedianaPair<T> findMediana(List<T> list, int left, int right) {
+    //long startTime = System.currentTimeMillis();
     int medianIdx = medianOfMedians(list, 0, list.size() - 1);
+    // long finishTime = System.currentTimeMillis() - startTime;
+    //System.out.println("Mediana das mediana: " + finishTime);
     return selectIterativo(list, 0, list.size() - 1, medianIdx);
   }
 
@@ -107,7 +110,6 @@ public class SelectionSort extends Sorter {
       list.set(0, list.get(medianIdx));
       list.set(medianIdx, temp);
     }
-    // select the median from the contiguous block
     return selectIdx(list, left, left + numMedians, numMedians / 2);
   }
 
@@ -117,8 +119,9 @@ public class SelectionSort extends Sorter {
       int pivotDist = pivotNewIndex - left + 1;
       // The pivot is in its final sorted position,
       // so pivotDist reflects its 1-based position if list were sorted
-      if (pivotDist == pivot)
+      if (pivotDist == pivot) {
         return pivotNewIndex;
+      }
       else if (pivot < pivotDist)
         right = pivotNewIndex - 1;
       else {
